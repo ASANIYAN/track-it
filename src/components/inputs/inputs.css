@@ -1,0 +1,18 @@
+label {
+    margin-bottom: 10px;
+    color: #848588;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: flex;
+    width: 100%;
+}
+
+.custom-input-wrap input {
+    padding: 6px 0px 6px 10px;
+    width: 100%;
+    height: 52px;
+    border-radius: 5px;
+    border: 1px solid #E8ECEE;
+    font-size: 15px;
+}
