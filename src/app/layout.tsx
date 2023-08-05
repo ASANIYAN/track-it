@@ -23,8 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} dark:bg-darkColor1`} >
         <ThemeProvider>
           <header>
-            <section className='flex'>
-              
+            <section className='flex ml-3 mt-3'>
               <ThemeSwitcher />
             </section>
           </header>

@@ -26,6 +26,7 @@ module.exports = {
         darkColor2: '#222B32',
         darkColor3: '#A9ACAE',
         darkColor4: '#384047',
+        error: '#E44258'
 
       },
       screens: {

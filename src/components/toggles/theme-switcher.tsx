@@ -19,9 +19,9 @@ const ThemeSwitcher = () => {
         const currentTheme = theme === 'system' ? systemTheme : theme;
 
         if (currentTheme === 'dark') {
-            return (<Sun1 size="32" color="#5f48ea" className="cursor-pointer" onClick={() => setTheme('light')}/>);
+            return (<Sun1 size="24" color="#5f48ea" className="cursor-pointer" onClick={() => setTheme('light')}/>);
         } else {
-            return (<Moon size="32" color="#5f48ea" className="cursor-pointer" onClick={() => setTheme('dark')}/>);
+            return (<Moon size="24" color="#5f48ea" className="cursor-pointer" onClick={() => setTheme('dark')}/>);
         }
     };
 
