@@ -36,7 +36,7 @@ export const CustomInput: React.FC<CustomInputProps & React.InputHTMLAttributes<
             <label> {label} </label>
             <input
             {...register(name)}
-             className="focus:outline-none"
+             className="focus:outline-none dark:text-darkColor3"
              name={name}
              type={isPassword}
              {...rest}

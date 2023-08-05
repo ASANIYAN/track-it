@@ -2,17 +2,20 @@
 
 import { Metadata } from "next";
 
-import UnauthHeading from "@/components/headings/unauth-heading";
-
 import * as yup from 'yup';
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import UnauthHeading from "@/components/headings/unauth-heading";
+import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import { CustomInput } from "@/components/inputs/custom-input";
-import Image from "next/image";
+import UnauthButton from "@/components/buttons/unauth-button";
+import GoogleButton from "@/components/buttons/google-button";
 
 
-export type LoginFormValues = {
+
+
+type LoginFormValues = {
     email: string,
     password: string
 }
@@ -34,7 +37,7 @@ const Login = () => {
     });
 
     return (
-        <section className="max-w-[740px] mx-3 xs:mx-auto mt-10 px-2 md:px-0 py-5 rounded-md bg-white shadow-md">
+        <UnauthWrapper>
             <UnauthHeading heading={"Welcome back"} />
             <section className="max-w-[540px] mx-auto mt-10">
                 <CustomInput 
@@ -49,30 +52,26 @@ const Login = () => {
                     label="Password" 
                     method={method} 
                 />
-                <p className="text-[12px] font-normal text-color2 -translate-y-5"> Forgot your password? </p>
+                <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 -translate-y-5"> Forgot your password? </p>
                 
-                <button className="bg-color3 text-white w-full text-lg font-medium text-center h-[48px] rounded-[5px] mt-5"> Log In </button>
+                <UnauthButton> Log In </UnauthButton> 
 
                 <section className="flex items-center justify-center gap-2 mt-8">
-                    <div className="border-t h-0.5 mt-1 w-full border-color4"></div>
-                    <span className="font-medium text-sm text-color5"> or </span>
-                    <div className="border-t h-0.5 mt-1 w-full border-color4"></div>
+                    <div className="border-t h-0.5 mt-1 w-full border-color4 dark:border-darkColor4"></div>
+                    <span className="font-medium text-sm text-color5 dark:border-darkColor3"> or </span>
+                    <div className="border-t h-0.5 mt-1 w-full border-color4 dark:border-darkColor4"></div>
                 </section>
 
-                <button className="border border-color4 w-full h-[48px] flex justify-center items-center gap-2 rounded-[5px] mt-8">  
-                    <Image 
-                        width={20}
-                        height={20}
-                        src={"/images/google-img.png"}
-                        alt="google-image"
-                    />
-                    Continue with Google
-                </button>
+               <GoogleButton />
 
-                <p className="text-color7 text-sm font-normal mt-5 text-center"> Don&#39;t have an account? <span className="text-color6 pl-1"> Sign up </span>  </p>
+                <p 
+                    className="text-color7 text-sm font-normal mt-5 text-center dark:text-white"
+                >
+                    Don&#39;t have an account? <span className="text-color6 pl-1"> Sign up </span>  
+                </p>
 
             </section>
-        </section>
+        </UnauthWrapper>
     );
 }
  
