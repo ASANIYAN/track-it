@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 
-
-
-import { ForgetPasswordViews, ForgotPasswordFormValues } from "@/types/types";
+import { ForgetPasswordViews } from "@/types/types";
 import InitialView from './initial-view';
+import FinalView from './final-view';
 
 
 const ForgotPassword = () => {
@@ -14,8 +13,8 @@ const ForgotPassword = () => {
 
     return (
         <main>
-            { view === 'InitialView' && <InitialView /> }
-            { view === 'FinalView' && <InitialView /> }
+            { view === 'InitialView' && <InitialView setView={setView} /> }
+            { view === 'FinalView' && <FinalView setView={setView} /> }
         </main>
     );
 }

@@ -4,8 +4,7 @@ import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { CustomInput } from '@/components/inputs/custom-input';
-import { ForgotPasswordFormValues } from "@/types/types";
+import { ForgetPasswordViewsProp, ForgotPasswordFormValues } from "@/types/types";
 import UnauthHeading from "@/components/headings/unauth-heading";
 import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import UnauthButton from '@/components/buttons/unauth-button';
@@ -15,7 +14,7 @@ const validationSchema = yup.object().shape({
     email: yup.string().email().required(),
 });
 
-const InitialView = () => {
+const FinalView: React.FC<ForgetPasswordViewsProp> = () => {
     const method = useForm<ForgotPasswordFormValues> ({
         resolver: yupResolver(validationSchema)
     });
@@ -43,4 +42,4 @@ const InitialView = () => {
     );
 }
  
-export default InitialView;
+export default FinalView;

@@ -8,3 +8,7 @@ export type ForgotPasswordFormValues = {
 }
 
 export type ForgetPasswordViews = 'InitialView' | 'FinalView';
+
+export type ForgetPasswordViewsProp = {
+    setView: React.Dispatch<React.SetStateAction<ForgetPasswordViews>>
+}

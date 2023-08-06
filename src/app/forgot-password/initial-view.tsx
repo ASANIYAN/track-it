@@ -5,17 +5,20 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CustomInput } from '@/components/inputs/custom-input';
-import { ForgotPasswordFormValues } from "@/types/types";
+import { ForgetPasswordViewsProp, ForgotPasswordFormValues } from "@/types/types";
 import UnauthHeading from "@/components/headings/unauth-heading";
 import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import UnauthButton from '@/components/buttons/unauth-button';
 import Link from 'next/link';
 
 const validationSchema = yup.object().shape({
-    email: yup.string().email().required(),
+    email: yup.string().email("invalid email address").required("email address is required"),
 });
 
-const InitialView = () => {
+
+
+const InitialView: React.FC<ForgetPasswordViewsProp> = ({setView}) => {
+
     const method = useForm<ForgotPasswordFormValues> ({
         resolver: yupResolver(validationSchema)
     });
@@ -23,7 +26,8 @@ const InitialView = () => {
     const { handleSubmit } = method;
     
     const handleClick = (data: ForgotPasswordFormValues) => {
-        console.log(data);   
+        console.log(data);
+        setView("FinalView");
     }
 
     return (
