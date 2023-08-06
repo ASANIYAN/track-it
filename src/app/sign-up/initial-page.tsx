@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Metadata } from "next";
 
@@ -6,41 +6,45 @@ import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { LoginFormValues } from "@/types/types";
+
 import { CustomInput } from "@/components/inputs/custom-input";
 import UnauthHeading from "@/components/headings/unauth-heading";
 import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import UnauthButton from "@/components/buttons/unauth-button";
 import GoogleButton from "@/components/buttons/google-button";
+import { SignUpFormValues, SignUpViewsProp } from "@/types/types";
 import Link from "next/link";
 
 
 const metadata: Metadata = {
-    title: 'Login',
-    description: 'track-it login page',
+    title: 'Sign up',
+    description: 'track-it sign-up page',
 }
 
 const validationSchema = yup.object().shape({
     email: yup.string().email("invalid email address").required("email address is required"),
     password: yup.string().required("password is required"),
+    confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').required('Password is required')
 });
 
 
-const Login = () => {
-    const method = useForm<LoginFormValues> ({
+const InitialPage: React.FC<SignUpViewsProp> = ({ setView }) => {
+    const method = useForm<SignUpFormValues> ({
         resolver: yupResolver(validationSchema)
     });
 
     const { handleSubmit } = method;
 
-    const handleClick = (data: LoginFormValues) => {
-        console.log(data);   
+    const handleClick = (data: SignUpFormValues) => {
+        console.log(data);
+        setView("SetUpView");
+
     }
 
     return (
         <main>
             <UnauthWrapper>
-                <UnauthHeading heading={"Welcome back"} />
+                <UnauthHeading heading={"Sign up"} />
                 <section className="max-w-[540px] mx-auto mt-10">
                     <CustomInput 
                         name="email" 
@@ -54,9 +58,15 @@ const Login = () => {
                         label="Password" 
                         method={method} 
                     />
+                    <CustomInput 
+                        name="confirmPassword" 
+                        label="Confirm new password"
+                        defaultType={"password"}
+                        method={method} 
+                    />
                     <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 -translate-y-5"> Forgot your password? </p>
                     
-                    <UnauthButton handleSubmit={handleSubmit} handleClick={handleClick} > Log In </UnauthButton> 
+                    <UnauthButton handleSubmit={handleSubmit} handleClick={handleClick} > Sign up </UnauthButton> 
 
                     <section className="flex items-center justify-center gap-2 mt-8">
                         <div className="border-t h-0.5 mt-1 w-full border-color4 dark:border-darkColor4"></div>
@@ -69,7 +79,7 @@ const Login = () => {
                     <p 
                         className="text-color7 text-sm font-normal mt-5 text-center dark:text-white"
                     >
-                        Don&#39;t have an account? <Link href={"/sign-up"} className="text-color6 pl-1"> Sign up </Link>  
+                        Don&#39;t have an account? <Link href={"/login"} className="text-color6 pl-1"> Log in </Link>  
                     </p>
 
                 </section>
@@ -78,4 +88,4 @@ const Login = () => {
     );
 }
  
-export default Login;
+export default InitialPage;
