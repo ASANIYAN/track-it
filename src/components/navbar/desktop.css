@@ -1,0 +1,6 @@
+li:hover > * {
+    color: white !important;
+}
+li:hover > span {
+    color: white !important;
+}

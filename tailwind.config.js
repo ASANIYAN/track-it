@@ -9,6 +9,10 @@ module.exports = {
   darkMode: ["class"],
   theme: {
     extend: {
+      boxShadow: {
+        'one': '-1px 0px 0px 0px #E9EBF0 inset',
+        'darkOne': '-1px 0px 0px 0px #384047 inset',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -23,10 +27,12 @@ module.exports = {
         color6: '#08C7E0',
         color7: '#46474C',
         color8: '#5B5C60',
+        color9: '#98999B',
         darkColor1: '#1E272E',
         darkColor2: '#222B32',
         darkColor3: '#A9ACAE',
         darkColor4: '#384047',
+        darkColor5: '#2B343B',
         error: '#E44258'
 
       },

@@ -18,14 +18,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const isHome = false;
   return (
     <html lang="en">
       <body className={`${inter.className} dark:bg-darkColor1`} >
         <ThemeProvider>
           <header>
-            <section className='flex ml-3 mt-3'>
-              <ThemeSwitcher />
-            </section>
+            { !isHome &&
+              <section className='flex ml-3 mt-3'>
+                <ThemeSwitcher />
+              </section>
+            }
           </header>
           {children}
         </ThemeProvider>

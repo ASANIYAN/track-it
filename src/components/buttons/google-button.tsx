@@ -8,7 +8,7 @@ const GoogleButton = () => {
         <Image 
             width={20}
             height={20}
-            src={"/images/google-img.png"}
+            src={"/assets/images/google-img.png"}
             alt="google-image"
         />
         Continue with Google
