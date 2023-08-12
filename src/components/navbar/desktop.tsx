@@ -1,25 +1,25 @@
 "use client";
 
-import { Add, ArrowDown2, ArrowUp2, Calendar, DocumentText, Home, Message2, People, TickCircle } from "iconsax-react";
 import Image from "next/image";
-import "./desktop.css";
 import { useState } from "react";
 
-const navigation = [
-    { title: "Home", icon: <Home size="18" className="dark:text-white text-color2" /> },
-    { title: "My Tasks", icon: <TickCircle size="18" className="dark:text-white text-color2" /> },
-    { title: "My Plan", icon: <Calendar size="18" className="dark:text-white text-color2" /> },
-    { title: "Inbox", icon: <Message2 size="18" className="dark:text-white text-color2" /> },
-    { title: "People", icon: <People size="18" className="dark:text-white text-color2" /> },
-    { title: "Reporting", icon: <DocumentText size="18" className="dark:text-white text-color2" /> }
-];
+import { navigation } from "@/constants/objects";
+import AddButton from "../buttons/add-button";
+import SearchBar from "../search-bar/search-bar";
+
+import { motion } from "framer-motion";
+import { ArrowDown2, ArrowUp2 } from "iconsax-react";
+
+
+import "./navbar.css";
 
 const Desktop = () => {
-
     const [dropDown, setDropDown] = useState<boolean>(false);
+
     const handleDropDown = () => {
         setDropDown(prevState => !prevState);
     };
+
     const showIcon = () => {
         return dropDown ? 
             (<ArrowUp2 size="18" color="#848588" className="cursor-pointer" /> )
@@ -28,7 +28,9 @@ const Desktop = () => {
     }
 
     return (
-        <aside className="bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] h-screen overflow-x-hidden overflow-y-auto">
+        <motion.aside 
+            className={`hidden md:block bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] h-screen overflow-x-hidden overflow-y-auto`}
+        >
             <section className="px-2">
                 <nav className="pt-6">
                     <ul className="flex flex-col gap-2"> 
@@ -66,12 +68,8 @@ const Desktop = () => {
             <div className="border-b h-0.5 border-color4 dark:border-darkColor4" />
 
             <section className="mt-5 px-2 flex items-center gap-4">
-                <input 
-                    type="text" 
-                    className="border border-color4 dark:border-darkColor4 text-sm h-[38px] outline-none rounded-2xl pl-3 placeholder:pl-3 w-[148px]" 
-                    placeholder="Search Project" 
-                />
-                <div className="rounded-[50%] text-white w-[32px] h-[32px] bg-color6 flex items-center justify-center"> <Add size="24" color="#FFF"/> </div>
+                <SearchBar />
+                <AddButton />
             </section>
 
             <section className="px-3 mt-5">
@@ -88,7 +86,7 @@ const Desktop = () => {
                 </section>
             </section>
 
-        </aside>
+        </motion.aside>
     );
 }
  
