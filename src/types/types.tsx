@@ -33,3 +33,7 @@ export type ResetPasswordValues = {
     password: string,
     confirmPassword: string
 }
+
+export type SearchBarProps = {
+    width?: string
+}

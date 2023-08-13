@@ -12,6 +12,8 @@ module.exports = {
       boxShadow: {
         'one': '-1px 0px 0px 0px #E9EBF0 inset',
         'darkOne': '-1px 0px 0px 0px #384047 inset',
+        'two': '0px -1px 0px 0px #E9EBF0 inset',
+        'darkTwo': '0px -1px 0px 0px #384047 inset',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

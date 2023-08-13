@@ -6,7 +6,7 @@ import AddButton from "../buttons/add-button";
 import SearchBar from "../search-bar/search-bar";
 
 import { motion, AnimatePresence, useCycle } from "framer-motion";
-import { ArrowDown2, ArrowUp2, HambergerMenu } from "iconsax-react";
+import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 import "./navbar.css";
 
@@ -48,7 +48,6 @@ const Mobile = () => {
     return (
 
         <>
-            <HambergerMenu className="cursor-pointer md:hidden" size="24" color="#848588" onClick={handleToggle} />
             <AnimatePresence>
                 { open && 
                     <motion.aside
@@ -58,9 +57,13 @@ const Mobile = () => {
                         className={`fixed top-10 left-0 md:hidden bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] h-screen overflow-x-hidden overflow-y-auto`}
                     >
                         <motion.section
+                            initial="closed"
+                            animate="open"
                             variants={sideVariants}
                         >
                             <motion.section
+                                initial="closed"
+                                animate="open"
                                 variants={itemVariants}
                                 className="px-2"
                             >
@@ -68,6 +71,9 @@ const Mobile = () => {
                                     <motion.ul className="flex flex-col gap-2"> 
                                         { navigation.map((item, index) => (
                                             <motion.li
+                                            initial="closed"
+                                            animate="open"
+                                            variants={itemVariants}
                                             key={index}
                                             className={`text-color2 hover:text-white cursor-pointer dark:text-darkColor3 text-sm font-normal pl-3 
                                             py-2 w-[220px] hover:bg-color6 rounded-[6px] flex gap-2.5 items-center`}
@@ -98,6 +104,8 @@ const Mobile = () => {
                             <motion.div className="border-b h-0.5 border-color4 dark:border-darkColor4" />
 
                             <motion.section
+                                initial="closed"
+                                animate="open"
                                 variants={itemVariants} 
                                 className="mt-5 px-2 flex items-center gap-4"
                             >
