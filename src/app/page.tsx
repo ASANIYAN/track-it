@@ -1,20 +1,31 @@
 "use client";
 
-import Desktop from "@/components/navbar/desktop";
-import Mobile from "@/components/navbar/mobile";
-import TopBar from "@/components/top-bar/top-bar";
+import DropdownHeading from "@/components/headings/dropdown-heading";
+import ProjectCard from "@/components/project-card/project-card";
+import AuthWrapper from "@/components/wrappers/auth-wrapper";
 
 export default function Home() {
+
   return (
     <main className="">
-      <section className="flex">
-        <Desktop />
-        <Mobile />
-        <section className="flex-1">
-          <TopBar />
+      <AuthWrapper>
+        <section className="mt-4 px-5">
+          <DropdownHeading heading="Recent Project" />
+          <section className="mt-4">
+            <section className="flex flex-wrap gap-4">
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+              <ProjectCard title="App Development" subTitle="Development" />
+            </section>
+          </section>
         </section>
-      </section>
-
+      </AuthWrapper>
+    
     </main>
   )
 }

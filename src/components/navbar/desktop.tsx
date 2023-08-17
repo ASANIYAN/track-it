@@ -29,7 +29,7 @@ const Desktop = () => {
 
     return (
         <motion.aside 
-            className={`hidden md:block bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] h-screen overflow-x-hidden overflow-y-auto`}
+            className={`hidden md:block bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] overflow-x-hidden h-full py-3 overflow-y-auto`}
         >
             <section className="px-2">
                 <nav className="pt-6">

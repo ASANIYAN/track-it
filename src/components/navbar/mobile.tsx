@@ -5,7 +5,7 @@ import { navigation } from "@/constants/objects";
 import AddButton from "../buttons/add-button";
 import SearchBar from "../search-bar/search-bar";
 
-import { motion, AnimatePresence, useCycle } from "framer-motion";
+import { motion, AnimatePresence, useCycle, Cycle } from "framer-motion";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 import "./navbar.css";
@@ -15,8 +15,11 @@ const projects = [
     {name: 'Web Design', img: <Image width={20} height={20} src={"/assets/icons/icon.svg"} alt="mobile40" /> },
 ];
 
-const Mobile = () => {
-    const [open, cycleOpen] = useCycle(false, true);
+type MobileProps = {
+    open: boolean,
+}
+
+const Mobile: React.FC<MobileProps> = ({open}) => {
     const [dropDown, setDropDown] = useState<boolean>(false);
 
 
@@ -41,10 +44,6 @@ const Mobile = () => {
         open: { transition: { staggerChildren: 0.2, staggerDirection: 1 } }
     };
 
-    const handleToggle = () => {
-        cycleOpen();
-    }
-
     return (
 
         <>
@@ -54,7 +53,8 @@ const Mobile = () => {
                         initial={{opacity: 0, x: -100}}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{width: 0, transition: { duration: 0.3 }}}
-                        className={`fixed top-10 left-0 md:hidden bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] h-screen overflow-x-hidden overflow-y-auto`}
+                        className={`fixed top-[66px] left-0 md:hidden bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] 
+                        h-screen overflow-x-hidden overflow-y-auto`}
                     >
                         <motion.section
                             initial="closed"
