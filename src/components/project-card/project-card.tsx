@@ -1,4 +1,5 @@
 import { BrifecaseTick, ProfileCircle } from "iconsax-react";
+import { motion } from "framer-motion";
 
 
 type ProjectCardProps = {
@@ -8,7 +9,12 @@ type ProjectCardProps = {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ title, subTitle}) => {
     return (
-        <section className="w-[250px] flex flex-col border border-color4 bg-white dark:border-darkColor4 dark:bg-darkColor2 gap-2.5 items-start rounded-[10px] py-3.5 px-3">
+        <motion.section     
+            initial={{opacity: 0, width: 0}}
+            animate={{ width: 250, opacity: 1,  transition: { duration: 0.5 } }}
+            exit={{opacity: 0, width: 0, transition: { duration: 0.5 }}}
+            className="w-[250px] flex flex-col border border-color4 bg-white dark:border-darkColor4 dark:bg-darkColor2 gap-2.5 items-start rounded-[10px] py-3.5 px-3"
+        >
             <BrifecaseTick size="24" color="#5b5c60" variant="Bold"/>
             <section>
                 <h4 className="text-color1 text-sm font-medium dark:text-white"> {title} </h4>
@@ -23,7 +29,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, subTitle}) => {
                 <ProfileCircle size="20" color="#5b5c60" variant="Bold"/>
                 <ProfileCircle size="20" color="#5b5c60" variant="Bold"/>
             </section>
-        </section>
+        </motion.section>
     );
 }
  

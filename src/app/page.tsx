@@ -1,28 +1,34 @@
 "use client";
 
-import DropdownHeading from "@/components/headings/dropdown-heading";
-import ProjectCard from "@/components/project-card/project-card";
 import AuthWrapper from "@/components/wrappers/auth-wrapper";
+import Projects from "@/components/home/projects";
 
 export default function Home() {
+
+  const recent = [
+    {title: "App Development", subTitle: "Development"},
+    {title: "Mobile", subTitle: "Development"}
+  ];
+
+  const favorite = [
+    {title: "App Development", subTitle: "Development"},
+    {title: "Mobile", subTitle: "Development"}
+  ];
 
   return (
     <main className="">
       <AuthWrapper>
         <section className="mt-4 px-5">
-          <DropdownHeading heading="Recent Project" />
-          <section className="mt-4">
-            <section className="flex flex-wrap gap-4">
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-              <ProjectCard title="App Development" subTitle="Development" />
-            </section>
+
+          <section>
+            <Projects heading="Recent Project" data={recent} />
           </section>
+
+          <section className="mt-10">
+            <Projects heading="Favorites" data={favorite} />
+          </section>
+
+
         </section>
       </AuthWrapper>
     
