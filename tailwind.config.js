@@ -35,6 +35,7 @@ module.exports = {
         darkColor3: '#A9ACAE',
         darkColor4: '#384047',
         darkColor5: '#2B343B',
+        darkColor6: '#CECFD0',
         error: '#E44258'
 
       },

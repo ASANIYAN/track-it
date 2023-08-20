@@ -1,22 +1,16 @@
-import { UseFormReturn } from 'react-hook-form';
+"use client";
 
-type CustomInputProps = {
-    name: string,
-    method: UseFormReturn<any>,
-}
+import { CustomCheckboxProps } from '@/types/types';
 
-const CheckBox: React.FC<CustomInputProps> = ({ method, name }) => {
-    const {
-        formState: { errors },
-        register,
-      } = method;
+const CheckBox: React.FC<CustomCheckboxProps & React.InputHTMLAttributes<HTMLInputElement>> = ({ name, handleClick, ...rest }) => {
     return (
         <>
              <input
-                {...register(name)}
-                className="focus:outline-none w-3.5 h-3.5 text-color6 bg-[#BDBDBD] border-[#BDBDBD] focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                className="focus:outline-none w-3.5 h-3.5 focus:text-color6 border bg-[#BDBDBD] border-[#BDBDBD] checked:bg-color6 dark:bg-gray-700 dark:border-gray-600" 
                 type={'checkbox'}
                 name={name}
+                onClick={handleClick}
+                {...rest}
             />
         </>
     );

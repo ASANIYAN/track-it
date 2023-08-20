@@ -1,23 +1,14 @@
-"use client"
+"use client";
 
 import { useState } from 'react';
+import { Eye, EyeSlash } from 'iconsax-react';
 
-import { UseFormReturn } from 'react-hook-form';
-
+import { CustomInputProps } from '@/types/types';
 import { ErrorMsg } from "../alerts/error-msg";
 import { InputWrap } from "./input-wrap";
 
-import { Eye, EyeSlash } from 'iconsax-react';
 
 
-
-
-type CustomInputProps = {
-    name: string,
-    label: string,
-    defaultType: string,
-    method: UseFormReturn<any>,
-}
 
 export const CustomInput: React.FC<CustomInputProps & React.InputHTMLAttributes<HTMLInputElement>> = ({ method, name, label, defaultType, ...rest }) => {
     const [isPassword, setIsPassword] = useState<string>(defaultType); 

@@ -2,6 +2,7 @@
 
 import AuthWrapper from "@/components/wrappers/auth-wrapper";
 import Projects from "@/components/home/projects";
+import WorkedOn from "@/components/home/worked-on";
 
 export default function Home() {
 
@@ -28,6 +29,9 @@ export default function Home() {
             <Projects heading="Favorites" data={favorite} />
           </section>
 
+          <section className="mt-10">
+            <WorkedOn heading="Worked on" />
+          </section>
 
         </section>
       </AuthWrapper>

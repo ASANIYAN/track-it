@@ -1,17 +1,12 @@
 import { Fragment } from "react";
-import DropdownHeading from "../headings/dropdown-heading";
-import ProjectCard from "../project-card/project-card";
+
 import { useCycle } from "framer-motion";
 
+import { ProjectsProps } from "@/types/types";
+import DropdownHeading from "../headings/dropdown-heading";
+import ProjectCard from "../project-card/project-card";
 
-type ProjectsProps = {
-    heading: string,
-    data: { 
-        title: string,
-        subTitle: string
-    }[]
-    
-}
+
 
 const Projects: React.FC<ProjectsProps> = ({heading, data}) => {
     const [open, cycleOpen] = useCycle(false, true);

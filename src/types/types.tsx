@@ -1,3 +1,5 @@
+import { UseFormReturn } from "react-hook-form"
+
 export type LoginFormValues = {
     email: string,
     password: string
@@ -36,4 +38,24 @@ export type ResetPasswordValues = {
 
 export type SearchBarProps = {
     width?: string
+}
+
+export type CustomInputProps = {
+    name: string,
+    label: string,
+    defaultType: string,
+    method: UseFormReturn<any>,
+}
+
+export type CustomCheckboxProps = {
+    name: string,
+    handleClick: (e: React.MouseEvent<HTMLInputElement>) => void
+}
+
+export type ProjectsProps = {
+    heading: string,
+    data: { 
+        title: string,
+        subTitle: string
+    }[]
 }

@@ -15,7 +15,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
         <section className="flex flex-nowrap h-screen">
             <Desktop />
             <Mobile open={open} />
-            <section className="flex-1 overflow-y-auto">
+            <section className="flex-1 overflow-y-auto pb-5">
                 <TopBar cycleOpen={cycleOpen} />
                 { children }
             </section>
