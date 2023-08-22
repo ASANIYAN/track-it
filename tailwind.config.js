@@ -14,6 +14,8 @@ module.exports = {
         'darkOne': '-1px 0px 0px 0px #384047 inset',
         'two': '0px -1px 0px 0px #E9EBF0 inset',
         'darkTwo': '0px -1px 0px 0px #384047 inset',
+        'three': '0px 8px 16px 0px rgba(33, 30, 30, 0.16)',
+        'darkThree': '0px 6px 22px 0px rgba(0, 0, 0, 0.10)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -30,6 +32,7 @@ module.exports = {
         color7: '#46474C',
         color8: '#5B5C60',
         color9: '#98999B',
+        color10: '#E6E9EF',
         darkColor1: '#1E272E',
         darkColor2: '#222B32',
         darkColor3: '#A9ACAE',

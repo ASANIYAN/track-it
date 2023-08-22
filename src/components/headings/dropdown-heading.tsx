@@ -1,7 +1,7 @@
 
 import { Cycle } from "framer-motion";
 
-import ThemeIconChanger from "@/utils/theme-icon-changer";
+import ThemeIconChanger from "@/utils/helpers/theme-icon-changer";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 type DropdownHeadingProps = {

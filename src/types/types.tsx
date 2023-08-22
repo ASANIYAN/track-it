@@ -49,7 +49,7 @@ export type CustomInputProps = {
 
 export type CustomCheckboxProps = {
     name: string,
-    handleClick: (e: React.MouseEvent<HTMLInputElement>) => void
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export type ProjectsProps = {
