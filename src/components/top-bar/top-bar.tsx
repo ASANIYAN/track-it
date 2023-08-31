@@ -1,32 +1,25 @@
 "use client";
 
-import { useState } from "react";
-
 import { Cycle } from "framer-motion";
-import { HambergerMenu, Notification, ProfileCircle } from "iconsax-react";
-
-import useOutsideClick from "@/hooks/useOutsideClick";
+import { HambergerMenu } from "iconsax-react";
 
 import AddButton from "../buttons/add-button";
 import SearchBar from "../search-bar/search-bar";
-import ProfileCard from "../general/profile-card";
+
+import NotificationInfo from "./notification-info";
+import ProfileInfo from "./profile-info";
 
 type TopBarProps = {
     cycleOpen: Cycle
 }
 
 const TopBar: React.FC<TopBarProps> = ({ cycleOpen }) => {
-    const [profileInfo, showProfileInfo] = useState<boolean>(false);
-    const ref = useOutsideClick(() => showProfileInfo(false));
-    
-    const handleProfileInfo = () => showProfileInfo(state => !state);
     
     const handleToggle = () => cycleOpen();
 
 
     return (
-        <section 
-            ref={ref} 
+        <section
             className="flex px-1 py-3.5 relative items-center justify-between md:p-5 shadow-two bg-white dark:shadow-darkTwo dark:bg-darkColor5"
         >
             <HambergerMenu onClick={handleToggle} className="cursor-pointer pl-3 md:hidden" size="32" color="#848588" />
@@ -36,9 +29,8 @@ const TopBar: React.FC<TopBarProps> = ({ cycleOpen }) => {
                     <SearchBar />
                 </div>
                 <AddButton />
-                <Notification size="20" color="#848588"/>
-                <ProfileCircle size="20" color="#848588" className="cursor-pointer" onClick={handleProfileInfo} />
-                { profileInfo && <ProfileCard /> }
+                <NotificationInfo />
+                <ProfileInfo />
             </section>
         </section>
     );

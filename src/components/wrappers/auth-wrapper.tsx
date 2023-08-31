@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 
 import { useCycle } from "framer-motion";
+
 import Desktop from "../navbar/desktop";
 import Mobile from "../navbar/mobile";
 import TopBar from "../top-bar/top-bar";

@@ -33,6 +33,8 @@ module.exports = {
         color8: '#5B5C60',
         color9: '#98999B',
         color10: '#E6E9EF',
+        color11: '#6F7074',
+        color12: '#F5F6F8',
         darkColor1: '#1E272E',
         darkColor2: '#222B32',
         darkColor3: '#A9ACAE',
