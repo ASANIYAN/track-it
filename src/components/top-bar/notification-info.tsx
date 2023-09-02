@@ -11,7 +11,10 @@ const NotificationInfo = () => {
 
     return (
         <section ref={ref}>
-            <Notification size="20" color="#848588" className="cursor-pointer" onClick={handleNotificationCard} />
+            <section className="relative">
+                <Notification size="20" color="#848588" className="cursor-pointer" onClick={handleNotificationCard} />
+                <div className="bg-error w-1.5 h-1.5 rounded-full absolute top-0 right-[3px]"></div>
+            </section>
             { notificationCard && <NotificationCard /> }
         </section>
     );
