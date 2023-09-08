@@ -1,0 +1,7 @@
+@media (max-width: 500px) {
+    .notification-card {
+        left: 50%;
+        transform: translateX(-50%);
+
+    }
+  }

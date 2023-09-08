@@ -17,12 +17,10 @@ const WorkedOn: React.FC<WorkedOnProps> = ({ heading }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement;
-        console.log(target.checked);
     }
 
     const handleClick = () => {
         workedOnRef.current?.scrollIntoView({ behavior: 'smooth' });
-        console.log("scrolled");
     }
 
 
@@ -47,14 +45,14 @@ const WorkedOn: React.FC<WorkedOnProps> = ({ heading }) => {
                                         name="workedOnCheck"
                                         handleChange={handleChange}
                                     />
-                                    <span className="text-sm font-normal text-color1 dark:text-white"> Design Stage</span>
+                                    <span className="text-xs xs:text-sm font-normal text-color1 dark:text-white"> Design Stage</span>
                                 </section>
                                 <section className="flex items-center gap-10">
                                     <div className="flex gap-1 items-center">
                                         <div className="h-1.5 w-1.5 rounded-sm bg-[#5197F8] "></div>
                                         <span className="text-color7 text-[12px] dark:text-darkColor6"> Web Design </span>
                                     </div>
-                                    <p className="text-color7 text-[12px] dark:text-darkColor6"> Thursday </p>
+                                    <p className="text-color7 text-[11px] xs:text-xs dark:text-darkColor6"> Thursday </p>
                                 </section>
                             </section>
                         </motion.section>

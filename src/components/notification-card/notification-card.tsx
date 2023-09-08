@@ -1,11 +1,13 @@
 import { ProfileCircle } from "iconsax-react";
 
+import "./notification-card.css";
+
 const NotificationCard = () => {
     return (
-        <section 
-            className="rounded-[10px] top-16 z-10 p-4 absolute right-5 text-color1 w-[500px] h-[80vh] bg-white shadow-three 
-            overflow-y-auto dark:bg-darkColor4 dark:shadow-darkThree dark:text-white"
-            >
+        <section
+            className="notification-card rounded-[10px] top-[62px] z-10 px-2 py-4 d:p-4 absolute d:right-2 sm:right-5 text-color1 
+            w-full max-w-[500px] h-[80vh] bg-white shadow-three overflow-y-auto dark:bg-darkColor4 dark:shadow-darkThree dark:text-white"
+        >
                 <section className="flex justify-between items-center font-medium">
                     <h4 className="text-color1 text-lg dark:text-white"> Notification </h4>
                     <p className="text-color6 text-xs"> Mark all as read </p>

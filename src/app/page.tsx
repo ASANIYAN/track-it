@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main className="">
       <AuthWrapper>
-        <section className="mt-4 px-5">
+        <section className="mt-4 px-1 xs:px-5">
 
           <section>
             <Projects heading="Recent Project" data={recent} />

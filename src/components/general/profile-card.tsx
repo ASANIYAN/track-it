@@ -23,7 +23,7 @@ const ProfileCard = () => {
 
     return (
         <section 
-        className="rounded-[10px] top-16 z-10 absolute right-5 text-color1 w-[300px] bg-white shadow-three dark:bg-darkColor4 dark:shadow-darkThree dark:text-white">
+        className="rounded-[10px] top-16 z-10 absolute right-2 xs:right-3 sm:right-5 text-color1 w-[270px] xxs:w-[300px] bg-white shadow-three dark:bg-darkColor4 dark:shadow-darkThree dark:text-white">
             <section className="flex items-center gap-3 p-4 mt-2">
                 <ProfileCircle size="32" color="#848588"/>
                 <div className="flex flex-col gap-0.5">

@@ -53,7 +53,7 @@ const Mobile: React.FC<MobileProps> = ({open}) => {
                         initial={{opacity: 0, x: -100}}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{width: 0, transition: { duration: 0.3 }}}
-                        className={`fixed top-[66px] left-0 md:hidden bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] 
+                        className={`fixed top-[60px] left-0 md:hidden bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] 
                         h-screen overflow-x-hidden overflow-y-auto`}
                     >
                         <motion.section

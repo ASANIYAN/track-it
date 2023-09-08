@@ -49,8 +49,10 @@ module.exports = {
          // => @media (min-width: 280px) { ... }
         'xxs': '320px',
          // => @media (min-width: 320px) { ... }
-        'xs': '480px',
+         'xs': '480px',
          // => @media (min-width: 480px) { ... }
+         'd': '500px',
+         // => @media (min-width: 500px) { ... }
         's': '576px',
          // => @media (min-width: 576px) { ... }
         ...defaultTheme.screens
