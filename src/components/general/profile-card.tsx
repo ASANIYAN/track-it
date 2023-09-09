@@ -17,7 +17,6 @@ const ProfileCard = () => {
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement;
-        console.log(target.checked);
         
     }
 

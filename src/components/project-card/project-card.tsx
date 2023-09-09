@@ -1,6 +1,8 @@
 import { BrifecaseTick, ProfileCircle } from "iconsax-react";
-import { motion } from "framer-motion";
+import { motion, useCycle } from "framer-motion";
 import Image from "next/image";
+import ProjectCardOption from "./project-card-options";
+import { useState } from "react";
 
 
 type ProjectCardProps = {
@@ -9,21 +11,18 @@ type ProjectCardProps = {
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ title, subTitle}) => {
+
+
     return (
         <motion.section     
             initial={{height: 0, opacity: 0}}
             animate={{ height: '100%', opacity: 1,  transition: { duration: 0.6 } }}
             exit={{opacity: 0, width: 0, transition: { duration: 0.5 }}}
-            className="w-full sm:w-[250px] flex flex-col border border-color4 bg-white dark:border-darkColor4 dark:bg-darkColor2 gap-2.5 items-start rounded-[10px] py-3.5 px-3"
+            className="w-full sm:w-[250px] flex flex-col relative border border-color4 bg-white dark:border-darkColor4 dark:bg-darkColor2 gap-2.5 items-start rounded-[10px] py-3.5 px-3"
         >
             <section className="flex justify-between items-center w-full">
                 <BrifecaseTick size="24" color="#5b5c60" variant="Bold"/>
-                <Image 
-                    width={16}
-                    height={16}
-                    src={"/assets/icons/ellipsis.svg"}
-                    alt="ellipsis"
-                />
+                <ProjectCardOption />
             </section>
             <section>
                 <h4 className="text-color1 text-sm font-medium dark:text-white"> {title} </h4>
