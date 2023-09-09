@@ -3,6 +3,7 @@
 import AuthWrapper from "@/components/wrappers/auth-wrapper";
 import Projects from "@/components/home/projects";
 import WorkedOn from "@/components/home/worked-on";
+import HomeMobile from "@/components/home/home-mobile";
 
 export default function Home() {
 
@@ -19,7 +20,10 @@ export default function Home() {
   return (
     <main className="">
       <AuthWrapper>
-        <section className="mt-4 px-1 xs:px-5">
+        <section className="sm:hidden mt-4 px-1 xs:px-5">
+          <HomeMobile />
+        </section>
+        <section className="hidden sm:block mt-4 px-1 sm:px-5">
 
           <section>
             <Projects heading="Recent Project" data={recent} />
