@@ -36,19 +36,18 @@ const Tab = ({ tabs, activeTab, setActiveTab }: TabProps ) => {
     
     return (
         <>
-            <section className="flex items-center justify-between">
+            <section className="flex items-center justify-between border-b border-color4 dark:border-darkColor4 mb-4">
                 { tabs.map((tab) => (
                     <Fragment key={tab.alias}>
                         <p 
-                            className={`${activeTab === tab.alias ? 'border-b text-color3 border-color3 dark:text-white dark:border-white' : ''}
-                             pb-2 text-sm font-medium dark:text-darkColor6`}
+                            className={`${activeTab === tab.alias ? 'border-b-2 text-color3 border-color3 dark:text-white dark:border-white' : ''}
+                             pb-1 text-sm text-center font-medium dark:text-darkColor6 transition-all cursor-pointer`}
                             onClick={() => onTab(tab.alias)}
                         > 
                             {tab.name}
                         </p>
                     </Fragment>
                 ))}
-                <div className="bg-color4 h-[1px] dark:bg-darkColor4" />
             </section>
         </>
     );
