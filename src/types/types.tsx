@@ -47,13 +47,19 @@ export type CustomInputProps = {
     method: UseFormReturn<any>,
 }
 
+export type CustomRadioProps = {
+    name: string,
+    label: string,    
+    method: UseFormReturn<any>,
+}
+
 export type CustomCheckboxProps = {
     name: string,
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export type ProjectsProps = {
-    heading: string,
+    heading?: string,
     data: { 
         title: string,
         subTitle: string

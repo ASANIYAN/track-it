@@ -2,6 +2,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect } from "react";
 
 type TabProps = {
+    className?: string,
     tabs: tabList[],
     activeTab: string,
     setActiveTab: React.Dispatch<React.SetStateAction<any>>,
@@ -14,7 +15,7 @@ type tabList = {
 
 
 
-const Tab = ({ tabs, activeTab, setActiveTab }: TabProps ) => {
+const Tab = ({ className, tabs, activeTab, setActiveTab }: TabProps ) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -36,7 +37,7 @@ const Tab = ({ tabs, activeTab, setActiveTab }: TabProps ) => {
     
     return (
         <>
-            <section className="flex items-center justify-between border-b border-color4 dark:border-darkColor4 mb-4">
+            <section className={`flex items-center justify-between ${className} mb-4`}>
                 { tabs.map((tab) => (
                     <Fragment key={tab.alias}>
                         <p 
@@ -49,6 +50,7 @@ const Tab = ({ tabs, activeTab, setActiveTab }: TabProps ) => {
                     </Fragment>
                 ))}
             </section>
+            <div className='border-b border-color4 dark:border-darkColor4 w-full -translate-y-4' />
         </>
     );
 }

@@ -12,6 +12,7 @@ import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 
 import "./navbar.css";
+import Link from "next/link";
 
 const Desktop = () => {
     const [dropDown, setDropDown] = useState<boolean>(false);
@@ -29,19 +30,23 @@ const Desktop = () => {
 
     return (
         <motion.aside 
-            className={`hidden md:block bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] overflow-x-hidden h-full py-3 overflow-y-auto`}
+            className={`hidden md:block bg-white dark:bg-darkColor5 shadow-one dark:shadow-darkOne w-[240px] overflow-x-hidden overflow-y-auto h-full py-3`}
         >
             <section className="px-2">
                 <nav className="pt-6">
                     <ul className="flex flex-col gap-2"> 
                         { navigation.map((item, index) => (
-                            <li
-                            key={index}
-                            className={`text-color2 hover:text-white cursor-pointer dark:text-darkColor3 text-sm font-normal pl-3 
-                            py-2 w-[220px] hover:bg-color6 rounded-[6px] flex gap-2.5 items-center`}
-                            > 
-                                {item.icon} <span> {item.title} </span> 
-                            </li>
+                            <Link
+                                href={item.path}
+                                key={index}
+                            >
+                                <li
+                                className={`text-color2 hover:text-white cursor-pointer dark:text-darkColor3 text-sm font-normal pl-3 
+                                py-2 w-[220px] hover:bg-color6 rounded-[6px] flex gap-2.5 items-center`}
+                                > 
+                                    {item.icon} <span> {item.title} </span> 
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </nav>

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useState } from "react";
 
@@ -9,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 import "./navbar.css";
+import Link from "next/link";
 
 const projects = [
     {name: 'App Development', img: <Image width={20} height={20} src={"/assets/icons/mobile40.svg"} alt="mobile40" /> },
@@ -70,16 +73,20 @@ const Mobile: React.FC<MobileProps> = ({open}) => {
                                 <motion.nav className="pt-6">
                                     <motion.ul className="flex flex-col gap-2"> 
                                         { navigation.map((item, index) => (
-                                            <motion.li
-                                            initial="closed"
-                                            animate="open"
-                                            variants={itemVariants}
+                                            <Link
+                                            href={item.path}
                                             key={index}
-                                            className={`text-color2 hover:text-white cursor-pointer dark:text-darkColor3 text-sm font-normal pl-3 
-                                            py-2 w-[220px] hover:bg-color6 rounded-[6px] flex gap-2.5 items-center`}
-                                            > 
-                                                {item.icon} <span> {item.title} </span> 
-                                            </motion.li>
+                                            >
+                                                <motion.li
+                                                initial="closed"
+                                                animate="open"
+                                                variants={itemVariants}
+                                                className={`text-color2 hover:text-white cursor-pointer dark:text-darkColor3 text-sm font-normal pl-3 
+                                                py-2 w-[220px] hover:bg-color6 rounded-[6px] flex gap-2.5 items-center`}
+                                                > 
+                                                    {item.icon} <span> {item.title} </span> 
+                                                </motion.li>
+                                            </Link>
                                         ))}
                                     </motion.ul>
                                 </motion.nav>
