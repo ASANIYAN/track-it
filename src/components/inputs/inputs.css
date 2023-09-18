@@ -16,7 +16,14 @@ label {
     font-size: 15px;
 }
 
-input[type="radio"] + label::before {
+.custom-input-wrap textarea {
+    padding: 6px 0px 6px 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.radio-input input[type="radio"] + label::before {
     content: "";
     cursor: pointer;
     padding: 2px;
@@ -26,11 +33,12 @@ input[type="radio"] + label::before {
     background-color: transparent;
     border-radius: 50%;
     border: 2px solid #E8ECEE;
+    padding: 2px;
     margin-top: 2px;
     margin-right: 10px;
 }
 
-input[type="radio"]:checked + label::before {
+.radio-input input[type="radio"]:checked + label::before {
     cursor: pointer;
     width: 16px;
     padding: 2px;

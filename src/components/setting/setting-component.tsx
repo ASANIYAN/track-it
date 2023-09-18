@@ -16,7 +16,7 @@ const SettingComponent = () => {
     ];
 
     return (
-        <section className="rounded-[10px] bg-white shadow-md dark:bg-darkColor2 max-w-[800px] mx-auto mt-5 pt-6 pb-10 px-10">
+        <section className="rounded-[10px] bg-white shadow-md dark:bg-darkColor2 max-w-[800px] mx-auto mt-5 pt-6 pb-10 px-3 xs:px-5 sm:px-10">
             <section className="">
                 <Tab className="max-w-[400px] mx-auto" tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
             </section>

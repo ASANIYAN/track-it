@@ -2,7 +2,7 @@ import { CustomCheckboxProps } from "@/types/types";
 
 const Toggle: React.FC<CustomCheckboxProps & React.InputHTMLAttributes<HTMLInputElement>> = ({ name, handleChange, ...rest }) => {
     return (
-        <label className="relative inline-flex items-center cursor-pointer">
+        <label className="relative inline-flex w-fit items-center cursor-pointer">
             <input 
                 type="checkbox" 
                 name={name} 

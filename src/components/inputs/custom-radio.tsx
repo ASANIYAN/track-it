@@ -10,7 +10,7 @@ const CustomRadio: React.FC<CustomRadioProps & React.InputHTMLAttributes<HTMLInp
 
 
     return (
-        <section className="flex items-center mb-2.5">
+        <section className="flex items-center mb-2.5 radio-input">
             <input 
             {...register(name)}
             name={name}

@@ -47,6 +47,12 @@ export type CustomInputProps = {
     method: UseFormReturn<any>,
 }
 
+export type CustomTextAreaProps = {
+    name: string,
+    label: string,
+    method: UseFormReturn<any>,
+}
+
 export type CustomRadioProps = {
     name: string,
     label: string,    
