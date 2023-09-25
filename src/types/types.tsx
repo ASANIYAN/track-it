@@ -55,7 +55,7 @@ export type CustomTextAreaProps = {
 
 export type CustomRadioProps = {
     name: string,
-    label: string,    
+    label: string,
     method: UseFormReturn<any>,
 }
 
