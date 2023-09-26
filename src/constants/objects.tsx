@@ -8,3 +8,5 @@ export const navigation = [
     { title: "People", path: '/', icon: <People size="18" className="dark:text-white text-color2" /> },
     { title: "Setting", path: '/setting', icon: <Setting2 size="18" className="dark:text-white text-color2" /> }
 ];
+
+export const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];

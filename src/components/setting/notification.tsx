@@ -6,17 +6,24 @@ import { CustomSelect } from "../inputs/custom-select";
 import NotificationHeading from "./notification-heading";
 import CustomTimeInput from '../inputs/custom-time-input';
 import CustomRadio from '../inputs/custom-radio';
+import { useEffect, useState } from 'react';
+import { days } from '@/constants/objects';
 
 const options =  [
     { label: 'Daily', value: 'daily' },
-    { label: 'Weekly', value: 'weekly' },
-    { label: 'Monthly', value: 'monthly' },
+    { label: 'Custom', value: 'custom' },
 ];
 
 const validationSchema = yup.object().shape({
-    notification: yup.string(),
-    from:  yup.string(),
-    to:  yup.string(),
+    notification: yup.string().required(),
+    from: yup.string().matches(
+        /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+        'Invalid time format'
+      ).required(),
+    to: yup.string().matches(
+        /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+        'Invalid time format'
+      ).required(),
     
 });
 
@@ -30,35 +37,81 @@ const Notification = () => {
     const method = useForm<NotificationFormValues> ({
         resolver: yupResolver(validationSchema)
     });
+    const { getValues, watch } = method;
+    const [isCustom, setIsCustom] = useState<boolean>(false);
+
+    const watchNotification = watch("notification");
+
+    useEffect(() => {
+        if (getValues("notification").trim().toLowerCase() === "custom") {
+            setIsCustom(true);
+        } else {
+            setIsCustom(false);
+        }
+        // console.log(getValues("notification"));
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watchNotification])
 
     return (
         <section>
-            <NotificationHeading text="Allow Notification" />
-                <section className='flex items-center gap-5 mt-2.5'>
-                    <section className='w-[200px]'>
+            <section className='text-center md:text-start'>
+                <NotificationHeading text="Allow Notification" />
+            </section>
+                <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-center md:justify-start items-center gap-5 mt-2.5'>
+                    <section className='w-[200px]'>                              
                         <CustomSelect
                             method={method}
                             name="notification"
                             options={options} 
                         />
                     </section>
-                    <section className='w-[200px]'>
-                        <CustomTimeInput 
-                            name='from'
-                            label='From'
-                            method={method}
-                        />
-                    </section>
-                    <section className=' border-black w-[200px]'>
-                        <CustomTimeInput 
-                            name='to'
-                            label='To'
-                            method={method}
-                        />
-
-                    </section>
+                    { !isCustom &&
+                        <>
+                            <section className='w-[200px]'>
+                                <CustomTimeInput 
+                                    name='from'
+                                    label='From'
+                                    method={method}
+                                />
+                            </section>
+                            <section className=' border-black w-[200px]'>
+                                <CustomTimeInput 
+                                    name='to'
+                                    label='To'
+                                    method={method}
+                                />
+                            </section>
+                        </>
+                    }
                 </section>
-                <p className='text-xs font-normal text-color7 dark:text-white '> You won&apos;t receive notifications on Saturday or Sunday. </p>
+                { !isCustom &&
+                    <p className='text-xs font-normal text-color7 dark:text-white mt-4 text-center sm:text-start'> You won&apos;t receive notifications on Saturday or Sunday. </p>
+                }
+                { isCustom &&
+                    <section className='mt-5'>
+                        { days.map((day) => (
+                            <section key={day} className='mt-4 mx-auto flex flex-wrap items-center justify-center md:justify-start gap-y-2.5 gap-x-20'>
+                                <p className='xs:w-[150px] xl:w-[200px]'> {day} </p>
+                                <section className='flex flex-wrap items-center gap-y-2.5 gap-x-4'>
+                                    <section className='xl:w-[200px]'>
+                                        <CustomTimeInput 
+                                            name='from'
+                                            method={method}
+                                        />
+                                    </section>
+                                    <section className='xl:w-[200px]'>
+                                        <CustomTimeInput 
+                                            name='to'
+                                            method={method}
+                                        />
+                                    </section>
+                                </section>
+                            </section>
+
+                        ))}
+                    </section>
+                }
 
                 <section className='mt-8'>
                     <NotificationHeading text='E-mail Notification' />

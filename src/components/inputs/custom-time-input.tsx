@@ -6,7 +6,7 @@ import { ErrorMsg } from "../alerts/error-msg";
 type CustomTimeInputProps = {
     name: string,
     method: UseFormReturn<any>,
-    label: string,
+    label?: string,
 }
 
 const CustomTimeInput: React.FC<CustomTimeInputProps & React.InputHTMLAttributes<HTMLInputElement>> = ({ method, name, label, ...rest }) => {
@@ -18,7 +18,7 @@ const CustomTimeInput: React.FC<CustomTimeInputProps & React.InputHTMLAttributes
 
     return (
         <>
-          <section className="flex items-center custom-time-input mb-5">
+          <section className="flex items-center custom-time-input">
             <label className="text-color11 text-sm font-normal dark:text-darkColor3"> {label} </label>
             <input
             {...register(name)}

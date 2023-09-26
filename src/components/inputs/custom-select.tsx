@@ -37,11 +37,11 @@ export const CustomSelect: React.FC<CustomSelectProps & React.SelectHTMLAttribut
               <select 
                   {...field}
                   {...rest}
-                  className={`focus:outline-none bg-transparent dark:text-white border text-color1 font-normal border-color4`}
+                  className={`focus:outline-none bg-white text-sm dark:bg-darkColor2 dark:text-white border text-color1 font-normal border-color4`}
               >
                 { options.map((option) => (
                   <Fragment key={option.label}>
-                      <option className="" value={option.value}>{option.label} </option>
+                      <option className="bg-transparent" value={option.value}>{option.label} </option>
                   </Fragment>
                 ))}
               </select>
