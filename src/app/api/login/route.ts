@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 
 import User from "@/models/user";
 import connect from "@/utils/db/mongodb-connect";
+import { COOKIE_NAME } from "@/constants/constants";
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -61,7 +62,7 @@ export const POST = async (request: NextRequest) => {
     });
 
     // Set the token as an HTTP-only cookie
-    response.cookies.set("trackit_token", token, {
+    response.cookies.set(COOKIE_NAME, token, {
       httpOnly: true,
     });
 

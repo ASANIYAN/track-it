@@ -1,3 +1,4 @@
+import { COOKIE_NAME } from "@/constants/constants";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
@@ -6,7 +7,7 @@ export const GET = async () => {
       message: "Logout successful",
       success: true,
     });
-    response.cookies.set("trackit_token", "", {
+    response.cookies.set(COOKIE_NAME, "", {
       httpOnly: true,
       expires: new Date(0),
     });
