@@ -33,7 +33,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
     // Compose email options
     const mailOptions = {
-      from: "<your email id>",
+      from: "trackitAdmin",
       to: email,
       subject:
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",

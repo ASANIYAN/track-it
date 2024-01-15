@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 
 import User from "@/models/user";
 import connect from "@/utils/db/mongodb-connect";
+import { sendEmail } from "@/utils/helpers/mailer";
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -38,6 +39,9 @@ export const POST = async (request: NextRequest) => {
     });
 
     const savedUser = await newUser.save();
+
+    //send verification email
+    await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
 
     return NextResponse.json({
       message: "User created successfully",
