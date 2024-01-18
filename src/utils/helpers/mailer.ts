@@ -9,7 +9,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
 
     // Update the user document in the database with the generated token and expiry time
-    if (emailType === "VERIFY") {
+    if (emailType.trim() === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
         verifyToken: hashedToken,
         verifyTokenExpiry: Date.now() + 3600000,
@@ -51,6 +51,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     const mailresponse = await transport.sendMail(mailOptions);
     return mailresponse;
   } catch (error: any) {
+    console.log(error.message);
     throw new Error(error.message);
   }
 };

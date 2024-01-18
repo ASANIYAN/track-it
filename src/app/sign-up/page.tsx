@@ -20,6 +20,7 @@ import UnauthButton from "@/components/buttons/unauth-button";
 import GoogleButton from "@/components/buttons/google-button";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 import { useRouter } from "next/navigation";
+import { SuccessToast } from "@/components/toast/toasts";
 
 const metadata: Metadata = {
   title: "Sign up",
@@ -64,9 +65,9 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit } = method;
-  const { mutate, isPending, isError, error } = useMutation({
+  const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationFn: signUpUser,
-    onSuccess: () => router.push("project-setup"),
+    onSuccess: () => SuccessToast("Account created successfully"),
   });
 
   const handleClick = (data: SignUpFormValues) => {
@@ -114,6 +115,15 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
             {isPending ? <ScaleLineLoader /> : "Sign up"}
           </UnauthButton>
 
+          {isSuccess && (
+            <section className="flex justify-center mt-2.5">
+              <p className="text-base font-semibold text-black dark:text-color6">
+                {" "}
+                We&apos;ve sent an email to the address you provided. Please
+                follow the instructions within to verify your account{" "}
+              </p>
+            </section>
+          )}
           <section className="mt-2.5 text-center font-light">
             {errorHandler(isError, error)}
           </section>

@@ -5,7 +5,7 @@ import connect from "@/utils/db/mongodb-connect";
 
 export async function POST(request: NextRequest) {
   try {
-    // It extracts the token property from the JSON body of the incoming request.
+    // extracts the token property from the JSON body of the incoming request.
     const { token } = await request.json();
 
     await connect();
