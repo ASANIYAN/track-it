@@ -4,32 +4,51 @@ import { useTheme } from "next-themes";
 
 import { Moon, Sun1 } from "iconsax-react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const ThemeSwitcher = () => {
-    const { systemTheme, theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState<boolean>(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState<boolean>(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+  const pathname = usePathname();
+  const allowedPaths = [
+    "/login",
+    "/sign-up",
+    "/verify-email",
+    "/reset-password",
+    "/forgot-password",
+  ];
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    const renderThemeChanger = () => {
-        if (!mounted) return null;
-        const currentTheme = theme === 'system' ? systemTheme : theme;
+  const renderThemeChanger = () => {
+    if (!mounted) return null;
+    const currentTheme = theme === "system" ? systemTheme : theme;
 
-        if (currentTheme === 'dark') {
-            return (<Sun1 size="24" color="#5f48ea" className="cursor-pointer" onClick={() => setTheme('light')}/>);
-        } else {
-            return (<Moon size="24" color="#5f48ea" className="cursor-pointer" onClick={() => setTheme('dark')}/>);
-        }
-    };
+    if (currentTheme === "dark") {
+      return (
+        <Sun1
+          size="24"
+          color="#5f48ea"
+          className="cursor-pointer"
+          onClick={() => setTheme("light")}
+        />
+      );
+    } else {
+      return (
+        <Moon
+          size="24"
+          color="#5f48ea"
+          className="cursor-pointer"
+          onClick={() => setTheme("dark")}
+        />
+      );
+    }
+  };
 
-    return (
-        <>
-            {renderThemeChanger()}
-        </>
-    );
-}
- 
+  return <>{allowedPaths.includes(pathname) && renderThemeChanger()}</>;
+};
+
 export default ThemeSwitcher;

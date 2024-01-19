@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update user properties and save the changes
-    user.usVerified = true;
+    user.isVerified = true;
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
     await user.save();

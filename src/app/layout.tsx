@@ -7,6 +7,10 @@ import ThemeSwitcher from "@/components/toggles/theme-switcher";
 import { ThemeProvider } from "./theme-provider";
 import TanstackProvider from "@/utils/providers/tanstack-provider";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { usePathname } from "next/navigation";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,18 +23,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isHome = true;
   return (
     <html lang="en">
       <body className={`${inter.className} dark:bg-darkColor1`}>
         <ThemeProvider>
           <TanstackProvider>
+            <ToastContainer />
             <header>
-              {!isHome && (
-                <section className="flex ml-3 mt-3">
-                  <ThemeSwitcher />
-                </section>
-              )}
+              <section className="flex ml-3 mt-3">
+                <ThemeSwitcher />
+              </section>
             </header>
             {children}
           </TanstackProvider>

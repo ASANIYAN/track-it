@@ -9,7 +9,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
 
     // Update the user document in the database with the generated token and expiry time
-    if (emailType.trim() === "VERIFY") {
+    if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
         verifyToken: hashedToken,
         verifyTokenExpiry: Date.now() + 3600000,
@@ -39,7 +39,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",
       html: `<p>Click <a href="${
         process.env.domain
-      }/verifyemail?token=${hashedToken}">here</a> to 
+      }/verify-email?verifyToken=${hashedToken}">here</a> to 
                 ${
                   emailType === "VERIFY"
                     ? "Verify your email"

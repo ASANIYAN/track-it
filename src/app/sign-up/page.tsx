@@ -106,14 +106,16 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
             Forgot your password?{" "}
           </p>
 
-          <UnauthButton
-            disabled={isPending}
-            handleSubmit={handleSubmit}
-            handleClick={handleClick}
-          >
-            {" "}
-            {isPending ? <ScaleLineLoader /> : "Sign up"}
-          </UnauthButton>
+          <section className={`${isPending ? "opacity-0" : ""}`}>
+            <UnauthButton
+              disabled={isPending}
+              handleSubmit={handleSubmit}
+              handleClick={handleClick}
+            >
+              {" "}
+              {isPending ? <ScaleLineLoader /> : "Sign up"}
+            </UnauthButton>
+          </section>
 
           {isSuccess && (
             <section className="flex justify-center mt-2.5">
