@@ -21,6 +21,7 @@ import GoogleButton from "@/components/buttons/google-button";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 import { useRouter } from "next/navigation";
 import { SuccessToast } from "@/components/toast/toasts";
+import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 
 const metadata: Metadata = {
   title: "Sign up",
@@ -49,16 +50,6 @@ const signUpUser = async (payload: signUpUserProps) => {
   return response;
 };
 
-const errorHandler = (isError: boolean, error: any) => {
-  if (isError) {
-    if (error.response.status >= 400 && error.response.status < 500) {
-      return <p className="text-error"> {error.response.data.error} </p>;
-    } else {
-      return <p className="text-error"> Error occurred, please try again. </p>;
-    }
-  }
-};
-
 const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
   const router = useRouter();
   const method = useForm<SignUpFormValues>({
@@ -66,6 +57,7 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
   });
   const { handleSubmit } = method;
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    mutationKey: ["signUpUser"],
     mutationFn: signUpUser,
     onSuccess: () => SuccessToast("Account created successfully"),
   });
@@ -127,7 +119,7 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
             </section>
           )}
           <section className="mt-2.5 text-center font-light">
-            {errorHandler(isError, error)}
+            {ErrorDisplayHandler(isError, error)}
           </section>
 
           <section className="flex items-center justify-center gap-2 mt-8">

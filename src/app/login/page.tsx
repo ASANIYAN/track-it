@@ -18,6 +18,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useEffect } from "react";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
+import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 
 const metadata: Metadata = {
   title: "Login",
@@ -37,16 +38,6 @@ const logInUser = async (payload: LoginFormValues) => {
   return response;
 };
 
-const errorHandler = (isError: boolean, error: any) => {
-  if (isError) {
-    if (error.response.status >= 400 && error.response.status < 500) {
-      return <p className="text-error"> {error.response.data.error} </p>;
-    } else {
-      return <p className="text-error"> Error occurred, please try again. </p>;
-    }
-  }
-};
-
 const Login = () => {
   const method = useForm<LoginFormValues>({
     resolver: yupResolver(validationSchema),
@@ -55,6 +46,7 @@ const Login = () => {
   const { handleSubmit } = method;
 
   const { mutate, isPending, isError, error } = useMutation({
+    mutationKey: ["logInUser"],
     mutationFn: logInUser,
     onSuccess: () => console.log("Login Successful"),
   });
@@ -69,13 +61,6 @@ const Login = () => {
 
     mutate(payload);
   };
-
-  useEffect(() => {
-    if (isError) {
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError]);
 
   return (
     <main>
@@ -109,7 +94,7 @@ const Login = () => {
           </UnauthButton>
 
           <section className="mt-2.5 text-center font-light">
-            {errorHandler(isError, error)}
+            {ErrorDisplayHandler(isError, error)}
           </section>
 
           <section className="flex items-center justify-center gap-2 mt-8">
