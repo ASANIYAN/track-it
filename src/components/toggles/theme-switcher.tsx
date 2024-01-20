@@ -16,6 +16,7 @@ const ThemeSwitcher = () => {
     "/sign-up",
     "/verify-email",
     "/reset-password",
+    "/resend-email",
     "/forgot-password",
   ];
 

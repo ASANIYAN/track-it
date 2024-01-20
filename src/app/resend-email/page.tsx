@@ -57,14 +57,26 @@ const ResendEmail = () => {
           defaultType={"text"}
           method={method}
         />
-        <UnauthButton
-          disabled={isPending}
-          handleSubmit={handleSubmit}
-          handleClick={handleClick}
-        >
-          {" "}
-          {isPending ? <ScaleLineLoader /> : "Resend Email"}
-        </UnauthButton>
+        <section className={`${isPending ? "opacity-0" : ""}`}>
+          <UnauthButton
+            disabled={isPending}
+            handleSubmit={handleSubmit}
+            handleClick={handleClick}
+          >
+            {" "}
+            {isPending ? <ScaleLineLoader /> : "Resend Email"}
+          </UnauthButton>
+        </section>
+
+        {isSuccess && (
+          <section className="flex justify-center mt-2.5">
+            <p className="text-base font-semibold text-black dark:text-color6">
+              {" "}
+              We&apos;ve sent an email to the address you provided. Please
+              follow the instructions within to verify your account{" "}
+            </p>
+          </section>
+        )}
 
         <section className="mt-2.5 text-center font-light">
           {ErrorDisplayHandler(isError, error)}

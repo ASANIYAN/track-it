@@ -93,10 +93,6 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
             defaultType={"password"}
             method={method}
           />
-          <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 -translate-y-5">
-            {" "}
-            Forgot your password?{" "}
-          </p>
 
           <section className={`${isPending ? "opacity-0" : ""}`}>
             <UnauthButton
@@ -118,6 +114,7 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
               </p>
             </section>
           )}
+
           <section className="mt-2.5 text-center font-light">
             {ErrorDisplayHandler(isError, error)}
           </section>

@@ -79,9 +79,8 @@ const Login = () => {
             label="Password"
             method={method}
           />
-          <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 -translate-y-5">
-            {" "}
-            Forgot your password?{" "}
+          <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 hover:text-color6 lg:cursor-pointer -translate-y-5">
+            <Link href={"forgot-password"}> Forgot your password? </Link>
           </p>
 
           <UnauthButton

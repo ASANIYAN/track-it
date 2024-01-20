@@ -33,7 +33,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
     // Compose email options
     const mailOptions = {
-      from: "trackitAdmin",
+      from: process.env.NODEMAILER_TRANSPORT_USER,
       to: email,
       subject:
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",
