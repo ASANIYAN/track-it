@@ -24,15 +24,15 @@ type ResendEmailFormValues = {
   email: string;
 };
 
-const sendEmail = async (payload: ResendEmailFormValues) => {
+const sendEmailForVerification = async (payload: ResendEmailFormValues) => {
   const response = await axios.post("/api/users/resendemail", { payload });
   return response;
 };
 
 const ResendEmail = () => {
   const { mutate, isPending, isError, isSuccess, error } = useMutation({
-    mutationKey: ["sendEmail"],
-    mutationFn: sendEmail,
+    mutationKey: ["sendEmailForVerification"],
+    mutationFn: sendEmailForVerification,
   });
   const method = useForm<ResendEmailFormValues>({
     resolver: yupResolver(validationSchema),

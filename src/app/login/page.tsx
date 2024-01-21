@@ -83,16 +83,18 @@ const Login = () => {
             <Link href={"forgot-password"}> Forgot your password? </Link>
           </p>
 
-          <UnauthButton
-            disabled={isPending}
-            handleSubmit={handleSubmit}
-            handleClick={handleClick}
-          >
-            {" "}
-            {isPending ? <ScaleLineLoader /> : "Log in"}
-          </UnauthButton>
+          <section className={`${isPending ? "opacity-80" : ""}`}>
+            <UnauthButton
+              disabled={isPending}
+              handleSubmit={handleSubmit}
+              handleClick={handleClick}
+            >
+              {" "}
+              {isPending ? <ScaleLineLoader /> : "Log in"}
+            </UnauthButton>
+          </section>
 
-          <section className="mt-2.5 text-center font-light">
+          <section className="mt-2.5 text-center font-light text-error">
             {ErrorDisplayHandler(isError, error)}
           </section>
 

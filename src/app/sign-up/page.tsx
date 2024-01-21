@@ -94,7 +94,7 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
             method={method}
           />
 
-          <section className={`${isPending ? "opacity-0" : ""}`}>
+          <section className={`${isPending ? "opacity-80" : ""}`}>
             <UnauthButton
               disabled={isPending}
               handleSubmit={handleSubmit}
@@ -115,7 +115,7 @@ const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
             </section>
           )}
 
-          <section className="mt-2.5 text-center font-light">
+          <section className="mt-2.5 text-center font-light text-error">
             {ErrorDisplayHandler(isError, error)}
           </section>
 
