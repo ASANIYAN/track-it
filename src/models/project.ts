@@ -31,7 +31,6 @@ const projectSchema = new Schema({
     required: true,
   },
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
-  permissions: { type: mongoose.Schema.Types.ObjectId, ref: "Permission" },
   users: [
     {
       user: {
@@ -39,7 +38,11 @@ const projectSchema = new Schema({
         ref: "User",
         required: true,
       },
-      role: { type: String, required: true },
+      role: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role",
+        required: true,
+      },
     },
   ],
 });
