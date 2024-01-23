@@ -9,7 +9,9 @@ export const middleware = async (request: NextRequest) => {
     path === "/login" ||
     path === "/sign-up" ||
     path === "/forgot-password" ||
-    path === "/reset-password";
+    path === "/reset-password" ||
+    path === "/resend-email" ||
+    path === "/verify-email";
 
   // Get the token from the cookies
   const token = request.cookies.get(COOKIE_NAME)?.value || "";
@@ -29,5 +31,13 @@ export const middleware = async (request: NextRequest) => {
 // It specifies the paths for which this middleware should be executed.
 // In this case, it's applied to '/', '/profile', '/login', '/forgot-password' and '/reset-password'.
 export const config = {
-  matcher: ["/", "/login", "/sign-up", "/forgot-password", "/reset-password"],
+  matcher: [
+    "/",
+    "/login",
+    "/sign-up",
+    "/forgot-password",
+    "/reset-password",
+    "/resend-email",
+    "/verify-email",
+  ],
 };
