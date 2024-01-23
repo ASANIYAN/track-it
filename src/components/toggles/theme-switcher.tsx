@@ -49,7 +49,13 @@ const ThemeSwitcher = () => {
     }
   };
 
-  return <>{allowedPaths.includes(pathname) && renderThemeChanger()}</>;
+  return (
+    <>
+      {allowedPaths.includes(pathname) && (
+        <section className="flex ml-3 mt-3">renderThemeChanger()</section>
+      )}
+    </>
+  );
 };
 
 export default ThemeSwitcher;

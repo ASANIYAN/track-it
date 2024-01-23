@@ -30,9 +30,7 @@ export default function RootLayout({
           <TanstackProvider>
             <ToastContainer />
             <header>
-              <section className="flex ml-3 mt-3">
-                <ThemeSwitcher />
-              </section>
+              <ThemeSwitcher />
             </header>
             {children}
           </TanstackProvider>
