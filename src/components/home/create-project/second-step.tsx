@@ -11,19 +11,20 @@ import CustomTextArea from "@/components/inputs/custom-textarea";
 import { stepOptions } from "./create-project";
 import CustomColorInput from "@/components/inputs/custom-color-input";
 import UnauthButton from "@/components/buttons/unauth-button";
+import { useState } from "react";
 
 const validationSchema = yup.object().shape({
   color: yup.string(),
   projectName: yup.string().required("project name is required"),
   category: yup.string().required("category is required"),
-  description: yup.string().required("description is required"),
+  // description: yup.string().required("description is required"),
 });
 
 type SecondStepFormValues = {
   color: string | undefined;
   projectName: string;
   category: string;
-  description: string;
+  // description: string;
 };
 
 type SecondStepProps = {
@@ -47,12 +48,20 @@ const SecondStep: React.FC<SecondStepProps> = ({
   handleCloseCreateProjectModal,
   handleSetStep,
 }) => {
+  const [description, setDescription] = useState<string>("");
+  const [descriptionError, setDescriptionError] = useState<string>("");
+
   const method = useForm<SecondStepFormValues>({
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit } = method;
   const handleClick = (data: SecondStepFormValues) => {
-    console.log("projectInfo");
+    if (description) {
+      console.log("projectInfo", data);
+      console.log("textarea", description);
+    } else {
+      setDescriptionError("description is required");
+    }
   };
   return (
     <section className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-darkColor2 w-full max-w-[327px] sm:max-w-[500px] md:max-w-[760px] rounded-[10px] p-3 h-fit lg:h-[70vh] xl:h-[90vh] overflow-y-auto">
@@ -79,12 +88,7 @@ const SecondStep: React.FC<SecondStepProps> = ({
         </section>
 
         <section className="mt-3">
-          <CustomColorInput
-            name="color"
-            label="Select color"
-            value={""}
-            method={method}
-          />
+          <CustomColorInput name="color" label="Select color" method={method} />
         </section>
 
         <section className="flex flex-col justify-center items-center gap-2 w-full max-w-[540px]">
@@ -98,33 +102,26 @@ const SecondStep: React.FC<SecondStepProps> = ({
           <CustomSelect
             method={method}
             name="category"
-            // defaultValue={"Design"}
+            defaultValue={"Design"}
             label="Category"
             options={categoryOptions}
           />
 
           <CustomTextArea
-            rows={4}
             name="description"
             label="Description"
-            method={method}
+            value={description}
+            error={descriptionError}
+            setValue={setDescription}
+            rows={4}
           />
 
-          <UnauthButton
-            // disabled={isPending}
-            handleSubmit={handleSubmit}
-            handleClick={handleClick}
-          >
-            {" "}
-            Create project
-            {/* {isPending ? <ScaleLineLoader /> : "Log in"} */}
-          </UnauthButton>
-          {/* <button
+          <button
             className="w-full text-center text-white py-3.5 text-base md:text-lg font-medium leading-snug bg-color6 rounded-[5px]"
             onClick={handleSubmit(handleClick)}
           >
             Create Project
-          </button> */}
+          </button>
         </section>
       </section>
     </section>

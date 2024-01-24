@@ -39,7 +39,9 @@ export const CustomSelect: React.FC<
             <select
               {...field}
               {...rest}
-              className={`focus:outline-none bg-white text-sm dark:bg-darkColor2 dark:text-white border text-color1 font-normal border-color4`}
+              className={`focus:outline-none bg-white text-sm dark:bg-darkColor2 dark:text-white border text-color1 font-normal ${
+                errors[name] ? " border-error" : "border-color4"
+              }`}
             >
               {options.map((option) => (
                 <Fragment key={option.label}>

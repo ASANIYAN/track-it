@@ -2,28 +2,28 @@ import { CustomTextAreaProps } from "@/types/types";
 import { ErrorMsg } from "../alerts/error-msg";
 import { InputWrap } from "./input-wrap";
 
-const CustomTextArea: React.FC<CustomTextAreaProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>> = ({ method, name, label, ...rest }) => {
-    const {
-        formState: { errors },
-        register,
-      } = method;
-
-    return (
-        <>
-            <InputWrap>
-                <section className="textarea-container">
-                    <label> {label }</label>
-                    <textarea
-                        {...register(name)}
-                        className={`resize-none bg-transparent focus:outline-none dark:text-darkColor3 border ${errors[name] ? ' border-error' : 'border-color4'}`}
-                        name={name}    
-                        {...rest} 
-                    />
-                </section>
-                { errors[name] && <ErrorMsg msg={errors[name]} /> }
-            </InputWrap>
-        </>
-    );
-}
+const CustomTextArea: React.FC<
+  CustomTextAreaProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>
+> = ({ name, value, setValue, label, error, ...rest }) => {
+  return (
+    <>
+      <InputWrap>
+        <section className="textarea-container">
+          <label> {label}</label>
+          <textarea
+            className={`resize-none bg-transparent focus:outline-none dark:text-darkColor3 border ${
+              error.length > 0 ? " border-error" : "border-color4"
+            }`}
+            name={name}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            {...rest}
+          />
+        </section>
+        {error.length > 0 && <ErrorMsg msg={error} />}
+      </InputWrap>
+    </>
+  );
+};
 
 export default CustomTextArea;

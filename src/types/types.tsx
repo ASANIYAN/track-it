@@ -50,7 +50,9 @@ export type CustomInputProps = {
 export type CustomTextAreaProps = {
   name: string;
   label: string;
-  method: UseFormReturn<any>;
+  value: string;
+  error: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type CustomRadioProps = {
