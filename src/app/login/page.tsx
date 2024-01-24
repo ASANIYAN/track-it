@@ -20,6 +20,8 @@ import GoogleButton from "@/components/buttons/google-button";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
+import { SuccessToast } from "@/components/toast/toasts";
+import { useRouter } from "next/navigation";
 
 const metadata: Metadata = {
   title: "Login",
@@ -40,6 +42,7 @@ const logInUser = async (payload: LoginFormValues) => {
 };
 
 const Login = () => {
+  const router = useRouter();
   const method = useForm<LoginFormValues>({
     resolver: yupResolver(validationSchema),
   });
@@ -49,7 +52,10 @@ const Login = () => {
   const { mutate, isPending, isError, error } = useMutation({
     mutationKey: ["logInUser"],
     mutationFn: logInUser,
-    onSuccess: () => console.log("Login Successful"),
+    onSuccess: () => {
+      SuccessToast("Login Successful");
+      router.push("/");
+    },
   });
 
   const handleClick = (data: LoginFormValues) => {

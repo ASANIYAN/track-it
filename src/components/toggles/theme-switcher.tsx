@@ -52,7 +52,7 @@ const ThemeSwitcher = () => {
   return (
     <>
       {allowedPaths.includes(pathname) && (
-        <section className="flex ml-3 mt-3">renderThemeChanger()</section>
+        <section className="flex ml-3 mt-3">{renderThemeChanger()}</section>
       )}
     </>
   );
