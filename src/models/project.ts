@@ -24,12 +24,12 @@ const projectSchema = new Schema({
     type: String,
     default: generateRandomColor(), // sets a random color as the default
   },
-  privacy: {
-    type: String,
-    enum: ["Private to me", "Private to project members", "Public"],
-    default: "Private to me",
-    required: true,
-  },
+  // privacy: {
+  //   type: String,
+  //   enum: ["Private to me", "Private to project members", "Public"],
+  //   default: "Private to me",
+  //   required: true,
+  // },
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   users: [
     {

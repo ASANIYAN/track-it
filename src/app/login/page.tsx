@@ -1,23 +1,24 @@
 "use client";
 
 import { Metadata } from "next";
+import Link from "next/link";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 
 import { LoginFormValues } from "@/types/types";
+
 import { CustomInput } from "@/components/inputs/custom-input";
 import UnauthHeading from "@/components/headings/unauth-heading";
 import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import UnauthButton from "@/components/buttons/unauth-button";
 import GoogleButton from "@/components/buttons/google-button";
-import Link from "next/link";
-import axios from "axios";
-import { useEffect } from "react";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
+
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 
 const metadata: Metadata = {
