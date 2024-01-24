@@ -7,7 +7,6 @@ import { sendEmail } from "@/utils/helpers/mailer";
 export const POST = async (request: NextRequest) => {
   try {
     const { email } = await request.json();
-    console.log(email, "email from frontend");
 
     await connect();
 

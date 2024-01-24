@@ -1,30 +1,37 @@
+import { useState } from "react";
+
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { ArrowLeft, CloseCircle } from "iconsax-react";
 import { FaCamera } from "react-icons/fa";
+import { ArrowLeft, CloseCircle } from "iconsax-react";
+
+import { stepOptions } from "./create-project";
+
+import { SuccessToast } from "@/components/toast/toasts";
 import { CustomInput } from "@/components/inputs/custom-input";
 import { CustomSelect } from "@/components/inputs/custom-select";
 import CustomTextArea from "@/components/inputs/custom-textarea";
-
-import { stepOptions } from "./create-project";
 import CustomColorInput from "@/components/inputs/custom-color-input";
-import UnauthButton from "@/components/buttons/unauth-button";
-import { useState } from "react";
+import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
+
+import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
+import { categoryOptions } from "@/constants/constants";
 
 const validationSchema = yup.object().shape({
   color: yup.string(),
   projectName: yup.string().required("project name is required"),
   category: yup.string().required("category is required"),
-  // description: yup.string().required("description is required"),
 });
 
 type SecondStepFormValues = {
   color: string | undefined;
   projectName: string;
   category: string;
-  // description: string;
 };
 
 type SecondStepProps = {
@@ -32,36 +39,42 @@ type SecondStepProps = {
   handleSetStep: (value: stepOptions) => void;
 };
 
-const categoryOptions = [
-  { label: "Design", value: "Design" },
-  { label: "Development", value: "Development" },
-  { label: "Marketing", value: "Marketing" },
-  { label: "Operations", value: "Operations" },
-  { label: "Education", value: "Education" },
-  { label: "Sales", value: "Sales" },
-  { label: "HR", value: "HR" },
-  { label: "IT", value: "IT" },
-  { label: "Engineering", value: "Engineering" },
-];
+const createProject = async (payload: {
+  projectName: string;
+  color: string;
+  description: string;
+  category: string;
+}) => {
+  const response = await axios.post("/api/auth/create-project", payload);
+  return response;
+};
 
 const SecondStep: React.FC<SecondStepProps> = ({
   handleCloseCreateProjectModal,
   handleSetStep,
 }) => {
   const [description, setDescription] = useState<string>("");
-  const [descriptionError, setDescriptionError] = useState<string>("");
 
   const method = useForm<SecondStepFormValues>({
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit } = method;
+
+  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    mutationKey: ["createProject"],
+    mutationFn: createProject,
+    onSuccess: () => SuccessToast("Project created successfully", "top-left"),
+  });
+
   const handleClick = (data: SecondStepFormValues) => {
-    if (description) {
-      console.log("projectInfo", data);
-      console.log("textarea", description);
-    } else {
-      setDescriptionError("description is required");
-    }
+    const { color, projectName, category } = data;
+    const payload = {
+      name: projectName,
+      color,
+      category,
+      description,
+    };
+    console.log(payload);
   };
   return (
     <section className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-darkColor2 w-full max-w-[327px] sm:max-w-[500px] md:max-w-[760px] rounded-[10px] p-3 h-fit lg:h-[70vh] xl:h-[90vh] overflow-y-auto">
@@ -111,17 +124,23 @@ const SecondStep: React.FC<SecondStepProps> = ({
             name="description"
             label="Description"
             value={description}
-            error={descriptionError}
+            error={""}
             setValue={setDescription}
             rows={4}
           />
 
           <button
-            className="w-full text-center text-white py-3.5 text-base md:text-lg font-medium leading-snug bg-color6 rounded-[5px]"
+            className={`w-full text-center text-white py-3.5 text-base md:text-lg font-medium leading-snug bg-color6 rounded-[5px] ${
+              isPending ? "opacity-80" : ""
+            }`}
             onClick={handleSubmit(handleClick)}
           >
-            Create Project
+            {isPending ? <ScaleLineLoader /> : "Create Project"}
           </button>
+
+          <section className="mt-2.5 text-center font-light text-error">
+            {ErrorDisplayHandler(isError, error)}
+          </section>
         </section>
       </section>
     </section>

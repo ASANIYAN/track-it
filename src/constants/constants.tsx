@@ -51,3 +51,15 @@ export const days = [
   "Thursday",
   "Friday",
 ];
+
+export const categoryOptions = [
+  { label: "Design", value: "Design" },
+  { label: "Development", value: "Development" },
+  { label: "Marketing", value: "Marketing" },
+  { label: "Operations", value: "Operations" },
+  { label: "Education", value: "Education" },
+  { label: "Sales", value: "Sales" },
+  { label: "HR", value: "HR" },
+  { label: "IT", value: "IT" },
+  { label: "Engineering", value: "Engineering" },
+];

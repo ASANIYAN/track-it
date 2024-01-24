@@ -1,4 +1,9 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
+
+export interface IRole extends Document {
+  name: string;
+  permissions: string[];
+}
 
 const allowedRoleNames = ["admin", "manager", "member"];
 
@@ -7,7 +12,7 @@ const validateRoleName = (value: string) => {
   return allowedRoleNames.includes(value);
 };
 
-const roleSchema = new Schema({
+const roleSchema = new Schema<IRole>({
   name: {
     type: String,
     required: true,
