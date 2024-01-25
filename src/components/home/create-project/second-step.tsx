@@ -145,7 +145,6 @@ const SecondStep: React.FC<SecondStepProps> = ({
         </h3>
 
         <section className="mt-4 relative">
-          {/* <section className="w-[68px] h-[68px] md:w-[80px] md:h-[80px] lg:w-[120px] lg:h-[120px] rounded-[10px] border border-color5 dark:darkColor7 flex justify-center items-center"> */}
           {imagePreview && (
             <span className="text-xl text-color6 font-medium absolute top-1 right-1 lg:cursor-pointer">
               <CloseCircle
@@ -177,7 +176,6 @@ const SecondStep: React.FC<SecondStepProps> = ({
               <FaCamera className="text-color5 dark:text-darkColor7 text-2xl md:text-3xl lg:text-5xl" />
             )}
           </label>
-          {/* </section> */}
         </section>
 
         <section className="mt-3">
