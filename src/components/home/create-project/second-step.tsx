@@ -61,13 +61,12 @@ type SecondStepProps = {
   handleSetStep: (value: stepOptions) => void;
 };
 
-const createProject = async (payload: {
-  projectName: string;
-  color: string;
-  description: string;
-  category: string;
-}) => {
-  const response = await axios.post("/api/auth/create-project", payload);
+const createProject = async (data: FormData) => {
+  const response = await axios.post("/api/auth/create-project", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response;
 };
 
@@ -101,15 +100,21 @@ const SecondStep: React.FC<SecondStepProps> = ({
   };
 
   const handleClick = (data: SecondStepFormValues) => {
+    const formData = new FormData();
     const { image, color, projectName, category } = data;
-    const payload = {
-      name: projectName,
-      color,
-      category,
-      description,
-      image: image[0],
-    };
-    console.log(payload);
+    formData.append("image", image[0]);
+    formData.append("color", color!);
+    formData.append("name", projectName);
+    formData.append("category", category);
+    formData.append("description", description);
+    // const payload = {
+    //   name: projectName,
+    //   color,
+    //   category,
+    //   description,
+    //   image: image[0],
+    // };
+    // console.log(payload);
   };
 
   useEffect(() => {
