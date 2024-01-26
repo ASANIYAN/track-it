@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import axios from "axios";
@@ -21,28 +22,25 @@ import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-l
 
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 import { categoryOptions } from "@/constants/constants";
-import Image from "next/image";
+import { ErrorMsg } from "@/components/alerts/error-msg";
 
-const MAX_FILE_SIZE = 2 * 1024 * 1024;
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const validationSchema = yup.object().shape({
   image: yup
     .mixed()
     .notRequired()
     .test(
       "fileSize",
-      "File size is too large",
-      (value) =>
-        !value ||
-        (Array.isArray(value) && value[0]?.file?.size <= MAX_FILE_SIZE)
+      "File size must not exceed 5MB",
+      (value: any) => !value || value[0].size <= MAX_FILE_SIZE
     )
     .test(
       "fileType",
       "Only JPEG, JPG, PNG, and GIF images are allowed",
-      (value) =>
+      (value: any) =>
         value
-          ? Array.isArray(value) &&
-            ["image/jpeg", "image/png", "image/gif", "image/jpg"].includes(
-              value[0]?.file?.type
+          ? ["image/jpeg", "image/png", "image/gif", "image/jpg"].includes(
+              value[0].type
             )
           : true
     ),
@@ -83,7 +81,13 @@ const SecondStep: React.FC<SecondStepProps> = ({
   const method = useForm<SecondStepFormValues>({
     resolver: yupResolver(validationSchema),
   });
-  const { handleSubmit, register, watch, setValue } = method;
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = method;
 
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationKey: ["createProject"],
@@ -91,13 +95,19 @@ const SecondStep: React.FC<SecondStepProps> = ({
     onSuccess: () => SuccessToast("Project created successfully", "top-left"),
   });
 
+  const handleImageRemoval = () => {
+    setValue("image", "");
+    setImagePreview("");
+  };
+
   const handleClick = (data: SecondStepFormValues) => {
-    const { color, projectName, category } = data;
+    const { image, color, projectName, category } = data;
     const payload = {
       name: projectName,
       color,
       category,
       description,
+      image: image[0],
     };
     console.log(payload);
   };
@@ -114,15 +124,6 @@ const SecondStep: React.FC<SecondStepProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch("image")]);
-
-  useEffect(() => {
-    console.log(imagePreview, "image");
-  }, [imagePreview]);
-
-  const handleImageRemoval = () => {
-    setValue("image", "");
-    setImagePreview("");
-  };
 
   return (
     <section className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-darkColor2 w-full max-w-[327px] sm:max-w-[500px] md:max-w-[760px] rounded-[10px] p-3 h-fit lg:h-[70vh] xl:h-[90vh] overflow-y-auto">
@@ -177,6 +178,12 @@ const SecondStep: React.FC<SecondStepProps> = ({
             )}
           </label>
         </section>
+        {errors["image"] && (
+          <section className="flex justify-center -mt-3">
+            {" "}
+            <ErrorMsg msg={errors["image"]?.message} />{" "}
+          </section>
+        )}
 
         <section className="mt-3">
           <CustomColorInput name="color" label="Select color" method={method} />
