@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+
+import * as jose from "jose";
+
 import { COOKIE_NAME } from "./constants/constants";
+import { verifyAuth } from "./utils/helpers/verify-auth";
 
 export const middleware = async (request: NextRequest) => {
   const path = request.nextUrl.pathname;
@@ -15,16 +19,20 @@ export const middleware = async (request: NextRequest) => {
 
   // Get the token from the cookies
   const token = request.cookies.get(COOKIE_NAME)?.value || "";
-
-  // Redirect logic based on the path and token presence
-  if (isPublicPath && token) {
-    // If trying to access a public path with a token, redirect to the home page
-    return NextResponse.redirect(new URL("/", request.nextUrl));
-  }
+  const verifiedToken =
+    token &&
+    (await verifyAuth(token).catch((err) => {
+      console.log(err, "error from verifyAuth");
+    }));
 
   // If trying to access a protected path without a token, redirect to the login page
-  if (!isPublicPath && !token) {
+  if (!isPublicPath && !verifiedToken) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
+  }
+
+  // check if token is verified and path is a public path, redirect appropriately
+  if (isPublicPath && verifiedToken) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 };
 

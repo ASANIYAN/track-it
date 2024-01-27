@@ -61,11 +61,12 @@ type SecondStepProps = {
   handleSetStep: (value: stepOptions) => void;
 };
 
+const headers = {
+  "Content-Type": "multipart/form-data",
+};
 const createProject = async (data: FormData) => {
   const response = await axios.post("/api/auth/create-project", data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+    headers,
   });
   return response;
 };
@@ -91,7 +92,10 @@ const SecondStep: React.FC<SecondStepProps> = ({
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationKey: ["createProject"],
     mutationFn: createProject,
-    onSuccess: () => SuccessToast("Project created successfully", "top-left"),
+    onSuccess: () => {
+      SuccessToast("Project created successfully", "top-left");
+      handleCloseCreateProjectModal();
+    },
   });
 
   const handleImageRemoval = () => {
@@ -107,14 +111,7 @@ const SecondStep: React.FC<SecondStepProps> = ({
     formData.append("name", projectName);
     formData.append("category", category);
     formData.append("description", description);
-    // const payload = {
-    //   name: projectName,
-    //   color,
-    //   category,
-    //   description,
-    //   image: image[0],
-    // };
-    // console.log(payload);
+    mutate(formData);
   };
 
   useEffect(() => {
