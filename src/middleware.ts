@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import * as jose from "jose";
-
 import { COOKIE_NAME } from "./constants/constants";
 import { verifyAuth } from "./utils/helpers/verify-auth";
 
@@ -19,10 +17,13 @@ export const middleware = async (request: NextRequest) => {
 
   // Get the token from the cookies
   const token = request.cookies.get(COOKIE_NAME)?.value || "";
+
+  // check if token is available and verified
   const verifiedToken =
     token &&
     (await verifyAuth(token).catch((err) => {
       console.log(err, "error from verifyAuth");
+      return NextResponse.redirect(new URL("/login", request.nextUrl));
     }));
 
   // If trying to access a protected path without a token, redirect to the login page

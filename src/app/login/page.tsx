@@ -53,8 +53,8 @@ const Login = () => {
     mutationKey: ["logInUser"],
     mutationFn: logInUser,
     onSuccess: () => {
-      SuccessToast("Login Successful");
       router.push("/");
+      SuccessToast("Login Successful");
     },
   });
 
