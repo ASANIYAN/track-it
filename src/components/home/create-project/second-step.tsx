@@ -61,13 +61,14 @@ type SecondStepProps = {
   handleSetStep: (value: stepOptions) => void;
 };
 
-const headers = {
-  "Content-Type": "multipart/form-data",
-};
-const createProject = async (data: FormData) => {
-  const response = await axios.post("/api/auth/create-project", data, {
-    headers,
-  });
+const createProject = async (data: {
+  image: any;
+  color: string | undefined;
+  name: string;
+  category: string;
+  description: string;
+}) => {
+  const response = await axios.post("/api/auth/create-project", data);
   return response;
 };
 
@@ -104,14 +105,16 @@ const SecondStep: React.FC<SecondStepProps> = ({
   };
 
   const handleClick = (data: SecondStepFormValues) => {
-    const formData = new FormData();
     const { image, color, projectName, category } = data;
-    formData.append("image", image[0]);
-    formData.append("color", color!);
-    formData.append("name", projectName);
-    formData.append("category", category);
-    formData.append("description", description);
-    mutate(formData);
+    const payload = {
+      image: imagePreview,
+      color,
+      name: projectName,
+      category: category,
+      description,
+    };
+    console.log(payload, "payload");
+    mutate(payload);
   };
 
   useEffect(() => {
@@ -119,7 +122,8 @@ const SecondStep: React.FC<SecondStepProps> = ({
     if (image_watcher[0]) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string);
+        const readerResult = reader.result as string;
+        setImagePreview(readerResult);
       };
       reader.readAsDataURL(image_watcher[0]);
       // setImagePreview(image_watcher);

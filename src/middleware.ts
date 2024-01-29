@@ -19,12 +19,10 @@ export const middleware = async (request: NextRequest) => {
   const token = request.cookies.get(COOKIE_NAME)?.value || "";
 
   // check if token is available and verified
-  const verifiedToken =
-    token &&
-    (await verifyAuth(token).catch((err) => {
-      console.log(err, "error from verifyAuth");
-      return NextResponse.redirect(new URL("/login", request.nextUrl));
-    }));
+  const verifiedToken = await verifyAuth(token).catch((err) => {
+    console.log(err, "error from verifyAuth");
+    return null;
+  });
 
   // If trying to access a protected path without a token, redirect to the login page
   if (!isPublicPath && !verifiedToken) {
