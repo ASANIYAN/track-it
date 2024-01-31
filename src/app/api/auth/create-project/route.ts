@@ -10,12 +10,9 @@ import { uploadSingleImageToCloudinary } from "@/utils/helpers/cloudinary";
 export const POST = async (request: NextRequest) => {
   try {
     const { image, color, name, category, description } = await request.json();
-    console.log(color, name, category, description, "payload");
     const imageFromCloudinary = await uploadSingleImageToCloudinary(image);
-    console.log(imageFromCloudinary, "cloudinary");
 
     const userId = await getDataFromToken(request);
-    console.log(userId, "userId");
     await connect();
 
     const user = await User.findOne({ _id: userId });
