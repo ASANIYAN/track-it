@@ -24,7 +24,7 @@ const projectSchema = new Schema({
     type: String,
     default: generateRandomColor(), // sets a random color as the default
   },
-  image: { type: String, required: true },
+  image: { id: { type: String }, url: { type: String } },
   // privacy: {
   //   type: String,
   //   enum: ["Private to me", "Private to project members", "Public"],
