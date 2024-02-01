@@ -5,7 +5,7 @@ import bcryptjs from "bcryptjs";
 import User from "@/models/user";
 import connect from "@/utils/db/mongodb-connect";
 
-export async function POST(request: NextRequest) {
+export const POST = async (request: NextRequest) => {
   try {
     // extracts the password and token property from the JSON body of the incoming request.
     const { password, token } = await request.json();
@@ -48,4 +48,4 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-}
+};

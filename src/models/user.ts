@@ -1,6 +1,17 @@
 import mongoose, { Schema } from "mongoose";
+import { Document } from "mongoose";
 
-const userSchema = new Schema(
+export interface UserDocument extends Document {
+  email: string;
+  password?: string;
+  isVerified: boolean;
+  forgotPasswordToken?: string;
+  forgotPasswordTokenExpiry?: Date;
+  verifyToken?: string;
+  verifyTokenExpiry?: Date;
+}
+
+const userSchema = new Schema<UserDocument>(
   {
     email: {
       type: String,

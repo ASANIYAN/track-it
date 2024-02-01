@@ -36,12 +36,17 @@ const validationSchema = yup.object().shape({
     )
     .test(
       "fileType",
-      "Only JPEG, JPG, PNG, and GIF images are allowed",
+      "Only JPEG, JPG, PNG, SVG, WEBP and GIF images are allowed",
       (value: any) =>
         value
-          ? ["image/jpeg", "image/png", "image/gif", "image/jpg"].includes(
-              value[0].type
-            )
+          ? [
+              "image/jpeg",
+              "image/png",
+              "image/gif",
+              "image/jpg",
+              "image/svg",
+              "image/webp",
+            ].includes(value[0].type)
           : true
     ),
   color: yup.string(),

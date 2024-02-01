@@ -1,5 +1,8 @@
+import useGetAllProject from "@/utils/hooks/useGetAllProject";
 import Projects from "./projects";
 import WorkedOn from "./worked-on";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const recent = [
   { title: "App Development", subTitle: "Development" },
@@ -12,6 +15,10 @@ const favorite = [
 ];
 
 const HomeDesktop = () => {
+  const queryClient = useQueryClient();
+  const { data, error, isLoading } = useGetAllProject();
+  // console.log(data, "data from getRequest");
+
   return (
     <>
       <section>

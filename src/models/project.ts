@@ -1,7 +1,36 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 import generateRandomColor from "@/utils/helpers/generate-random-colors";
 
-const projectSchema = new Schema({
+interface UserRef {
+  user: Types.ObjectId;
+  role: Types.ObjectId;
+}
+
+interface Image {
+  id?: string;
+  url?: string;
+}
+
+export interface ProjectDocument extends Document {
+  name: string;
+  description?: string;
+  category:
+    | "Design"
+    | "Development"
+    | "Marketing"
+    | "Operations"
+    | "Education"
+    | "Sales"
+    | "HR"
+    | "IT"
+    | "Engineering";
+  color: string;
+  image?: Image;
+  tasks: Types.ObjectId[];
+  users: UserRef[];
+}
+
+const projectSchema = new Schema<ProjectDocument>({
   name: { type: String, required: true },
   description: { type: String },
   category: {
