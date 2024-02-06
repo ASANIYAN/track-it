@@ -12,37 +12,14 @@ import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 import "./navbar.css";
 import Link from "next/link";
-
-const projects = [
-  {
-    name: "App Development",
-    img: (
-      <Image
-        width={20}
-        height={20}
-        src={"/assets/icons/mobile40.svg"}
-        alt="mobile40"
-      />
-    ),
-  },
-  {
-    name: "Web Design",
-    img: (
-      <Image
-        width={20}
-        height={20}
-        src={"/assets/icons/icon.svg"}
-        alt="mobile40"
-      />
-    ),
-  },
-];
+import { useProjectStore } from "@/store/project-store";
 
 type MobileProps = {
   open: boolean;
 };
 
 const Mobile: React.FC<MobileProps> = ({ open }) => {
+  const { projectsWithUsers, isSuccess } = useProjectStore();
   const [dropDown, setDropDown] = useState<boolean>(false);
 
   const handleDropDown = () => {
@@ -119,18 +96,19 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
                   </motion.section>
                   {dropDown && (
                     <motion.section className="mt-2.5 space-y-3.5">
-                      {projects.map((project, index) => (
-                        <motion.p
-                          key={index}
-                          className="flex gap-2.5 items-center cursor-pointer"
-                        >
-                          {project.img}
-                          <span className="text-color7 dark:text-white text-sm font-normal">
-                            {" "}
-                            {project.name}{" "}
-                          </span>
-                        </motion.p>
-                      ))}
+                      {isSuccess &&
+                        projectsWithUsers.map((project) => (
+                          <motion.p
+                            key={project._id}
+                            className="flex gap-2.5 items-center cursor-pointer"
+                          >
+                            {project.image.url}
+                            <span className="text-color7 dark:text-white text-sm font-normal">
+                              {" "}
+                              {project.name}{" "}
+                            </span>
+                          </motion.p>
+                        ))}
                     </motion.section>
                   )}
                 </motion.section>
@@ -151,18 +129,19 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
               <motion.section variants={itemVariants} className="px-3 mt-5">
                 <h4 className="font-medium text-sm text-color9"> Projects </h4>
                 <motion.section className="mt-2.5 space-y-3.5">
-                  {projects.map((project, index) => (
-                    <motion.p
-                      key={index}
-                      className="flex gap-2.5 items-center cursor-pointer"
-                    >
-                      {project.img}
-                      <span className="text-color7 dark:text-white text-sm font-normal">
-                        {" "}
-                        {project.name}{" "}
-                      </span>
-                    </motion.p>
-                  ))}
+                  {isSuccess &&
+                    projectsWithUsers.map((project) => (
+                      <motion.p
+                        key={project._id}
+                        className="flex gap-2.5 items-center cursor-pointer"
+                      >
+                        {project.image.url}
+                        <span className="text-color7 dark:text-white text-sm font-normal">
+                          {" "}
+                          {project.name}{" "}
+                        </span>
+                      </motion.p>
+                    ))}
                 </motion.section>
               </motion.section>
             </motion.section>

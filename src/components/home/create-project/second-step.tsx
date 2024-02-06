@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -95,10 +95,12 @@ const SecondStep: React.FC<SecondStepProps> = ({
     formState: { errors },
   } = method;
 
+  const queryClient = useQueryClient();
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationKey: ["createProject"],
     mutationFn: createProject,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getAllProject"] });
       SuccessToast("Project created successfully", "top-left");
       handleCloseCreateProjectModal();
     },

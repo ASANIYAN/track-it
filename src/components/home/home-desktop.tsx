@@ -5,16 +5,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useProjectStore } from "@/store/project-store";
 
-const recent = [
-  { title: "App Development", subTitle: "Development" },
-  { title: "Mobile", subTitle: "Development" },
-];
-
-const favorite = [
-  { title: "App Development", subTitle: "Development" },
-  { title: "Mobile", subTitle: "Development" },
-];
-
 const HomeDesktop = () => {
   const { projectsWithUsers } = useProjectStore();
 

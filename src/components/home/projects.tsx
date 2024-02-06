@@ -15,8 +15,6 @@ const Projects: React.FC<ProjectsProps> = ({ heading, data }) => {
   const [open, cycleOpen] = useCycle(false, true);
   const { isLoading, isSuccess } = useProjectStore();
 
-  // console.log(projects.projectsWithUsers, "content from getRequest");
-
   return (
     <>
       <DropdownHeading heading={heading!} cycleOpen={cycleOpen} open={open} />

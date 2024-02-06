@@ -8,16 +8,6 @@ import { useProjectStore } from "@/store/project-store";
 
 type tabOptions = "recent" | "favorites" | "worked";
 
-const recent = [
-  { title: "App Development", subTitle: "Development" },
-  { title: "Mobile", subTitle: "Development" },
-];
-
-const favorite = [
-  { title: "App Development", subTitle: "Development" },
-  { title: "Mobile", subTitle: "Development" },
-];
-
 const tabs = [
   { name: "Recent", alias: "recent" },
   { name: "Favorites", alias: "favorites" },

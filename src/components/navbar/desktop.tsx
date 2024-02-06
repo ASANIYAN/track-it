@@ -12,8 +12,10 @@ import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 import "./navbar.css";
 import Link from "next/link";
+import { useProjectStore } from "@/store/project-store";
 
 const Desktop = () => {
+  const { projectsWithUsers, isSuccess } = useProjectStore();
   const [dropDown, setDropDown] = useState<boolean>(false);
 
   const handleDropDown = () => {
@@ -55,33 +57,25 @@ const Desktop = () => {
             <h4 className="font-medium text-sm text-color9"> Favorites </h4>
             {showIcon()}
           </section>
-          {dropDown && (
-            <section className="mt-2.5 space-y-3.5">
-              <p className="flex gap-2.5 items-center cursor-pointer">
-                <Image
-                  width={20}
-                  height={20}
-                  src={"/assets/icons/mobile40.svg"}
-                  alt="mobile40"
-                />
-                <span className="text-color7 dark:text-white text-sm font-normal">
-                  {" "}
-                  App Development{" "}
-                </span>
-              </p>
-              <p className="flex gap-2.5 items-center cursor-pointer">
-                <Image
-                  width={20}
-                  height={20}
-                  src={"/assets/icons/icon.svg"}
-                  alt="mobile40"
-                />
-                <span className="text-color7 dark:text-white text-sm font-normal">
-                  {" "}
-                  Web Design{" "}
-                </span>
-              </p>
-            </section>
+          {isSuccess && (
+            <>
+              {dropDown &&
+                projectsWithUsers.map((project) => (
+                  <section key={project._id} className="mt-2.5 space-y-3.5">
+                    <p className="flex gap-2.5 items-center lg:cursor-pointer">
+                      <Image
+                        width={20}
+                        height={20}
+                        src={project.image.url}
+                        alt={`${project.name}`}
+                      />
+                      <span className="text-color7 dark:text-white text-sm font-normal">
+                        ${project.name}
+                      </span>
+                    </p>
+                  </section>
+                ))}
+            </>
           )}
         </section>
       </section>
@@ -95,32 +89,22 @@ const Desktop = () => {
 
       <section className="px-3 mt-5">
         <h4 className="font-medium text-sm text-color9"> Projects </h4>
-        <section className="mt-2.5 space-y-3.5">
-          <p className="flex gap-2.5 items-center cursor-pointer">
-            <Image
-              width={20}
-              height={20}
-              src={"/assets/icons/mobile40.svg"}
-              alt="mobile40"
-            />
-            <span className="text-color7 dark:text-white text-sm font-normal">
-              {" "}
-              App Development{" "}
-            </span>
-          </p>
-          <p className="flex gap-2.5 items-center cursor-pointer">
-            <Image
-              width={20}
-              height={20}
-              src={"/assets/icons/icon.svg"}
-              alt="mobile40"
-            />
-            <span className="text-color7 dark:text-white text-sm font-normal">
-              {" "}
-              Web Design{" "}
-            </span>
-          </p>
-        </section>
+        {isSuccess &&
+          projectsWithUsers.map((project) => (
+            <section key={project._id} className="mt-2.5 space-y-3.5">
+              <p className="flex gap-2.5 items-center lg:cursor-pointer">
+                <Image
+                  width={20}
+                  height={20}
+                  src={project.image.url}
+                  alt={`${project.name}`}
+                />
+                <span className="text-color7 dark:text-white text-sm font-normal">
+                  {project.name}
+                </span>
+              </p>
+            </section>
+          ))}
       </section>
     </motion.aside>
   );
