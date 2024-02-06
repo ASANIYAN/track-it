@@ -4,6 +4,7 @@ import Tab from "../tab/tab";
 
 import ProjectsMobile from "./projects-mobile";
 import WorkedOnMobile from "./worked-on-mobile";
+import { useProjectStore } from "@/store/project-store";
 
 type tabOptions = "recent" | "favorites" | "worked";
 
@@ -25,12 +26,17 @@ const tabs = [
 
 const HomeMobile = () => {
   const [activeTab, setActiveTab] = useState<tabOptions>("recent");
+  const { projectsWithUsers } = useProjectStore();
 
   return (
     <section className="px-1">
       <Tab tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-      {activeTab === tabs[0].alias && <ProjectsMobile data={recent} />}
-      {activeTab === tabs[1].alias && <ProjectsMobile data={favorite} />}
+      {activeTab === tabs[0].alias && (
+        <ProjectsMobile data={projectsWithUsers} />
+      )}
+      {activeTab === tabs[1].alias && (
+        <ProjectsMobile data={projectsWithUsers} />
+      )}
       {activeTab === tabs[2].alias && <WorkedOnMobile />}
     </section>
   );

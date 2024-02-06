@@ -13,16 +13,8 @@ import { useProjectStore } from "@/store/project-store";
 
 const Projects: React.FC<ProjectsProps> = ({ heading, data }) => {
   const [open, cycleOpen] = useCycle(false, true);
-  const { data: projects, error, isLoading, isSuccess } = useGetAllProject();
-  const { projectsWithUsers, setProjectWithUsers } = useProjectStore();
-  console.log(projects, "data from getRequest");
+  const { isLoading, isSuccess } = useProjectStore();
 
-  const handleAddProjectInfoToStore = () => {
-    if (projects) {
-      setProjectWithUsers(projects?.projectsWithUsers);
-    }
-  };
-  useEffect(handleAddProjectInfoToStore, [projects, setProjectWithUsers]);
   // console.log(projects.projectsWithUsers, "content from getRequest");
 
   return (
@@ -32,7 +24,7 @@ const Projects: React.FC<ProjectsProps> = ({ heading, data }) => {
         <section className="flex flex-wrap gap-4 mt-4">
           {isLoading && <p> Loading.... </p>}
           {isSuccess &&
-            projectsWithUsers?.map((item: AllProject) => {
+            data?.map((item: AllProject) => {
               const { _id } = item;
               return (
                 <Fragment key={_id}>

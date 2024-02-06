@@ -68,10 +68,7 @@ export type CustomCheckboxProps = {
 
 export type ProjectsProps = {
   heading?: string;
-  data: {
-    title: string;
-    subTitle: string;
-  }[];
+  data: AllProject[];
 };
 
 type usersFromAllProject = {

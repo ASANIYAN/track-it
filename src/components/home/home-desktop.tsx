@@ -3,6 +3,7 @@ import Projects from "./projects";
 import WorkedOn from "./worked-on";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useProjectStore } from "@/store/project-store";
 
 const recent = [
   { title: "App Development", subTitle: "Development" },
@@ -15,14 +16,16 @@ const favorite = [
 ];
 
 const HomeDesktop = () => {
+  const { projectsWithUsers } = useProjectStore();
+
   return (
     <>
       <section>
-        <Projects heading="Recent Project" data={recent} />
+        <Projects heading="Recent Project" data={projectsWithUsers} />
       </section>
 
       <section className="mt-10">
-        <Projects heading="Favorites" data={favorite} />
+        <Projects heading="Favorites" data={projectsWithUsers} />
       </section>
 
       <section className="mt-10">
