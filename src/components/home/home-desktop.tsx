@@ -15,10 +15,6 @@ const favorite = [
 ];
 
 const HomeDesktop = () => {
-  const queryClient = useQueryClient();
-  const { data, error, isLoading } = useGetAllProject();
-  // console.log(data, "data from getRequest");
-
   return (
     <>
       <section>

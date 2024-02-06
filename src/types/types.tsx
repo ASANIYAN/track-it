@@ -73,3 +73,25 @@ export type ProjectsProps = {
     subTitle: string;
   }[];
 };
+
+type usersFromAllProject = {
+  role: string;
+  user: {
+    _id: string;
+    email: string;
+  };
+};
+
+export type AllProject = {
+  _id: string;
+  category: string;
+  color: string;
+  description: string;
+  image: {
+    id: string;
+    url: string;
+  };
+  name: string;
+  tasks: [];
+  users: usersFromAllProject[];
+};

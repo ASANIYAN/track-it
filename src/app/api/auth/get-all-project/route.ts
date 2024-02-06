@@ -12,6 +12,7 @@ export const GET = async (request: NextRequest) => {
     const userId = await getDataFromToken(request);
 
     await connect();
+    const user = await User.findOne({ _id: userId });
     // check if user info gotten from user-id search exists
     if (!user) {
       return NextResponse.json(
@@ -26,7 +27,6 @@ export const GET = async (request: NextRequest) => {
 
     const projectsWithUsers = await getUsersForProjects(projects);
 
-    console.log(projectsWithUsers, "projectWithUsers");
     return NextResponse.json({
       message: "Project fetched successfully",
       success: true,

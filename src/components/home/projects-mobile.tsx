@@ -12,7 +12,7 @@ const ProjectsMobile: React.FC<ProjectsProps> = ({ data }) => {
         return (
           <Fragment key={title}>
             {" "}
-            <ProjectCard title={title} subTitle={subTitle} />{" "}
+            {/* <ProjectCard title={title} subTitle={subTitle} />{" "} */}
           </Fragment>
         );
       })}

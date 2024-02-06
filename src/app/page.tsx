@@ -5,9 +5,7 @@ import AuthWrapper from "@/components/wrappers/auth-wrapper";
 import HomeDesktop from "@/components/home/home-desktop";
 import HomeMobile from "@/components/home/home-mobile";
 
-
 export default function Home() {
-
   return (
     <main className="">
       <AuthWrapper>
@@ -18,7 +16,6 @@ export default function Home() {
           <HomeDesktop />
         </section>
       </AuthWrapper>
-    
     </main>
-  )
+  );
 }

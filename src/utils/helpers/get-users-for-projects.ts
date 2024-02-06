@@ -34,7 +34,6 @@ const getUsersForProjects = async (projects: any) => {
 
     return updatedProjects;
   } catch (error) {
-    console.error("Error fetching or updating users:", error);
     throw error;
   }
 };

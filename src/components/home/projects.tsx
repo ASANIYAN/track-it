@@ -1,28 +1,46 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 import { useCycle } from "framer-motion";
 
-import { ProjectsProps } from "@/types/types";
+import { AllProject, ProjectsProps } from "@/types/types";
 import DropdownHeading from "../headings/dropdown-heading";
 import ProjectCard from "../project-card/project-card";
+import useGetAllProject from "@/utils/hooks/useGetAllProject";
+
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useProjectStore } from "@/store/project-store";
 
 const Projects: React.FC<ProjectsProps> = ({ heading, data }) => {
   const [open, cycleOpen] = useCycle(false, true);
+  const { data: projects, error, isLoading, isSuccess } = useGetAllProject();
+  const { projectsWithUsers, setProjectWithUsers } = useProjectStore();
+  console.log(projects, "data from getRequest");
+
+  const handleAddProjectInfoToStore = () => {
+    if (projects) {
+      setProjectWithUsers(projects?.projectsWithUsers);
+    }
+  };
+  useEffect(handleAddProjectInfoToStore, [projects, setProjectWithUsers]);
+  // console.log(projects.projectsWithUsers, "content from getRequest");
 
   return (
     <>
       <DropdownHeading heading={heading!} cycleOpen={cycleOpen} open={open} />
       {open && (
         <section className="flex flex-wrap gap-4 mt-4">
-          {data.map((item) => {
-            const { title, subTitle } = item;
-            return (
-              <Fragment key={title}>
-                {" "}
-                <ProjectCard title={title} subTitle={subTitle} />{" "}
-              </Fragment>
-            );
-          })}
+          {isLoading && <p> Loading.... </p>}
+          {isSuccess &&
+            projectsWithUsers?.map((item: AllProject) => {
+              const { _id } = item;
+              return (
+                <Fragment key={_id}>
+                  {" "}
+                  <ProjectCard data={item} />{" "}
+                </Fragment>
+              );
+            })}
         </section>
       )}
     </>
