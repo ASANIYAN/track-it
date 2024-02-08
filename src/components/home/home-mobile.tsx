@@ -6,17 +6,18 @@ import ProjectsMobile from "./projects-mobile";
 import WorkedOnMobile from "./worked-on-mobile";
 import { useProjectStore } from "@/store/project-store";
 
-type tabOptions = "recent" | "favorites" | "worked";
+type tabOptions = "recent" | "favourites" | "worked";
 
 const tabs = [
   { name: "Recent", alias: "recent" },
-  { name: "Favorites", alias: "favorites" },
+  { name: "Favourites", alias: "favorites" },
   { name: "Worked", alias: "worked" },
 ];
 
 const HomeMobile = () => {
   const [activeTab, setActiveTab] = useState<tabOptions>("recent");
   const { projectsWithUsers } = useProjectStore();
+  const favourites = projectsWithUsers.filter((obj) => obj.favourite === true);
 
   return (
     <section className="px-1">
@@ -24,9 +25,7 @@ const HomeMobile = () => {
       {activeTab === tabs[0].alias && (
         <ProjectsMobile data={projectsWithUsers} />
       )}
-      {activeTab === tabs[1].alias && (
-        <ProjectsMobile data={projectsWithUsers} />
-      )}
+      {activeTab === tabs[1].alias && <ProjectsMobile data={favourites} />}
       {activeTab === tabs[2].alias && <WorkedOnMobile />}
     </section>
   );

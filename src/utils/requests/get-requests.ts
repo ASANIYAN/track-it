@@ -1,4 +1,3 @@
-import { ProjectDocument } from "@/models/project";
 import axios from "axios";
 
 export const getAllProjects = async () => {

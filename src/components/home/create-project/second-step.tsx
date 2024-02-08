@@ -44,7 +44,7 @@ const validationSchema = yup.object().shape({
               "image/png",
               "image/gif",
               "image/jpg",
-              "image/svg",
+              "image/svg+xml",
               "image/webp",
             ].includes(value[0].type)
           : true
@@ -120,7 +120,6 @@ const SecondStep: React.FC<SecondStepProps> = ({
       category: category,
       description,
     };
-    console.log(payload, "payload");
     mutate(payload);
   };
 

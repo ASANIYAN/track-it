@@ -1,8 +1,7 @@
-import { BrifecaseTick, ProfileCircle } from "iconsax-react";
+import { ProfileCircle } from "iconsax-react";
 import { motion, useCycle } from "framer-motion";
 import Image from "next/image";
 import ProjectCardOption from "./project-card-options";
-import { useState } from "react";
 import { AllProject } from "@/types/types";
 import { useProjectStore } from "@/store/project-store";
 
@@ -27,7 +26,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
           className="w-full sm:w-[250px] flex flex-col relative border border-color4 bg-white dark:border-darkColor4 dark:bg-darkColor2 gap-2.5 items-start rounded-[10px] py-3.5 px-3"
         >
           <section className="flex justify-between items-center w-full">
-            <BrifecaseTick size="24" color="#5b5c60" variant="Bold" />
+            <Image
+              src={data?.image.url}
+              width={24}
+              height={24}
+              alt={`${data?.name}-img`}
+            />
             <ProjectCardOption data={data} />
           </section>
           <section>

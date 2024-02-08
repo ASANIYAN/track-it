@@ -23,6 +23,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const handleDeleteProject = () => {};
   const handleRenameProject = () => {};
   const handleRemoveProjectFromFavourite = () => {};
+  const handleAddProjectToFavourite = () => {};
 
   const handleEditProjectDetails = () => {
     setSingleProject(data);
@@ -32,11 +33,18 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const projectOptions = [
     { name: "Delete Project", handler: handleDeleteProject },
     { name: "Rename Project", handler: handleRenameProject },
+    { name: "Edit Project Details", handler: handleEditProjectDetails },
+  ];
+
+  const otherProjectOptions = [
     {
       name: "Remove from Favourites",
       handler: handleRemoveProjectFromFavourite,
     },
-    { name: "Edit Project Details", handler: handleEditProjectDetails },
+    {
+      name: "Add to Favourites",
+      handler: handleAddProjectToFavourite,
+    },
   ];
 
   return (
@@ -71,6 +79,26 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
               {option.name}{" "}
             </p>
           ))}
+          {data?.favourite === true && (
+            <p
+              key={otherProjectOptions[0].name}
+              className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
+              onClick={otherProjectOptions[0].handler}
+            >
+              {" "}
+              {otherProjectOptions[0].name}{" "}
+            </p>
+          )}
+          {data?.favourite === false && (
+            <p
+              key={otherProjectOptions[1].name}
+              className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
+              onClick={otherProjectOptions[1].handler}
+            >
+              {" "}
+              {otherProjectOptions[1].name}{" "}
+            </p>
+          )}
         </section>
       </section>
       {editProjectModal && (

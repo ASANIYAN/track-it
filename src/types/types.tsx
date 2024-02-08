@@ -88,6 +88,7 @@ export type AllProject = {
     id: string;
     url: string;
   };
+  favourite: boolean;
   name: string;
   tasks: [];
   users: usersFromAllProject[];

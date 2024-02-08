@@ -7,6 +7,7 @@ import { useProjectStore } from "@/store/project-store";
 
 const HomeDesktop = () => {
   const { projectsWithUsers } = useProjectStore();
+  const favourites = projectsWithUsers.filter((obj) => obj.favourite === true);
 
   return (
     <>
@@ -15,7 +16,7 @@ const HomeDesktop = () => {
       </section>
 
       <section className="mt-10">
-        <Projects heading="Favorites" data={projectsWithUsers} />
+        <Projects heading="Favourites" data={favourites} />
       </section>
 
       <section className="mt-10">
