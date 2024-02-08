@@ -28,7 +28,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
         >
           <section className="flex justify-between items-center w-full">
             <BrifecaseTick size="24" color="#5b5c60" variant="Bold" />
-            <ProjectCardOption />
+            <ProjectCardOption data={data} />
           </section>
           <section>
             <h4 className="text-color1 text-sm font-medium dark:text-white">

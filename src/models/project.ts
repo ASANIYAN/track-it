@@ -26,6 +26,7 @@ export interface ProjectDocument extends Document {
     | "Engineering";
   color: string;
   image?: Image;
+  favourite: boolean;
   tasks: Types.ObjectId[];
   users: UserRef[];
 }
@@ -60,6 +61,10 @@ const projectSchema = new Schema<ProjectDocument>({
   //   default: "Private to me",
   //   required: true,
   // },
+  favourite: {
+    type: Boolean,
+    default: false,
+  },
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   users: [
     {

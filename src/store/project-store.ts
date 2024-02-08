@@ -8,6 +8,8 @@ type ProjectStore = {
   setIsLoading: (newState: boolean) => void;
   isSuccess: boolean;
   setIsSuccess: (newState: boolean) => void;
+  singleProject: AllProject | null;
+  setSingleProject: (project: AllProject | null) => void;
 };
 
 export const useProjectStore = create<ProjectStore>((set) => ({
@@ -17,4 +19,6 @@ export const useProjectStore = create<ProjectStore>((set) => ({
   setIsLoading: (newState) => set({ isLoading: newState }),
   isSuccess: false,
   setIsSuccess: (newState) => set({ isSuccess: newState }),
+  singleProject: null,
+  setSingleProject: (project) => set({ singleProject: project }),
 }));
