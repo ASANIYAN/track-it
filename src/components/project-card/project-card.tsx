@@ -34,7 +34,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
             />
             <ProjectCardOption data={data} />
           </section>
-          <section>
+          <section className="truncate">
             <h4 className="text-color1 text-sm font-medium dark:text-white">
               {" "}
               {data?.name}{" "}
