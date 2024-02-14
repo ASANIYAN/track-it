@@ -3,16 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 import connect from "@/utils/db/mongodb-connect";
 import getDataFromToken from "@/utils/helpers/get-data-from-token";
 
-import Project from "@/models/project";
 import User from "@/models/user";
-import getUsersForProjects from "@/utils/helpers/get-users-for-projects";
+import Project from "@/models/project";
 
-export const GET = async (request: NextRequest) => {
+export const PATCH = async (request: NextRequest) => {
   try {
+    const { name, id } = await request.json();
+
     const userId = await getDataFromToken(request);
 
     await connect();
+
     const user = await User.findOne({ _id: userId });
+
     // check if user info gotten from user-id search exists
     if (!user) {
       return NextResponse.json(
@@ -21,18 +24,17 @@ export const GET = async (request: NextRequest) => {
       );
     }
 
-    const projects = await Project.find({
-      "users.user": userId,
+    const updatedProject = await Project.findByIdAndUpdate(id, {
+      $set: { name },
     });
-
-    const projectsWithUsers = await getUsersForProjects(projects);
 
     return NextResponse.json({
-      message: "Project fetched successfully",
+      message: "Project renamed successfully",
       success: true,
-      projectsWithUsers,
+      project: updatedProject,
     });
   } catch (error: any) {
+    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };

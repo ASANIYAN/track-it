@@ -59,8 +59,6 @@ const Login = () => {
   });
 
   const handleClick = (data: LoginFormValues) => {
-    console.log(data);
-
     const payload = {
       email: data.email,
       password: data.password,

@@ -53,7 +53,6 @@ const InitialView: React.FC<InitialViewProps> = ({ handleSetViewAndEmail }) => {
   const { handleSubmit } = method;
 
   const handleClick = (data: ForgotPasswordFormValues) => {
-    console.log(data);
     const payload = {
       email: data.email,
     };

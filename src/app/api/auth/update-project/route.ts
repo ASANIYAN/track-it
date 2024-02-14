@@ -75,7 +75,6 @@ export const PUT = async (request: NextRequest) => {
       updatedProject,
     });
   } catch (error: any) {
-    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };

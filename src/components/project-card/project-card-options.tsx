@@ -4,6 +4,7 @@ import useOutsideClick from "@/utils/hooks/useOutsideClick";
 import Image from "next/image";
 import { useState } from "react";
 import EditProjectModal from "../home/edit-project-modal";
+import RenameProjectModal from "../home/rename-project-modal";
 
 type ProjectCardOptionProps = {
   data: AllProject;
@@ -13,6 +14,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const { setSingleProject } = useProjectStore();
 
   const [editProjectModal, setEditProjectModal] = useState<boolean>(false);
+  const [renameProjectModal, setRenameProjectModal] = useState<boolean>(false);
 
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => setOpen((open) => !open);
@@ -21,7 +23,10 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const ref = useOutsideClick(handleCardClosure);
 
   const handleDeleteProject = () => {};
-  const handleRenameProject = () => {};
+  const handleRenameProject = () => {
+    setSingleProject(data);
+    setRenameProjectModal(true);
+  };
   const handleRemoveProjectFromFavourite = () => {};
   const handleAddProjectToFavourite = () => {};
 
@@ -103,6 +108,9 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
       </section>
       {editProjectModal && (
         <EditProjectModal setEditProjectModal={setEditProjectModal} />
+      )}
+      {renameProjectModal && (
+        <RenameProjectModal setRenameProjectModal={setRenameProjectModal} />
       )}
     </>
   );

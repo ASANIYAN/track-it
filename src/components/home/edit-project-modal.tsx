@@ -10,10 +10,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FaCamera } from "react-icons/fa";
 import { CloseCircle } from "iconsax-react";
 
-import { ErrorToast, SuccessToast } from "@/components/toast/toasts";
 import { CustomInput } from "@/components/inputs/custom-input";
 import { CustomSelect } from "@/components/inputs/custom-select";
 import CustomTextArea from "@/components/inputs/custom-textarea";
+import { ErrorToast, SuccessToast } from "@/components/toast/toasts";
 import CustomColorInput from "@/components/inputs/custom-color-input";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 

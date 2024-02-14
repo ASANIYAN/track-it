@@ -53,7 +53,6 @@ const ResetPassword = () => {
   const { handleSubmit } = method;
 
   const handleClick = (data: ResetPasswordValues) => {
-    console.log(data);
     const payload = {
       password: data.password,
       token,

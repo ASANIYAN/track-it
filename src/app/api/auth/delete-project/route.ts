@@ -5,7 +5,6 @@ import getDataFromToken from "@/utils/helpers/get-data-from-token";
 
 import Project from "@/models/project";
 import User from "@/models/user";
-import getUsersForProjects from "@/utils/helpers/get-users-for-projects";
 
 export const DELETE = async (request: NextRequest) => {
   try {
@@ -29,7 +28,6 @@ export const DELETE = async (request: NextRequest) => {
       success: true,
     });
   } catch (error: any) {
-    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };

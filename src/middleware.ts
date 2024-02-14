@@ -20,7 +20,6 @@ export const middleware = async (request: NextRequest) => {
 
   // check if token is available and verified
   const verifiedToken = await verifyAuth(token).catch((err) => {
-    console.log(err, "error from verifyAuth");
     return null;
   });
 

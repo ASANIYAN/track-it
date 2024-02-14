@@ -1,7 +1,8 @@
 "use client";
 
-import { Metadata } from "next";
 import Link from "next/link";
+import { Metadata } from "next";
+import { useRouter } from "next/navigation";
 
 import axios from "axios";
 
@@ -19,7 +20,6 @@ import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import UnauthButton from "@/components/buttons/unauth-button";
 import GoogleButton from "@/components/buttons/google-button";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
-import { useRouter } from "next/navigation";
 import { SuccessToast } from "@/components/toast/toasts";
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 

@@ -58,7 +58,6 @@ export const POST = async (request: NextRequest) => {
       savedProject,
     });
   } catch (error: any) {
-    console.log(error, "error");
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };
