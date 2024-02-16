@@ -67,10 +67,10 @@ const Desktop = () => {
                         width={20}
                         height={20}
                         src={project.image.url}
-                        alt={`${project.name}`}
+                        alt={`${project.name}-img`}
                       />
                       <span className="text-color7 dark:text-white text-sm font-normal">
-                        ${project.name}
+                        {project.name}
                       </span>
                     </p>
                   </section>
@@ -97,7 +97,7 @@ const Desktop = () => {
                   width={20}
                   height={20}
                   src={project.image.url}
-                  alt={`${project.name}`}
+                  alt={`${project.name}-img`}
                 />
                 <span className="text-color7 dark:text-white text-sm font-normal">
                   {project.name}

@@ -1,10 +1,16 @@
-import { useProjectStore } from "@/store/project-store";
-import { AllProject } from "@/types/types";
-import useOutsideClick from "@/utils/hooks/useOutsideClick";
 import Image from "next/image";
 import { useState } from "react";
+
+import { AllProject } from "@/types/types";
+import { useProjectStore } from "@/store/project-store";
+import useOutsideClick from "@/utils/hooks/useOutsideClick";
+
 import EditProjectModal from "../home/edit-project-modal";
 import RenameProjectModal from "../home/rename-project-modal";
+import {
+  useAddProjectToFavourite,
+  useDeleteProject,
+} from "@/utils/mutations/mutations";
 
 type ProjectCardOptionProps = {
   data: AllProject;
@@ -12,6 +18,9 @@ type ProjectCardOptionProps = {
 
 const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const { setSingleProject } = useProjectStore();
+  const { mutate: deleteProject } = useDeleteProject(data._id);
+  const { mutate: addToFavourite } = useAddProjectToFavourite();
+  const { mutate: removeFromFavourite } = useAddProjectToFavourite();
 
   const [editProjectModal, setEditProjectModal] = useState<boolean>(false);
   const [renameProjectModal, setRenameProjectModal] = useState<boolean>(false);
@@ -22,13 +31,32 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const handleCardClosure = () => setOpen(false);
   const ref = useOutsideClick(handleCardClosure);
 
-  const handleDeleteProject = () => {};
+  const handleDeleteProject = () => {
+    deleteProject(data._id);
+    setOpen(false);
+  };
   const handleRenameProject = () => {
     setSingleProject(data);
     setRenameProjectModal(true);
   };
-  const handleRemoveProjectFromFavourite = () => {};
-  const handleAddProjectToFavourite = () => {};
+  const handleRemoveProjectFromFavourite = () => {
+    const payload = {
+      id: data._id,
+      favourite: false,
+    };
+    console.log(payload, "removed favourite");
+    removeFromFavourite(payload);
+    setOpen(false);
+  };
+  const handleAddProjectToFavourite = () => {
+    const payload = {
+      id: data._id,
+      favourite: true,
+    };
+    console.log(payload, "add to favourite");
+    addToFavourite(payload);
+    setOpen(false);
+  };
 
   const handleEditProjectDetails = () => {
     setSingleProject(data);

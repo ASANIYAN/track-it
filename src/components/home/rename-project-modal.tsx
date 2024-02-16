@@ -13,6 +13,7 @@ import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-l
 
 import { useProjectStore } from "@/store/project-store";
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
+import { renameProject } from "@/utils/requests/patch-requests";
 
 const validationSchema = yup.object().shape({
   projectName: yup.string().required("project name is required"),
@@ -22,11 +23,6 @@ type RenameProjectModalFormValues = { projectName: string };
 
 type RenameProjectModalProps = {
   setRenameProjectModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const renameProject = async (payload: { id: string; name: string }) => {
-  const response = await axios.patch("/api/auth/rename-project", payload);
-  return response;
 };
 
 const RenameProjectModal: React.FC<RenameProjectModalProps> = ({

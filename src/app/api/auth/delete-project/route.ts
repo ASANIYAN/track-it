@@ -8,20 +8,22 @@ import User from "@/models/user";
 
 export const DELETE = async (request: NextRequest) => {
   try {
-    const { id } = await request.json();
-    const userId = await getDataFromToken(request);
+    const data = request.url;
+    console.log(data);
 
-    await connect();
-    const user = await User.findOne({ _id: userId });
-    // check if user info gotten from user-id search exists
-    if (!user) {
-      return NextResponse.json(
-        { error: "Invalid or expired token. Please reauthenticate" },
-        { status: 400 }
-      );
-    }
+    // const userId = await getDataFromToken(request);
 
-    await Project.findByIdAndDelete(id);
+    // // await connect();
+    // // const user = await User.findOne({ _id: userId });
+    // // // check if user info gotten from user-id search exists
+    // // if (!user) {
+    // //   return NextResponse.json(
+    // //     { error: "Invalid or expired token. Please reauthenticate" },
+    // //     { status: 400 }
+    // //   );
+    // // }
+
+    // // await Project.findByIdAndDelete(id);
 
     return NextResponse.json({
       message: "Project deleted successfully",
