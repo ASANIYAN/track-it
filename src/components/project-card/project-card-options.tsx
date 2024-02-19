@@ -35,25 +35,26 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
     deleteProject(data._id);
     setOpen(false);
   };
+
   const handleRenameProject = () => {
     setSingleProject(data);
     setRenameProjectModal(true);
   };
+
   const handleRemoveProjectFromFavourite = () => {
     const payload = {
       id: data._id,
       favourite: false,
     };
-    console.log(payload, "removed favourite");
     removeFromFavourite(payload);
     setOpen(false);
   };
+
   const handleAddProjectToFavourite = () => {
     const payload = {
       id: data._id,
       favourite: true,
     };
-    console.log(payload, "add to favourite");
     addToFavourite(payload);
     setOpen(false);
   };

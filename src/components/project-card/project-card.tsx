@@ -1,8 +1,11 @@
-import { ProfileCircle } from "iconsax-react";
-import { motion, useCycle } from "framer-motion";
 import Image from "next/image";
-import ProjectCardOption from "./project-card-options";
+
+import { ProfileCircle } from "iconsax-react";
+
+import { motion } from "framer-motion";
+
 import { AllProject } from "@/types/types";
+import ProjectCardOption from "./project-card-options";
 import { useProjectStore } from "@/store/project-store";
 
 type ProjectCardProps = {

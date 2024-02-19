@@ -1,8 +1,6 @@
-import useGetAllProject from "@/utils/hooks/useGetAllProject";
 import Projects from "./projects";
 import WorkedOn from "./worked-on";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+
 import { useProjectStore } from "@/store/project-store";
 
 const HomeDesktop = () => {
