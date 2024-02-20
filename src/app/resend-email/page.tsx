@@ -12,13 +12,7 @@ import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import { CustomInput } from "@/components/inputs/custom-input";
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("invalid email address")
-    .required("email address is required"),
-});
+import { resendEmailValidationSchema } from "@/utils/form-schemas/form-schema";
 
 type ResendEmailFormValues = {
   email: string;
@@ -35,7 +29,7 @@ const ResendEmail = () => {
     mutationFn: sendEmailForVerification,
   });
   const method = useForm<ResendEmailFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(resendEmailValidationSchema),
   });
 
   const { handleSubmit } = method;

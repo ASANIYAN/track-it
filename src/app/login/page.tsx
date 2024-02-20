@@ -22,19 +22,12 @@ import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-l
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 import { SuccessToast } from "@/components/toast/toasts";
 import { useRouter } from "next/navigation";
+import { loginValidationSchema } from "@/utils/form-schemas/form-schema";
 
 const metadata: Metadata = {
   title: "Login",
   description: "track-it login page",
 };
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("invalid email address")
-    .required("email address is required"),
-  password: yup.string().required("password is required"),
-});
 
 const logInUser = async (payload: LoginFormValues) => {
   const response = await axios.post("/api/login", payload);
@@ -44,7 +37,7 @@ const logInUser = async (payload: LoginFormValues) => {
 const Login = () => {
   const router = useRouter();
   const method = useForm<LoginFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(loginValidationSchema),
   });
 
   const { handleSubmit } = method;

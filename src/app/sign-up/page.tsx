@@ -22,23 +22,12 @@ import GoogleButton from "@/components/buttons/google-button";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 import { SuccessToast } from "@/components/toast/toasts";
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
+import { signupValidationSchema } from "@/utils/form-schemas/form-schema";
 
 const metadata: Metadata = {
   title: "Sign up",
   description: "track-it sign-up page",
 };
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("invalid email address")
-    .required("email address is required"),
-  password: yup.string().required("password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords must match")
-    .required("Password is required"),
-});
 
 type signUpUserProps = {
   email: string;
@@ -53,7 +42,7 @@ const signUpUser = async (payload: signUpUserProps) => {
 const SignUp: React.FC<SignUpViewsProp> = ({ setView }) => {
   const router = useRouter();
   const method = useForm<SignUpFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(signupValidationSchema),
   });
   const { handleSubmit } = method;
   const { mutate, isPending, isError, error, isSuccess } = useMutation({

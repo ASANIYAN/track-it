@@ -1,6 +1,11 @@
 import { Add } from "iconsax-react";
 import { useState } from "react";
-import CreateProject from "../home/create-project/create-project";
+import dynamic from "next/dynamic";
+
+const CreateProject = dynamic(
+  () => import("../home/create-project/create-project"),
+  { ssr: false }
+);
 
 const AddButton = () => {
   const [displayProjectModal, setDisplayProjectModal] =

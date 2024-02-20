@@ -1,12 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { ReactElement } from "react";
 
 import { useCycle } from "framer-motion";
 
-import Desktop from "../navbar/desktop";
-import Mobile from "../navbar/mobile";
-import TopBar from "../top-bar/top-bar";
+const Desktop = dynamic(() => import("../navbar/desktop"), { ssr: false });
+const Mobile = dynamic(() => import("../navbar/mobile"), { ssr: false });
+const TopBar = dynamic(() => import("../top-bar/top-bar"), { ssr: false });
 
 type AuthWrapperProps = {
   children: ReactElement | ReactElement[];

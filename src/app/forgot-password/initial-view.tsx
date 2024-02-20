@@ -19,13 +19,7 @@ import { useMutation } from "@tanstack/react-query";
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 import { SuccessToast } from "@/components/toast/toasts";
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("invalid email address")
-    .required("email address is required"),
-});
+import { initialViewForgotPasswordValidationSchema } from "@/utils/form-schemas/form-schema";
 
 type InitialViewProps = {
   handleSetViewAndEmail: (view: ForgetPasswordViews, email: string) => void;
@@ -47,7 +41,7 @@ const InitialView: React.FC<InitialViewProps> = ({ handleSetViewAndEmail }) => {
     },
   });
   const method = useForm<ForgotPasswordFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(initialViewForgotPasswordValidationSchema),
   });
 
   const { handleSubmit } = method;

@@ -22,36 +22,7 @@ import { categoryOptions } from "@/constants/constants";
 import { ErrorMsg } from "@/components/alerts/error-msg";
 import { useProjectStore } from "@/store/project-store";
 import { updateProject } from "@/utils/requests/put-requests";
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const validationSchema = yup.object().shape({
-  image: yup
-    .mixed()
-    .notRequired()
-    .test(
-      "fileSize",
-      "File size must not exceed 5MB",
-      (value: any) => !value || value[0].size <= MAX_FILE_SIZE
-    )
-    .test(
-      "fileType",
-      "Only JPEG, JPG, PNG, SVG, WEBP and GIF images are allowed",
-      (value: any) =>
-        value
-          ? [
-              "image/jpeg",
-              "image/png",
-              "image/gif",
-              "image/jpg",
-              "image/svg+xml",
-              "image/webp",
-            ].includes(value[0].type)
-          : true
-    ),
-  color: yup.string(),
-  projectName: yup.string().required("project name is required"),
-  category: yup.string().required("category is required"),
-});
+import { editProjectValidationSchema } from "@/utils/form-schemas/form-schema";
 
 type EditProjectModalFormValues = {
   image: any;
@@ -73,7 +44,7 @@ const EditProjectModal: React.FC<EditProjectModalProps> = ({
   const [imagePreview, setImagePreview] = useState<string>("");
 
   const method = useForm<EditProjectModalFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(editProjectValidationSchema),
   });
   const {
     handleSubmit,

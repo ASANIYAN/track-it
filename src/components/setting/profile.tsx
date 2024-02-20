@@ -7,10 +7,7 @@ import CustomRadio from "../inputs/custom-radio";
 import { CustomInput } from "../inputs/custom-input";
 import CustomTextArea from "../inputs/custom-textarea";
 import { useState } from "react";
-
-const validationSchema = yup.object().shape({
-  gender: yup.string().required("please select a gender"),
-});
+import { profileValidationSchema } from "@/utils/form-schemas/form-schema";
 
 export type ProfileFormValues = {
   gender: string;
@@ -21,7 +18,7 @@ const Profile = () => {
   const [aboutError, setAboutError] = useState<string>("");
 
   const method = useForm<ProfileFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(profileValidationSchema),
   });
 
   return (

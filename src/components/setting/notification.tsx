@@ -8,23 +8,12 @@ import CustomTimeInput from "../inputs/custom-time-input";
 import CustomRadio from "../inputs/custom-radio";
 import { useEffect, useState } from "react";
 import { days } from "@/constants/constants";
+import { notificationValidationSchema } from "@/utils/form-schemas/form-schema";
 
 const options = [
   { label: "Daily", value: "daily" },
   { label: "Custom", value: "custom" },
 ];
-
-const validationSchema = yup.object().shape({
-  notification: yup.string().required(),
-  from: yup
-    .string()
-    .matches(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, "Invalid time format")
-    .required(),
-  to: yup
-    .string()
-    .matches(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, "Invalid time format")
-    .required(),
-});
 
 export type NotificationFormValues = {
   notification: string;
@@ -34,7 +23,7 @@ export type NotificationFormValues = {
 
 const Notification = () => {
   const method = useForm<NotificationFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(notificationValidationSchema),
   });
   const { getValues, watch } = method;
   const [isCustom, setIsCustom] = useState<boolean>(false);

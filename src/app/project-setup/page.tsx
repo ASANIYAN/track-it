@@ -11,19 +11,16 @@ import UnauthHeading from "@/components/headings/unauth-heading";
 import UnauthWrapper from "@/components/wrappers/unauth-wrapper";
 import UnauthButton from "@/components/buttons/unauth-button";
 import { ErrorMsg } from "@/components/alerts/error-msg";
+import { projectSetupValidationSchema } from "@/utils/form-schemas/form-schema";
 
 const metadata: Metadata = {
   title: "Sign up",
   description: "track-it sign-up page",
 };
 
-const validationSchema = yup.object().shape({
-  firstProject: yup.string().required("field is required"),
-});
-
 const ProjectSetup = () => {
   const method = useForm<ProjectSetupSignUpFormValue>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(projectSetupValidationSchema),
   });
   const {
     formState: { errors },

@@ -14,10 +14,7 @@ import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-l
 import { useProjectStore } from "@/store/project-store";
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 import { renameProject } from "@/utils/requests/patch-requests";
-
-const validationSchema = yup.object().shape({
-  projectName: yup.string().required("project name is required"),
-});
+import { renameProjectValidationSchema } from "@/utils/form-schemas/form-schema";
 
 type RenameProjectModalFormValues = { projectName: string };
 
@@ -31,7 +28,7 @@ const RenameProjectModal: React.FC<RenameProjectModalProps> = ({
   const { singleProject } = useProjectStore();
 
   const method = useForm<RenameProjectModalFormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(renameProjectValidationSchema),
   });
   const { handleSubmit } = method;
 

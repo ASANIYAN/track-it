@@ -1,16 +1,24 @@
 import Image from "next/image";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 
 import { AllProject } from "@/types/types";
 import { useProjectStore } from "@/store/project-store";
 import useOutsideClick from "@/utils/hooks/useOutsideClick";
 
-import EditProjectModal from "../home/edit-project-modal";
-import RenameProjectModal from "../home/rename-project-modal";
 import {
   useAddProjectToFavourite,
   useDeleteProject,
 } from "@/utils/mutations/mutations";
+
+const EditProjectModal = dynamic(() => import("../home/edit-project-modal"), {
+  ssr: false,
+});
+
+const RenameProjectModal = dynamic(
+  () => import("../home/rename-project-modal"),
+  { ssr: false }
+);
 
 type ProjectCardOptionProps = {
   data: AllProject;
