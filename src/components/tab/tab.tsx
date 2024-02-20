@@ -1,5 +1,5 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Fragment, useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type TabProps = {
   className?: string;

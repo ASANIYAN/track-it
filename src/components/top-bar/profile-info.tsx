@@ -1,9 +1,13 @@
 import { useState } from "react";
+import dynamic from "next/dynamic";
 
 import { ProfileCircle } from "iconsax-react";
 
 import useOutsideClick from "@/utils/hooks/useOutsideClick";
-import ProfileCard from "../general/profile-card";
+
+const ProfileCard = dynamic(() => import("../general/profile-card"), {
+  ssr: false,
+});
 
 const ProfileInfo = () => {
   const [profileInfo, showProfileInfo] = useState<boolean>(false);

@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 
 import axios from "axios";
 
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 

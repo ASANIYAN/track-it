@@ -1,15 +1,14 @@
 import { Fragment, useEffect } from "react";
 
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useCycle } from "framer-motion";
 
+import ProjectCard from "../project-card/project-card";
+import { useProjectStore } from "@/store/project-store";
 import { AllProject, ProjectsProps } from "@/types/types";
 import DropdownHeading from "../headings/dropdown-heading";
-import ProjectCard from "../project-card/project-card";
-import useGetAllProject from "@/utils/hooks/useGetAllProject";
 
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useProjectStore } from "@/store/project-store";
 
 const Projects: React.FC<ProjectsProps> = ({ heading, data }) => {
   const [open, cycleOpen] = useCycle(false, true);

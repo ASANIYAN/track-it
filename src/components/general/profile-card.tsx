@@ -2,9 +2,12 @@ import { ProfileCircle } from "iconsax-react";
 import Divider from "../divider/divider";
 import Toggle from "../inputs/checkbox/toggle";
 import { useThemeChecker } from "@/utils/hooks/useThemeChecker";
+import { useUserStore } from "@/store/user-store";
 
 const ProfileCard = () => {
   const { themeChecker, setTheme, setThemeChecker } = useThemeChecker();
+
+  const { user } = useUserStore();
 
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -27,10 +30,10 @@ const ProfileCard = () => {
       <section className="flex items-center gap-3 p-4 mt-2">
         <ProfileCircle size="32" color="#848588" />
         <div className="flex flex-col gap-0.5">
-          <span className="font-medium text-base"> Tajul Islam </span>
+          {/* <span className="font-medium text-base"> Tajul Islam </span> */}
           <span className="text-color8 font-normal text-xs dark:text-darkColor3">
             {" "}
-            tajuislam@gmail.com{" "}
+            {user?.email}{" "}
           </span>
         </div>
       </section>

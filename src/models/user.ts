@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose";
 import { Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 export interface UserDocument extends Document {
   email: string;

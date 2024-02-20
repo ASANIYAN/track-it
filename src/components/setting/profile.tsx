@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -6,7 +6,6 @@ import { Camera, ProfileCircle, Trash } from "iconsax-react";
 import CustomRadio from "../inputs/custom-radio";
 import { CustomInput } from "../inputs/custom-input";
 import CustomTextArea from "../inputs/custom-textarea";
-import { useState } from "react";
 import { profileValidationSchema } from "@/utils/form-schemas/form-schema";
 
 export type ProfileFormValues = {
