@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { Add, ArrowDown2, ArrowUp2 } from "iconsax-react";
 
+import ListItem from "./list-item";
 import ThemeIconChanger from "@/utils/helpers/theme-icon-changer";
 
 const features = ["Tag", "Properties", "Due Date"];
@@ -15,8 +16,8 @@ const List = () => {
   const handleClick = () => {};
   return (
     <section>
-      <section className="flex items-center justify-between">
-        <section className="flex items-center gap-2.5">
+      <section className="flex items-center justify-between pl-5">
+        <section className="flex items-center gap-2.5 w-[270px]">
           {toggle ? (
             <ThemeIconChanger
               light={<ArrowDown2 size="20" color="#5b5c60" variant="Bold" />}
@@ -45,10 +46,13 @@ const List = () => {
         </section>
         <section className="flex items-center gap-10">
           {features.map((feature, index) => (
-            <span key={`${feature}-${index}`}>{feature}</span>
+            <span className="w-[120px]" key={`${feature}-${index}`}>
+              {feature}
+            </span>
           ))}
         </section>
       </section>
+      <ListItem />
     </section>
   );
 };
