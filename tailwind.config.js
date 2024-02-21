@@ -38,6 +38,8 @@ module.exports = {
         color12: "#F5F6F8",
         color13: "#F4F5F6",
         color14: "#3BACD0",
+        color15: "#F9F9F9",
+        color16: "#E1F4F7",
         darkColor1: "#1E272E",
         darkColor2: "#222B32",
         darkColor3: "#A9ACAE",
@@ -45,6 +47,7 @@ module.exports = {
         darkColor5: "#2B343B",
         darkColor6: "#CECFD0",
         darkColor7: "#D5D6D7",
+        darkColor8: "#384047",
         error: "#E44258",
       },
       screens: {
