@@ -53,6 +53,17 @@ const List = () => {
         </section>
       </section>
       <ListItem />
+      <section className="flex items-center">
+        <Add
+          width={10}
+          height={10}
+          className="text-color2 dark:text-darkColor7"
+        />
+        <span className="text-color8 dark:text-dark-color7 text-sm">
+          {" "}
+          Add task{" "}
+        </span>
+      </section>
     </section>
   );
 };
