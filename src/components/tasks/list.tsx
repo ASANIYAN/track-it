@@ -46,18 +46,6 @@ const List: React.FC<ListProps> = ({ heading }) => {
     },
   ]);
 
-  // const reorderList = (e: DragEndEvent) => {
-  //   if (!e.over) return;
-
-  //   if (e.active.id !== e.over.id) {
-  //     setItems((list) => {
-  //       const oldIdx = list.indexOf(e.active.id.toString());
-  //       const newIdx = list.indexOf(e.over!.id.toString());
-  //       return arrayMove(list, oldIdx, newIdx);
-  //     });
-  //   }
-  // };
-
   const reorderList = (e: DragEndEvent) => {
     if (!e.over) return;
 
@@ -82,91 +70,93 @@ const List: React.FC<ListProps> = ({ heading }) => {
 
   return (
     <DndContext onDragEnd={reorderList}>
-      <section className="dark:bg-darkColor2 py-3">
-        <section className="flex items-center justify-between pl-5">
-          <section className="flex items-center gap-2.5 w-[270px]">
-            {toggle ? (
-              <ThemeIconChanger
-                light={
-                  <ArrowDown2
-                    size="20"
-                    color="#5b5c60"
-                    variant="Bold"
-                    onClick={handleToggle}
-                    className="cursor-pointer"
-                  />
-                }
-                dark={
-                  <ArrowDown2
-                    size="20"
-                    color="#D5D6D7"
-                    variant="Bold"
-                    onClick={handleToggle}
-                    className="cursor-pointer"
-                  />
-                }
+      <section className="w-full overflow-x-auto">
+        <section className="dark:bg-darkColor2 py-3 w-full min-w-[1000px]">
+          <section className="flex items-center justify-between pl-5 w-full">
+            <section className="flex items-center gap-2.5 w-[270px]">
+              {toggle ? (
+                <ThemeIconChanger
+                  light={
+                    <ArrowDown2
+                      size="20"
+                      color="#5b5c60"
+                      variant="Bold"
+                      onClick={handleToggle}
+                      className="cursor-pointer"
+                    />
+                  }
+                  dark={
+                    <ArrowDown2
+                      size="20"
+                      color="#D5D6D7"
+                      variant="Bold"
+                      onClick={handleToggle}
+                      className="cursor-pointer"
+                    />
+                  }
+                />
+              ) : (
+                <ThemeIconChanger
+                  light={
+                    <ArrowUp2
+                      size="20"
+                      color="#5b5c60"
+                      variant="Bold"
+                      onClick={handleToggle}
+                      className="cursor-pointer"
+                    />
+                  }
+                  dark={
+                    <ArrowUp2
+                      size="20"
+                      color="#D5D6D7"
+                      variant="Bold"
+                      onClick={handleToggle}
+                      className="cursor-pointer"
+                    />
+                  }
+                />
+              )}
+              <span className="text-sm font-medium"> {heading} </span>
+              <Add
+                width={10}
+                height={10}
+                className="text-color2 dark:text-darkColor7 cursor-pointer"
               />
-            ) : (
-              <ThemeIconChanger
-                light={
-                  <ArrowUp2
-                    size="20"
-                    color="#5b5c60"
-                    variant="Bold"
-                    onClick={handleToggle}
-                    className="cursor-pointer"
-                  />
-                }
-                dark={
-                  <ArrowUp2
-                    size="20"
-                    color="#D5D6D7"
-                    variant="Bold"
-                    onClick={handleToggle}
-                    className="cursor-pointer"
-                  />
-                }
+              <Image
+                width={16}
+                height={16}
+                src={"/assets/icons/ellipsis.svg"}
+                alt="ellipsis"
+                className="cursor-pointer"
+                // onClick={handleClick}
               />
-            )}
-            <span className="text-sm font-medium"> {heading} </span>
-            <Add
-              width={10}
-              height={10}
-              className="text-color2 dark:text-darkColor7 cursor-pointer"
-            />
-            <Image
-              width={16}
-              height={16}
-              src={"/assets/icons/ellipsis.svg"}
-              alt="ellipsis"
-              className="cursor-pointer"
-              // onClick={handleClick}
-            />
+            </section>
+            <section className="flex items-center gap-10">
+              {features.map((feature, index) => (
+                <span className="w-[120px]" key={`${feature}-${index}`}>
+                  {feature}
+                </span>
+              ))}
+            </section>
           </section>
-          <section className="flex items-center gap-10">
-            {features.map((feature, index) => (
-              <span className="w-[120px]" key={`${feature}-${index}`}>
-                {feature}
-              </span>
-            ))}
-          </section>
+          <div className="border border-color4  dark:border-darkColor8 h-[1px] w-full my-2.5" />
+          {toggle && (
+            <SortableContext items={items}>
+              {items.map((item, index) => (
+                <ListItem key={`${item.id}-${index}`} data={item} />
+              ))}
+            </SortableContext>
+          )}
         </section>
-        <div className="border border-color4  dark:border-darkColor8 h-[1px] w-full my-2.5" />
-        {toggle && (
-          <SortableContext items={items}>
-            {items.map((item, index) => (
-              <ListItem key={`${item.id}-${index}`} data={item} />
-            ))}
-          </SortableContext>
-        )}
       </section>
-      <section className="flex gap-1 items-center px-5 py-2.5 dark:bg-darkColor2 w-fit cursor-pointer">
+      <section className="flex gap-1 items-center px-5 py-2.5 dark:bg-darkColor2 w-fit cursor-pointer -mt-[38px]">
         <Add
           width={10}
           height={10}
           className="text-color2 dark:text-darkColor7"
         />
-        <span className="text-color8 dark:text-dark-color7 text-base">
+        <span className="text-color8 dark:text-dark-color7 text-sm">
           {" "}
           Add task{" "}
         </span>

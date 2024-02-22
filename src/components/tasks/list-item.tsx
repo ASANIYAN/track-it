@@ -22,8 +22,14 @@ type ListItemProps = {
 };
 
 const ListItem: React.FC<ListItemProps> = ({ data }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: data.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: data.id });
 
   const [hover, setHover] = useState(false);
   const [check, setCheck] = useState(false);
@@ -31,16 +37,19 @@ const ListItem: React.FC<ListItemProps> = ({ data }) => {
   const handleMouseEnter = () => setHover(true);
   const handleMouseOut = () => setHover(false);
 
-  const handleCheck = () => setCheck((check) => !check);
+  const handleCheck = () => {
+    if (!isDragging) {
+      setCheck((check) => !check);
+    }
+  };
   return (
     <section
       ref={setNodeRef}
-      {...attributes}
-      {...listeners}
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,
       }}
+      className="touch-none w-full"
     >
       <section
         className="flex items-center justify-between py-1.5 mt-2 relative pl-5"
@@ -53,7 +62,9 @@ const ListItem: React.FC<ListItemProps> = ({ data }) => {
             height={10}
             width={8}
             alt="move_task_icon"
-            className="absolute left-1 cursor-pointer"
+            className="absolute left-1 cursor-grab"
+            {...attributes}
+            {...listeners}
           />
         )}
         <section className="flex items-center justify-between w-full">
