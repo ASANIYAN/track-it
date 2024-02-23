@@ -27,6 +27,7 @@ import calendar_icon_tasks from "../../../public/assets/icons/calendar_tasks_ico
 import calendar_icon_tasks_active from "../../../public/assets/icons/calendar_tasks_icon_active.svg";
 import { BoardData } from "@/components/tasks/board-item";
 import { boardTasks } from "@/components/tasks/board";
+import Calendar from "@/components/tasks/calendar";
 
 const Board = dynamic(() => import("@/components/tasks/board"), {
   ssr: false,
@@ -153,7 +154,7 @@ const Tasks = () => {
   };
 
   return (
-    <main>
+    <main className="w-full">
       <AuthWrapper>
         <section className="px-1 sm:px-5 mt-4">
           <section className="w-[138px] h-[38px] rounded-lg border border-color4  dark:border-darkColor8 flex items-center justify-evenly">
@@ -246,6 +247,7 @@ const Tasks = () => {
                 </section>
               </DndContext>
             )}
+            {activeTab === "calendar" && <Calendar />}
           </section>
         </section>
       </AuthWrapper>
