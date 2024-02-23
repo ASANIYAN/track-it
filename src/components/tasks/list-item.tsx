@@ -38,10 +38,9 @@ const ListItem: React.FC<ListItemProps> = ({ data }) => {
   const handleMouseOut = () => setHover(false);
 
   const handleCheck = () => {
-    if (!isDragging) {
-      setCheck((check) => !check);
-    }
+    setCheck((check) => !check);
   };
+
   return (
     <section
       ref={setNodeRef}
@@ -69,7 +68,7 @@ const ListItem: React.FC<ListItemProps> = ({ data }) => {
         )}
         <section className="flex items-center justify-between w-full">
           <section className="flex items-center gap-2 w-[280px]">
-            <section className="z-[1000]">
+            <section className="">
               {check ? (
                 <Image
                   src={task_check_icon}
@@ -98,7 +97,7 @@ const ListItem: React.FC<ListItemProps> = ({ data }) => {
 
           <section className="flex items-center gap-10">
             <div className="w-[120px]">
-              <span className="bg-[#F78234] rounded-[10.5px] text-white px-2 py-0.5">
+              <span className="bg-[#F78234] rounded-[10.5px] text-white px-2 py-0.5 text-xs">
                 {" "}
                 {data.tag}
               </span>

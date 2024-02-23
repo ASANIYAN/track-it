@@ -27,8 +27,7 @@ type ProjectCardOptionProps = {
 const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const { setSingleProject } = useProjectStore();
   const { mutate: deleteProject } = useDeleteProject(data._id);
-  const { mutate: addToFavourite } = useAddProjectToFavourite();
-  const { mutate: removeFromFavourite } = useAddProjectToFavourite();
+  const { mutate: addRemoveProjectFavourite } = useAddProjectToFavourite();
 
   const [editProjectModal, setEditProjectModal] = useState<boolean>(false);
   const [renameProjectModal, setRenameProjectModal] = useState<boolean>(false);
@@ -54,7 +53,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
       id: data._id,
       favourite: false,
     };
-    removeFromFavourite(payload);
+    addRemoveProjectFavourite(payload);
     setOpen(false);
   };
 
@@ -63,7 +62,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
       id: data._id,
       favourite: true,
     };
-    addToFavourite(payload);
+    addRemoveProjectFavourite(payload);
     setOpen(false);
   };
 

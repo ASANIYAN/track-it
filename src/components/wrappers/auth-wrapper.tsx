@@ -5,13 +5,13 @@ import { ReactElement, useEffect } from "react";
 
 import { useCycle } from "framer-motion";
 
+import Mobile from "../navbar/mobile";
+import Desktop from "../navbar/desktop";
+import TopBar from "../top-bar/top-bar";
+
 import { useUserStore } from "@/store/user-store";
 import { useProjectStore } from "@/store/project-store";
 import { useGetAllProject, useGetUser } from "@/utils/mutations/mutations";
-
-const Desktop = dynamic(() => import("../navbar/desktop"), { ssr: false });
-const Mobile = dynamic(() => import("../navbar/mobile"), { ssr: false });
-const TopBar = dynamic(() => import("../top-bar/top-bar"), { ssr: false });
 
 type AuthWrapperProps = {
   children: ReactElement | ReactElement[];
@@ -46,7 +46,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
 
   // project functions
   const handleAddProjectInfoToStore = () => {
-    if (success) {
+    if (projects) {
       setProjectWithUsers(projects?.projectsWithUsers);
     }
   };
@@ -75,14 +75,14 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   //effects for project data
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(handleAddProjectInfoToStore, [success, setProjectWithUsers]);
+  useEffect(handleAddProjectInfoToStore, [setProjectWithUsers, projects]);
   useEffect(handleSetLoading, [loading, setIsLoading]);
   useEffect(handleSetSuccess, [success, setIsSuccess]);
 
   // effects for user data
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(handleAddUserInfoToStore, [userFetchSuccess, setUser]);
+  useEffect(handleAddUserInfoToStore, [user, setUser]);
   useEffect(handleSetLoadingForUserData, [userIsLoading, setUserLoading]);
   useEffect(handleSetSuccessForUserData, [userFetchSuccess, setUserSuccess]);
 
