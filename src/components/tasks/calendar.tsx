@@ -5,6 +5,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+import "./calendar.css";
+
 const Calendar = () => {
   return (
     <section>
@@ -14,13 +16,14 @@ const Calendar = () => {
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth, timeGridWeek",
+          right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         events={{}}
         nowIndicator={true}
         editable
         droppable
         selectable
+        selectMirror
       />
     </section>
   );

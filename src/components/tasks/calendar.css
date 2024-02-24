@@ -1,0 +1,26 @@
+.fc-button {
+  padding: 6px 14px !important;
+  background-color: transparent !important;
+  font-size: 12px !important;
+  color: #323338 !important;
+  border: none !important;
+  margin: 0px 5px !important;
+}
+
+.fc-button:hover {
+  background-color: #08c7e0 !important;
+  opacity: 0.8;
+  color: white !important;
+  border-radius: 5px;
+}
+
+.fc-button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.fc-button-active {
+  background-color: #08c7e0 !important;
+  border-radius: 5px !important;
+  color: white !important;
+}
