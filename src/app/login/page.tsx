@@ -3,12 +3,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
 
 import { LoginFormValues } from "@/types/types";
 
@@ -20,36 +16,22 @@ import GoogleButton from "@/components/buttons/google-button";
 import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-loader";
 
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
-import { SuccessToast } from "@/components/toast/toasts";
-import { useRouter } from "next/navigation";
 import { loginValidationSchema } from "@/utils/form-schemas/form-schema";
+import { useLogin } from "@/tanstack/mutations/mutations";
 
 const metadata: Metadata = {
   title: "Login",
   description: "track-it login page",
 };
 
-const logInUser = async (payload: LoginFormValues) => {
-  const response = await axios.post("/api/login", payload);
-  return response;
-};
-
 const Login = () => {
-  const router = useRouter();
   const method = useForm<LoginFormValues>({
     resolver: yupResolver(loginValidationSchema),
   });
 
   const { handleSubmit } = method;
 
-  const { mutate, isPending, isError, error } = useMutation({
-    mutationKey: ["logInUser"],
-    mutationFn: logInUser,
-    onSuccess: () => {
-      router.push("/");
-      SuccessToast("Login Successful");
-    },
-  });
+  const { mutate, isPending, isError, error } = useLogin();
 
   const handleClick = (data: LoginFormValues) => {
     const payload = {

@@ -156,7 +156,7 @@ const Tasks = () => {
   return (
     <main className="w-full">
       <AuthWrapper>
-        <section className="px-1 sm:px-5 mt-4">
+        <section className="px-1 sm:px-5">
           <section className="w-[138px] h-[38px] rounded-lg border border-color4  dark:border-darkColor8 flex items-center justify-evenly">
             <div
               className={`${

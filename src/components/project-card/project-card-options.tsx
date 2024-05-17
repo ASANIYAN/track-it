@@ -9,7 +9,7 @@ import useOutsideClick from "@/utils/hooks/useOutsideClick";
 import {
   useAddProjectToFavourite,
   useDeleteProject,
-} from "@/utils/mutations/mutations";
+} from "@/tanstack/mutations/mutations";
 
 const EditProjectModal = dynamic(() => import("../home/edit-project-modal"), {
   ssr: false,

@@ -3,11 +3,13 @@ import Divider from "../divider/divider";
 import Toggle from "../inputs/checkbox/toggle";
 import { useThemeChecker } from "@/utils/hooks/useThemeChecker";
 import { useUserStore } from "@/store/user-store";
+import { useLogOut } from "@/tanstack/mutations/mutations";
 
 const ProfileCard = () => {
   const { themeChecker, setTheme, setThemeChecker } = useThemeChecker();
 
   const { user } = useUserStore();
+  const { mutate: logout, isPending } = useLogOut();
 
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -18,8 +20,13 @@ const ProfileCard = () => {
       setTheme("light");
     }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
+  };
+
+  const handleLogOut = () => {
+    logout();
   };
 
   return (
@@ -54,8 +61,15 @@ const ProfileCard = () => {
       </section>
       <Divider />
       <section className="flex flex-col gap-4 p-4 text-[13px] font-normal">
-        <span> Settings </span>
-        <span> Log out </span>
+        <span className="cursor-pointer"> Settings </span>
+        <button
+          disabled={isPending}
+          className="border-none w-fit"
+          onClick={handleLogOut}
+        >
+          {" "}
+          Log out{" "}
+        </button>
       </section>
     </section>
   );

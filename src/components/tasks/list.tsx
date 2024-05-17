@@ -70,7 +70,7 @@ const List: React.FC<ListProps> = ({ heading }) => {
 
   return (
     <DndContext onDragEnd={reorderList}>
-      <section className="w-full overflow-x-auto">
+      <section className="w-full overflow-x-auto no-scrollbar">
         <section className="dark:bg-darkColor2 py-3 w-full min-w-[1000px]">
           <section className="flex items-center justify-between pl-5 w-full">
             <section className="flex items-center gap-2.5 w-[270px]">

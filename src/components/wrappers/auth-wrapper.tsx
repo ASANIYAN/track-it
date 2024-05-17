@@ -11,7 +11,7 @@ import TopBar from "../top-bar/top-bar";
 
 import { useUserStore } from "@/store/user-store";
 import { useProjectStore } from "@/store/project-store";
-import { useGetAllProject, useGetUser } from "@/utils/mutations/mutations";
+import { useGetAllProject, useGetUser } from "@/tanstack/mutations/mutations";
 
 type AuthWrapperProps = {
   children: ReactElement | ReactElement[];
@@ -92,9 +92,11 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     <section className="flex flex-nowrap h-screen">
       <Desktop />
       <Mobile open={open} />
-      <section className="flex-1 overflow-y-auto pb-5">
+      <section className="flex-1 overflow-y-auto">
         <TopBar cycleOpen={cycleOpen} />
-        {children}
+        <section className="bg-[#F9F9F9] dark:bg-[#222B32] pb-5 pt-4 min-h-[100vh]">
+          {children}
+        </section>
       </section>
     </section>
   );

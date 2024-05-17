@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteSingleProject } from "../requests/delete-requests";
+import { deleteSingleProject } from "../../utils/requests/delete-requests";
 import { ErrorToast, SuccessToast } from "@/components/toast/toasts";
-import { addRemoveProjectFavourite } from "../requests/patch-requests";
-import { getAllProjects, getUser } from "../requests/get-requests";
+import { addRemoveProjectFavourite } from "../../utils/requests/patch-requests";
+import { getAllProjects, getUser } from "../../utils/requests/get-requests";
+import { logInUser, logOutUser } from "../../utils/requests/post-requests";
 
 export const useGetAllProject = () => {
   return useQuery({
@@ -43,6 +44,28 @@ export const useAddProjectToFavourite = () => {
     },
     onError: () => {
       ErrorToast("Error occurred, please try again.");
+    },
+  });
+};
+
+export const useLogin = () => {
+  return useMutation({
+    mutationKey: ["logInUser"],
+    mutationFn: logInUser,
+    onSuccess: () => {
+      window.location.href = "/";
+      SuccessToast("Login Successful");
+    },
+  });
+};
+
+export const useLogOut = () => {
+  return useMutation({
+    mutationKey: ["logOutUser"],
+    mutationFn: logOutUser,
+    onSuccess: () => {
+      window.location.href = "/login";
+      SuccessToast("Logout Successful");
     },
   });
 };
