@@ -28,7 +28,7 @@ export const CustomInput: React.FC<
         <label> {label} </label>
         <input
           {...register(name)}
-          className={`focus:outline-none dark:text-darkColor3 border ${
+          className={`focus:outline-none focus-visible:outline-none dark:text-darkColor3 bg-transparent border ${
             errors[name] ? " border-error" : "border-color4"
           }`}
           name={name}
