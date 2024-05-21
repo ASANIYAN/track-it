@@ -7,6 +7,10 @@
   margin: 0px 5px !important;
 }
 
+.dark .fc-button {
+  color: white !important;
+}
+
 .fc-button:hover {
   background-color: #08c7e0 !important;
   opacity: 0.8;
@@ -22,5 +26,17 @@
 .fc-button-active {
   background-color: #08c7e0 !important;
   border-radius: 5px !important;
+  color: white !important;
+}
+
+.fc-toolbar-title {
+  font-size: clamp(1rem, 5vw, 1.75rem) !important;
+}
+
+.fc-today-button {
+  color: black !important;
+}
+
+.dark .fc-today-button {
   color: white !important;
 }

@@ -37,12 +37,15 @@ import { CustomInput } from "../inputs/custom-input";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import getRandomRgbaColor from "@/utils/helpers/generate-random-rgb-colors";
 
 interface Event {
   title: string;
   start: Date | string;
   allDay: boolean;
   id: number;
+  borderColor: string;
+  backgroundColor: string;
 }
 
 interface CreateEventFormValues {
@@ -69,6 +72,8 @@ const Calendar = () => {
   const [newEvent, setNewEvent] = useState<Event>({
     title: "",
     start: "",
+    backgroundColor: "",
+    borderColor: "",
     allDay: false,
     id: 0,
   });
@@ -89,6 +94,7 @@ const Calendar = () => {
   };
 
   const addEvent = (data: DropArg) => {
+    const color = getRandomRgbaColor();
     console.log("DATA", data);
 
     const event = {
@@ -117,6 +123,8 @@ const Calendar = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     setNewEvent({
+      borderColor: "",
+      backgroundColor: "",
       title: "",
       start: "",
       allDay: false,
@@ -130,8 +138,11 @@ const Calendar = () => {
   };
 
   const handleCreateEvent = (data: CreateEventFormValues) => {
+    const color = getRandomRgbaColor();
     const payload = {
       ...newEvent,
+      borderColor: color,
+      backgroundColor: color,
       title: data.title,
     };
     setAllEvents([...allEvents, payload]);
@@ -158,27 +169,28 @@ const Calendar = () => {
   }, []);
 
   return (
-    <section className="p-2.5 bg-white dark:bg-[#222B32] rounded-[10px] flex gap-4">
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-        initialView="dayGridMonth"
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "timeGridDay,timeGridWeek,dayGridMonth",
-        }}
-        height={1400}
-        events={allEvents}
-        nowIndicator={true}
-        editable
-        droppable
-        selectable
-        selectMirror
-        dateClick={handleDateClick}
-        drop={(data) => addEvent(data)}
-        eventClick={(data) => handleDeleteModal(data)}
-      />
-      <div
+    <section className="w-full overflow-x-auto no-scrollbar">
+      <section className="p-2.5 bg-white dark:bg-[#222B32] rounded-[10px] w-full min-w-[700px]">
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+          initialView="dayGridMonth"
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title",
+            right: "timeGridDay,timeGridWeek,dayGridMonth",
+          }}
+          height={1400}
+          events={allEvents}
+          nowIndicator={true}
+          editable
+          droppable
+          selectable
+          selectMirror
+          dateClick={handleDateClick}
+          drop={(data) => addEvent(data)}
+          eventClick={(data) => handleDeleteModal(data)}
+        />
+        {/* <div
         id="draggable-el"
         className="ml-8 w-full max-w-[300px] border-2 p-2 rounded-md mt-16 lg:h-1/2 bg-violet-50"
       >
@@ -195,45 +207,45 @@ const Calendar = () => {
             {event.title}
           </div>
         ))}
-      </div>
+      </div> */}
 
-      {/* Create Event Modal Start */}
-      <Dialog open={showModal} onOpenChange={handleCloseModal}>
-        {/* <DialogTrigger asChild>
+        {/* Create Event Modal Start */}
+        <Dialog open={showModal} onOpenChange={handleCloseModal}>
+          {/* <DialogTrigger asChild>
           <Button variant="outline">Edit Profile</Button>
         </DialogTrigger> */}
-        <DialogContent className="sm:max-w-[425px] bg-white dark:bg-darkColor2 border-none">
-          <DialogHeader>
-            <DialogTitle>Add event</DialogTitle>
-            <DialogDescription>Create a new event.</DialogDescription>
-          </DialogHeader>
-          <section className="flex flex-col gap-3">
-            <CustomInput
-              name="title"
-              label="title"
-              defaultType="text"
-              className="w-full"
-              method={method}
-            />
-            {/* <CustomInput name="title" label="title" defaultType="text" className="w-full" 
+          <DialogContent className="sm:max-w-[425px] bg-white dark:bg-darkColor2 border-none">
+            <DialogHeader>
+              <DialogTitle>Add event</DialogTitle>
+              <DialogDescription>Create a new event.</DialogDescription>
+            </DialogHeader>
+            <section className="flex flex-col gap-3">
+              <CustomInput
+                name="title"
+                label="title"
+                defaultType="text"
+                className="w-full focus-visible:ring-transparent"
+                method={method}
+              />
+              {/* <CustomInput name="title" label="title" defaultType="text" className="w-full" 
             method={method} /> */}
-          </section>
-          <DialogFooter>
-            <DialogClose onClick={handleCloseModal}>
-              <Button className="mr-2.5 border border-black dark:border-white">
-                Cancel
+            </section>
+            <DialogFooter>
+              <DialogClose onClick={handleCloseModal}>
+                <Button className="mr-2.5 border border-black dark:border-white w-full">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button
+                onClick={handleSubmit(handleCreateEvent)}
+                className="bg-[#08c7e0] text-white hover:bg-[#08c7e0]"
+              >
+                Create
               </Button>
-            </DialogClose>
-            <Button
-              onClick={handleSubmit(handleCreateEvent)}
-              className="bg-[#08c7e0] text-white hover:bg-[#08c7e0]"
-            >
-              Create
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/* <AlertDialog open={showModal}>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+        {/* <AlertDialog open={showModal}>
         <AlertDialogContent className="bg-white dark:bg-darkColor2 border-none">
           <AlertDialogHeader>
             <AlertDialogTitle>
@@ -256,33 +268,34 @@ const Calendar = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog> */}
-      {/* Create Event Modal End */}
+        {/* Create Event Modal End */}
 
-      {/* Delete Event Modal Start */}
-      <AlertDialog open={showDeleteModal}>
-        <AlertDialogContent className="bg-white dark:bg-darkColor2 border-none">
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              Are you sure you want to delete this event?
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={handleCloseModal}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              className="bg-[#08c7e0] text-white"
-              onClick={handleDelete}
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      {/* Delete Event Modal End */}
+        {/* Delete Event Modal Start */}
+        <AlertDialog open={showDeleteModal}>
+          <AlertDialogContent className="bg-white dark:bg-darkColor2 border-none">
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                Are you sure you want to delete this event?
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={handleCloseModal}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-[#08c7e0] text-white"
+                onClick={handleDelete}
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        {/* Delete Event Modal End */}
+      </section>
     </section>
   );
 };

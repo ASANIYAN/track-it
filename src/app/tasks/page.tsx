@@ -220,7 +220,7 @@ const Tasks = () => {
               )}
             </div>
           </section>
-          <section className="mt-8">
+          <section className="mt-8 w-full">
             {activeTab === "list" && (
               <section className="flex flex-col gap-10">
                 <List heading="In Progress" />
@@ -233,17 +233,19 @@ const Tasks = () => {
                 onDragEnd={onDragEnd}
                 onDragOver={onDragOver}
               >
-                <section className="flex gap-10">
-                  <SortableContext items={columnsId}>
-                    {columns.map((col) => (
-                      <Board
-                        allTask={tasks}
-                        key={col.id}
-                        id={col.id}
-                        title={col.title}
-                      />
-                    ))}
-                  </SortableContext>
+                <section className="w-full overflow-x-auto no-scrollbar">
+                  <section className="flex gap-10 w-full min-w-[1000px]">
+                    <SortableContext items={columnsId}>
+                      {columns.map((col) => (
+                        <Board
+                          allTask={tasks}
+                          key={col.id}
+                          id={col.id}
+                          title={col.title}
+                        />
+                      ))}
+                    </SortableContext>
+                  </section>
                 </section>
               </DndContext>
             )}

@@ -6,10 +6,11 @@ import { Eye, EyeSlash } from "iconsax-react";
 import { CustomInputProps } from "@/types/types";
 import { ErrorMsg } from "../alerts/error-msg";
 import { InputWrap } from "./input-wrap";
+import { cn } from "@/lib/utils";
 
 export const CustomInput: React.FC<
   CustomInputProps & React.InputHTMLAttributes<HTMLInputElement>
-> = ({ method, name, label, defaultType, ...rest }) => {
+> = ({ method, name, label, defaultType, className, ...rest }) => {
   const [isPassword, setIsPassword] = useState<string>(defaultType);
   const {
     formState: { errors },
@@ -28,9 +29,12 @@ export const CustomInput: React.FC<
         <label> {label} </label>
         <input
           {...register(name)}
-          className={`focus:outline-none focus-visible:outline-none dark:text-darkColor3 bg-transparent border ${
-            errors[name] ? " border-error" : "border-color4"
-          }`}
+          className={cn(
+            `focus:outline-none focus-visible:outline-none dark:text-darkColor3 bg-transparent border ${
+              errors[name] ? " border-error" : "border-color4"
+            }`,
+            className
+          )}
           name={name}
           type={isPassword}
           {...rest}
