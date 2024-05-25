@@ -7,10 +7,7 @@ export const POST = async () => {
       message: "Logout successful",
       success: true,
     });
-    response.cookies.set(COOKIE_NAME, "", {
-      httpOnly: true,
-      expires: new Date(0),
-    });
+    response.cookies.delete(COOKIE_NAME);
 
     return response;
   } catch (error: any) {

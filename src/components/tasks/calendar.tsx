@@ -38,6 +38,12 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import getRandomRgbaColor from "@/utils/helpers/generate-random-rgb-colors";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Calendar as CalendarComponent } from "../ui/calendar";
+
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 interface Event {
   title: string;
@@ -65,6 +71,7 @@ const Calendar = () => {
     { title: "event 5", id: "5" },
   ]);
 
+  const [date, setDate] = useState<Date>();
   const [showModal, setShowModal] = useState(false);
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -221,12 +228,35 @@ const Calendar = () => {
             </DialogHeader>
             <section className="flex flex-col gap-3">
               <CustomInput
-                name="title"
+                name="Title"
                 label="title"
                 defaultType="text"
                 className="w-full focus-visible:ring-transparent"
                 method={method}
               />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-[280px] justify-start text-left font-normal",
+                      !date && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto bottom-0 top-full border-none px-0 pb-0 z-50 bg-white dark:bg-darkColor2">
+                  <CalendarComponent
+                    className=""
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
               {/* <CustomInput name="title" label="title" defaultType="text" className="w-full" 
             method={method} /> */}
             </section>

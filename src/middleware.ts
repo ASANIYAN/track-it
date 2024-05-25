@@ -6,6 +6,8 @@ import { verifyAuth } from "./utils/helpers/verify-auth";
 export const middleware = async (request: NextRequest) => {
   const path = request.nextUrl.pathname;
 
+  console.log(path, "pathname");
+
   // Define paths that are considered public (accessible without a token)
   const isPublicPath =
     path === "/login" ||
@@ -14,6 +16,8 @@ export const middleware = async (request: NextRequest) => {
     path === "/reset-password" ||
     path === "/resend-email" ||
     path === "/verify-email";
+
+  console.log(isPublicPath, "isPublicPath");
 
   // Get the token from the cookies
   const token = request.cookies.get(COOKIE_NAME)?.value || "";
@@ -25,6 +29,10 @@ export const middleware = async (request: NextRequest) => {
 
   // If trying to access a protected path without a token, redirect to the login page
   if (!isPublicPath && !verifiedToken) {
+    NextResponse.json({
+      message: "Invalid or expired token",
+      success: true,
+    }).cookies.delete(COOKIE_NAME);
     return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
 
