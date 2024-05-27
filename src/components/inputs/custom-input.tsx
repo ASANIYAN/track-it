@@ -26,7 +26,7 @@ export const CustomInput: React.FC<
   return (
     <>
       <InputWrap>
-        <label className="text-black dark:text-white"> {label} </label>
+        <label className="text-black text-xs dark:text-white"> {label} </label>
         <input
           {...register(name)}
           className={cn(

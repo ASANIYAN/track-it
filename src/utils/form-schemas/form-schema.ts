@@ -116,3 +116,7 @@ export const notificationValidationSchema = yup.object().shape({
 export const profileValidationSchema = yup.object().shape({
   gender: yup.string().required("please select a gender"),
 });
+
+export const createEventValidationSchema = yup.object().shape({
+  title: yup.string().required("title is required"),
+});

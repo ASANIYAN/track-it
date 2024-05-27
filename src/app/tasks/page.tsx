@@ -27,7 +27,7 @@ import calendar_icon_tasks from "../../../public/assets/icons/calendar_tasks_ico
 import calendar_icon_tasks_active from "../../../public/assets/icons/calendar_tasks_icon_active.svg";
 import { BoardData } from "@/components/tasks/board-item";
 import { boardTasks } from "@/components/tasks/board";
-import Calendar from "@/components/tasks/calendar";
+import Calendar from "@/components/tasks/calendar/calendar";
 
 const Board = dynamic(() => import("@/components/tasks/board"), {
   ssr: false,

@@ -1,3 +1,7 @@
+.fc-event {
+  font-weight: 600;
+}
+
 .fc-button {
   padding: 6px 14px !important;
   background-color: transparent !important;
@@ -63,4 +67,32 @@
   background-color: #08c7e0;
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
+}
+
+/* color picker */
+
+#rc-editable-input-9,
+#rc-editable-input-8,
+#rc-editable-input-7,
+#rc-editable-input-6,
+#rc-editable-input-5,
+#rc-editable-input-4,
+#rc-editable-input-3,
+#rc-editable-input-2,
+#rc-editable-input-1 {
+  box-shadow: none !important;
+  color: black !important;
+  background-color: transparent !important;
+}
+
+.dark #rc-editable-input-9,
+.dark #rc-editable-input-8,
+.dark #rc-editable-input-7,
+.dark #rc-editable-input-6,
+.dark #rc-editable-input-5,
+.dark #rc-editable-input-4,
+.dark #rc-editable-input-3,
+.dark #rc-editable-input-2,
+.dark #rc-editable-input-1 {
+  color: white !important;
 }

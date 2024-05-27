@@ -93,3 +93,18 @@ export type AllProject = {
   tasks: [];
   users: usersFromAllProject[];
 };
+
+export interface CreateEventFormValues {
+  title: string;
+}
+
+export interface Event {
+  title: string;
+  start: Date | string;
+  end: Date | string;
+  allDay: boolean;
+  id: number;
+  textColor: string;
+  borderColor: string;
+  backgroundColor: string;
+}
