@@ -7,6 +7,7 @@ import { ThemeProvider } from "./theme-provider";
 import TanstackProvider from "@/utils/providers/tanstack-provider";
 
 import { ToastContainer } from "react-toastify";
+import "react-day-picker/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 

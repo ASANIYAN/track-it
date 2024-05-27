@@ -44,10 +44,12 @@ import { Calendar as CalendarComponent } from "../ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 interface Event {
   title: string;
   start: Date | string;
+  end: Date | string;
   allDay: boolean;
   id: number;
   borderColor: string;
@@ -72,6 +74,7 @@ const Calendar = () => {
   ]);
 
   const [date, setDate] = useState<Date>();
+  const [range, setRange] = useState<DateRange | undefined>(undefined);
   const [showModal, setShowModal] = useState(false);
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -79,6 +82,7 @@ const Calendar = () => {
   const [newEvent, setNewEvent] = useState<Event>({
     title: "",
     start: "",
+    end: "",
     backgroundColor: "",
     borderColor: "",
     allDay: false,
@@ -94,6 +98,7 @@ const Calendar = () => {
     setNewEvent({
       ...newEvent,
       start: arg.date,
+      end: arg.date,
       allDay: arg.allDay,
       id: new Date().getTime(),
     });
@@ -134,6 +139,7 @@ const Calendar = () => {
       backgroundColor: "",
       title: "",
       start: "",
+      end: "",
       allDay: false,
       id: 0,
     });
@@ -142,21 +148,26 @@ const Calendar = () => {
     reset({
       title: "",
     });
+    setRange(undefined);
   };
 
   const handleCreateEvent = (data: CreateEventFormValues) => {
     const color = getRandomRgbaColor();
-    const payload = {
-      ...newEvent,
-      borderColor: color,
-      backgroundColor: color,
-      title: data.title,
-    };
-    setAllEvents([...allEvents, payload]);
-    setShowModal(false);
-    reset({
-      title: "",
-    });
+    if (range && range.from !== undefined && range.to !== undefined) {
+      const payload = {
+        ...newEvent,
+        start: range.from.toISOString(),
+        end: range.to.toISOString(),
+        borderColor: color,
+        backgroundColor: color,
+        title: data.title,
+      };
+      setAllEvents([...allEvents, payload]);
+      setShowModal(false);
+      reset({
+        title: "",
+      });
+    }
   };
 
   useEffect(() => {
@@ -174,6 +185,10 @@ const Calendar = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    console.log(range);
+  }, [range]);
 
   return (
     <section className="w-full overflow-x-auto no-scrollbar">
@@ -226,41 +241,58 @@ const Calendar = () => {
               <DialogTitle>Add event</DialogTitle>
               <DialogDescription>Create a new event.</DialogDescription>
             </DialogHeader>
-            <section className="flex flex-col gap-3">
+            <section className="flex flex-col gap-3 relative">
               <CustomInput
-                name="Title"
-                label="title"
+                name="title"
+                label="Title"
                 defaultType="text"
                 className="w-full focus-visible:ring-transparent"
                 method={method}
               />
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-[280px] justify-start text-left font-normal",
-                      !date && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <span>Pick a date</span>}
-                  </Button>
+                  <section>
+                    <span className="block text-sm text-black dark:text-white mb-1.5">
+                      Start End Date
+                    </span>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !range && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {range !== undefined ? (
+                        <>
+                          {range.from !== undefined &&
+                            format(range.from!, "PPP")}{" "}
+                          {"-"}
+                          {range.to !== undefined && format(range.to!, "PPP")}
+                        </>
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                    </Button>
+                  </section>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto bottom-0 top-full border-none px-0 pb-0 z-50 bg-white dark:bg-darkColor2">
+                <PopoverContent
+                  side="bottom"
+                  align="start"
+                  className="w-auto left-0 border-none p-0 mt-5 translate-y-6 z-50 bg-white dark:bg-darkColor2"
+                >
                   <CalendarComponent
                     className=""
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
+                    min={2}
+                    mode="range"
+                    selected={range}
+                    onSelect={setRange}
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
-              {/* <CustomInput name="title" label="title" defaultType="text" className="w-full" 
-            method={method} /> */}
             </section>
-            <DialogFooter>
+            <DialogFooter className="gap-2.5">
               <DialogClose onClick={handleCloseModal}>
                 <Button className="mr-2.5 border border-black dark:border-white w-full">
                   Cancel

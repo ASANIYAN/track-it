@@ -6,8 +6,6 @@ import { verifyAuth } from "./utils/helpers/verify-auth";
 export const middleware = async (request: NextRequest) => {
   const path = request.nextUrl.pathname;
 
-  console.log(path, "pathname");
-
   // Define paths that are considered public (accessible without a token)
   const isPublicPath =
     path === "/login" ||
@@ -17,7 +15,6 @@ export const middleware = async (request: NextRequest) => {
     path === "/resend-email" ||
     path === "/verify-email";
 
-  console.log(isPublicPath, "isPublicPath");
 
   // Get the token from the cookies
   const token = request.cookies.get(COOKIE_NAME)?.value || "";

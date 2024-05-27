@@ -40,3 +40,27 @@
 .dark .fc-today-button {
   color: white !important;
 }
+
+/* Custom DatePicker styling */
+
+.rdp-day_range_start {
+  background-color: #08c7e0;
+  opacity: 1 !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: #08c7e0 !important;
+}
+
+.rdp-button.aria-selected\:opacity-100[aria-selected="true"] {
+  background-color: #08c7e0;
+  border-radius: 0px;
+}
+
+.rdp-button.day-range-end {
+  background-color: #08c7e0;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+}
