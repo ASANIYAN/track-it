@@ -64,6 +64,12 @@ const Calendar = () => {
   };
 
   const handleDateClick = (arg: { date: Date; allDay: boolean }) => {
+    setRange({
+      from: arg.date,
+      to: undefined,
+    });
+    console.log(arg, "date arg when clicked");
+
     setNewEvent({
       ...newEvent,
       start: arg.date,
@@ -128,6 +134,7 @@ const Calendar = () => {
     ) {
       const payload = {
         ...newEvent,
+        id: new Date().getTime(),
         start: range.from.toISOString(),
         end: range.to.toISOString(),
         textColor: textColor,
