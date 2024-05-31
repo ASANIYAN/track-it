@@ -31,6 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ReactElement } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface MembersDropdownProps {
   children: ReactElement;
@@ -41,28 +42,40 @@ const MembersDropdown: React.FC<MembersDropdownProps> = ({ children }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-[278px] bg-white dark:bg-[#384047] shadow-md border-none">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          <input
+            name="findProfile"
+            type="text"
+            placeholder="yourmail@email.com"
+            className="h-7 w-[238px] rounded-[5px] placeholder:text-[#848588] placeholder:text-xs dark:placeholder:text-[#D5D6D7] border border-[#E8ECEE] dark:border-[#2B343B] bg-transparent focus:outline-none focus-visible:outline-none font-normal py-1 px-2.5"
+          />
+        </DropdownMenuLabel>
+        {/* <DropdownMenuGroup>
+          <DropdownMenuItem>
+          </DropdownMenuItem>
+        </DropdownMenuGroup> */}
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            <Avatar className="h-[22px] w-[22px] mr-2.5">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span className="text-sm">Sadio Mane</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            <Avatar className="h-[22px] w-[22px] mr-2.5">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span className="text-sm">Sadio Mane</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Keyboard className="mr-2 h-4 w-4" />
-            <span>Keyboard shortcuts</span>
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+            <Avatar className="h-[22px] w-[22px] mr-2.5">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span className="text-sm">Sadio Mane</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

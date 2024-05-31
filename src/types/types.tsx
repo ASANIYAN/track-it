@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { DateRange } from "react-day-picker";
 import { UseFormReturn } from "react-hook-form";
 
@@ -112,6 +112,7 @@ export interface Event {
 }
 
 export interface CreateEventModalProps {
+  // time: TimeState;
   showModal: boolean;
   textColor: string;
   backgroundColor: string;
@@ -121,5 +122,11 @@ export interface CreateEventModalProps {
   handleCreateEvent: (data: CreateEventFormValues) => void;
   setRange: Dispatch<SetStateAction<DateRange | undefined>>;
   handleColorPickerSelection: (color: { hex: string }) => void;
+  // handleChangeTime: (event: ChangeEvent<HTMLInputElement>) => void;
   handleColorPickerSelectionForText: (color: { hex: string }) => void;
+}
+
+export interface TimeState {
+  startTime: string;
+  endTime: string;
 }

@@ -8,7 +8,7 @@ import interactionPlugin, {
   DropArg,
 } from "@fullcalendar/interaction";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { DateRange } from "react-day-picker";
 
 import DeleteEventModal from "./delete-event-modal";
-import { CreateEventFormValues, Event } from "@/types/types";
+import { CreateEventFormValues, Event, TimeState } from "@/types/types";
 import { createEventValidationSchema } from "@/utils/form-schemas/form-schema";
 import CreateEventModal from "./create-event-modal";
 
@@ -40,6 +40,15 @@ const Calendar = () => {
     allDay: false,
     id: 0,
   });
+  // const [time, setTime] = useState<TimeState>({ startTime: "", endTime: "" });
+
+  // const handleChangeTime = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setTime((prevTime) => ({
+  //     ...prevTime,
+  //     [name]: value,
+  //   }));
+  // };
 
   const method = useForm<CreateEventFormValues>({
     resolver: yupResolver(createEventValidationSchema),
@@ -175,16 +184,18 @@ const Calendar = () => {
 
         {/* Create Event Modal Start */}
         <CreateEventModal
+          // time={time}
+          range={range}
+          method={method}
+          setRange={setRange}
+          textColor={textColor}
           showModal={showModal}
           handleCloseModal={handleCloseModal}
-          method={method}
-          range={range}
-          setRange={setRange}
           backgroundColor={backgroundColor}
-          textColor={textColor}
+          // handleChangeTime={handleChangeTime}
+          handleCreateEvent={handleCreateEvent}
           handleColorPickerSelection={handleColorPickerSelection}
           handleColorPickerSelectionForText={handleColorPickerSelectionForText}
-          handleCreateEvent={handleCreateEvent}
         />
         {/* Create Event Modal End */}
 
