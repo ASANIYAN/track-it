@@ -4,9 +4,9 @@ import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 
-import move_task_icon from "../../../public/assets/icons/move_task_icon.svg";
-import task_uncheck_icon from "../../../public/assets/icons/task_uncheck_icon.svg";
-import task_check_icon from "../../../public/assets/icons/task_check_icon.svg";
+import move_task_icon from "../../../../public/assets/icons/move_task_icon.svg";
+import task_uncheck_icon from "../../../../public/assets/icons/task_uncheck_icon.svg";
+import task_check_icon from "../../../../public/assets/icons/task_check_icon.svg";
 
 type ItemData = {
   task: string;

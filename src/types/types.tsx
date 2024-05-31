@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+import { DateRange } from "react-day-picker";
 import { UseFormReturn } from "react-hook-form";
 
 export type LoginFormValues = {
@@ -107,4 +109,17 @@ export interface Event {
   textColor: string;
   borderColor: string;
   backgroundColor: string;
+}
+
+export interface CreateEventModalProps {
+  showModal: boolean;
+  textColor: string;
+  backgroundColor: string;
+  method: UseFormReturn<any>;
+  handleCloseModal: () => void;
+  range: DateRange | undefined;
+  handleCreateEvent: (data: CreateEventFormValues) => void;
+  setRange: Dispatch<SetStateAction<DateRange | undefined>>;
+  handleColorPickerSelection: (color: { hex: string }) => void;
+  handleColorPickerSelectionForText: (color: { hex: string }) => void;
 }

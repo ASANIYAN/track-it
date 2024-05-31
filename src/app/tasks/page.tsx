@@ -15,8 +15,6 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
-import List from "@/components/tasks/list";
-// import Board from "@/components/tasks/board";
 import AuthWrapper from "@/components/wrappers/auth-wrapper";
 
 import list_icon from "../../../public/assets/icons/list_icon.svg";
@@ -25,11 +23,17 @@ import board_icon from "../../../public/assets/icons/board_icon.svg";
 import board_icon_active from "../../../public/assets/icons/board_icon_active.svg";
 import calendar_icon_tasks from "../../../public/assets/icons/calendar_tasks_icon.svg";
 import calendar_icon_tasks_active from "../../../public/assets/icons/calendar_tasks_icon_active.svg";
-import { BoardData } from "@/components/tasks/board-item";
-import { boardTasks } from "@/components/tasks/board";
-import Calendar from "@/components/tasks/calendar/calendar";
+import { BoardData } from "@/components/tasks/board/board-item";
+import { boardTasks } from "@/components/tasks/board/board";
 
-const Board = dynamic(() => import("@/components/tasks/board"), {
+const List = dynamic(() => import("@/components/tasks/list/list"), {
+  ssr: false,
+});
+
+const Board = dynamic(() => import("@/components/tasks/board/board"), {
+  ssr: false,
+});
+const Calendar = dynamic(() => import("@/components/tasks/calendar/calendar"), {
   ssr: false,
 });
 

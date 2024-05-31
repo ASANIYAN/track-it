@@ -59,7 +59,7 @@ const Login = () => {
             label="Password"
             method={method}
           />
-          <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 hover:text-color6 lg:cursor-pointer -translate-y-5">
+          <p className="text-[12px] font-normal text-color2 dark:text-darkColor3 hover:text-color6 lg:cursor-pointer ">
             <Link href={"forgot-password"}> Forgot your password? </Link>
           </p>
 

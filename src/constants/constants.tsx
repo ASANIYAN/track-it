@@ -17,7 +17,7 @@ export const navigation = [
   },
   {
     title: "My Tasks",
-    path: "/",
+    path: "/tasks",
     icon: <TickCircle size="18" className="dark:text-white text-color2" />,
   },
   {

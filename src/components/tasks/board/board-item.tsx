@@ -6,8 +6,8 @@ import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 
-import task_check_icon from "../../../public/assets/icons/task_check_icon.svg";
-import task_uncheck_icon from "../../../public/assets/icons/task_uncheck_icon.svg";
+import task_check_icon from "../../../../public/assets/icons/task_check_icon.svg";
+import task_uncheck_icon from "../../../../public/assets/icons/task_uncheck_icon.svg";
 
 export type BoardData = {
   task: string;

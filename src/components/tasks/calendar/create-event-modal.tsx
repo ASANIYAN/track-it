@@ -18,25 +18,12 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { TwitterPicker } from "react-color";
-import { DateRange } from "react-day-picker";
-import { UseFormReturn } from "react-hook-form";
 
 import { Calendar } from "../../ui/calendar";
-import { Dispatch, SetStateAction } from "react";
-import { CreateEventFormValues } from "@/types/types";
-
-interface CreateEventModalProps {
-  showModal: boolean;
-  textColor: string;
-  backgroundColor: string;
-  method: UseFormReturn<any>;
-  handleCloseModal: () => void;
-  range: DateRange | undefined;
-  handleCreateEvent: (data: CreateEventFormValues) => void;
-  setRange: Dispatch<SetStateAction<DateRange | undefined>>;
-  handleColorPickerSelection: (color: { hex: string }) => void;
-  handleColorPickerSelectionForText: (color: { hex: string }) => void;
-}
+import { CreateEventModalProps } from "@/types/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState } from "react";
+import MembersDropdown from "./members-dropdown";
 
 const CreateEventModal: React.FC<CreateEventModalProps> = ({
   showModal,
@@ -50,15 +37,47 @@ const CreateEventModal: React.FC<CreateEventModalProps> = ({
   handleColorPickerSelection,
   handleColorPickerSelectionForText,
 }) => {
+  const [showMembersDropdown, setShowMembersDropdown] = useState(false);
+
+  const handleShowMembersDropdown = () => setShowMembersDropdown(true);
+  const handleCloseMembersDropdown = () => setShowMembersDropdown(false);
+
   const { handleSubmit } = method;
   return (
     <Dialog open={showModal} onOpenChange={handleCloseModal}>
-      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-darkColor2 border-none">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-darkColor2 border-none h-full overflow-y-scroll no-scrollbar">
         <DialogHeader>
-          <DialogTitle>Add event</DialogTitle>
-          <DialogDescription>Create a new event.</DialogDescription>
+          <DialogTitle>Add task</DialogTitle>
+          <DialogDescription>Create a new task.</DialogDescription>
         </DialogHeader>
-        <section className="flex flex-col gap-2.5">
+        <section className="flex flex-col gap-5">
+          <section className="flex flex-col gap-1">
+            <span className="block text-xs text-black dark:text-white mb-1.5">
+              Assigned To
+            </span>
+            <div className="flex gap-0.5">
+              <Avatar className="h-6 w-6">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <Avatar className="h-6 w-6">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <Avatar className="h-6 w-6">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <MembersDropdown>
+                <div
+                  role="button"
+                  className="rounded-full border-dotted border border-[#878B8F] text-[#878B8F] h-6 w-6 flex justify-center items-center"
+                >
+                  +
+                </div>
+              </MembersDropdown>
+            </div>
+          </section>
           <CustomInput
             name="title"
             label="Title"
@@ -70,7 +89,7 @@ const CreateEventModal: React.FC<CreateEventModalProps> = ({
             <PopoverTrigger asChild>
               <section>
                 <span className="block text-xs text-black dark:text-white mb-1.5">
-                  Start End Date
+                  Start-Due Date
                 </span>
                 <Button
                   variant={"outline"}
