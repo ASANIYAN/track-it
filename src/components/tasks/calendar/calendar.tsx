@@ -162,11 +162,10 @@ const Calendar = () => {
 
       const payload = {
         ...newEvent,
+        allDay,
         id: new Date().getTime(),
         start: startDate.toISOString(),
         end: endDate.toISOString(),
-        // start: range.from.toISOString(),
-        // end: range.to.toISOString(),
         textColor: textColor,
         borderColor: backgroundColor,
         backgroundColor: backgroundColor,
