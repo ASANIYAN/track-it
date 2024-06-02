@@ -25,16 +25,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MembersDropdown from "./members-dropdown";
 
 const CreateEventModal: React.FC<CreateEventModalProps> = ({
+  time,
   range,
-  // time,
+  allDay,
+  method,
   showModal,
   textColor,
-  method,
   setRange,
   backgroundColor,
   handleCloseModal,
   handleCreateEvent,
-  // handleChangeTime,
+  handleChangeTime,
   handleColorPickerSelection,
   handleColorPickerSelectionForText,
 }) => {
@@ -124,34 +125,36 @@ const CreateEventModal: React.FC<CreateEventModalProps> = ({
           </Popover>
 
           {/* time select */}
-          {/* <section className="flex gap-2.5">
-            <div className="flex flex-col gap-1.5">
-              <span className="block text-xs text-black dark:text-white mb-2.5">
-                Start Time
-              </span>
-              <input
-                className="bg-transparent focus-visible:outline-none"
-                type="time"
-                name="startTime"
-                value={time.startTime}
-                aria-label="Start Time"
-                onChange={handleChangeTime}
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <span className="block text-xs text-black dark:text-white mb-2.5">
-                End Time
-              </span>
-              <input
-                className="bg-transparent focus-visible:outline-none"
-                type="time"
-                name="endTime"
-                value={time.endTime}
-                aria-label="End Time"
-                onChange={handleChangeTime}
-              />
-            </div>
-          </section> */}
+          {!allDay && (
+            <section className="flex gap-2.5">
+              <div className="flex flex-col gap-1.5">
+                <span className="block text-xs text-black dark:text-white mb-2.5">
+                  Start Time
+                </span>
+                <input
+                  className="bg-transparent focus-visible:outline-none"
+                  type="time"
+                  name="startTime"
+                  value={time.startTime}
+                  aria-label="Start Time"
+                  onChange={handleChangeTime}
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <span className="block text-xs text-black dark:text-white mb-2.5">
+                  End Time
+                </span>
+                <input
+                  className="bg-transparent focus-visible:outline-none"
+                  type="time"
+                  name="endTime"
+                  value={time.endTime}
+                  aria-label="End Time"
+                  onChange={handleChangeTime}
+                />
+              </div>
+            </section>
+          )}
 
           {/* color picker for background */}
           <section className="flex flex-col gap-1">

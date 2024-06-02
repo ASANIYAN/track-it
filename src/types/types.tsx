@@ -112,7 +112,8 @@ export interface Event {
 }
 
 export interface CreateEventModalProps {
-  // time: TimeState;
+  time: TimeState;
+  allDay: boolean;
   showModal: boolean;
   textColor: string;
   backgroundColor: string;
@@ -122,7 +123,7 @@ export interface CreateEventModalProps {
   handleCreateEvent: (data: CreateEventFormValues) => void;
   setRange: Dispatch<SetStateAction<DateRange | undefined>>;
   handleColorPickerSelection: (color: { hex: string }) => void;
-  // handleChangeTime: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleChangeTime: (event: ChangeEvent<HTMLInputElement>) => void;
   handleColorPickerSelectionForText: (color: { hex: string }) => void;
 }
 

@@ -23,6 +23,7 @@ import CreateEventModal from "./create-event-modal";
 import "./calendar.css";
 
 const Calendar = () => {
+  const [allDay, setAllDay] = useState<boolean>(true);
   const [textColor, setTextColor] = useState("FFFFFF");
   const [backgroundColor, setBackgroundColor] = useState("000000");
   const [range, setRange] = useState<DateRange | undefined>(undefined);
@@ -40,15 +41,15 @@ const Calendar = () => {
     allDay: false,
     id: 0,
   });
-  // const [time, setTime] = useState<TimeState>({ startTime: "", endTime: "" });
+  const [time, setTime] = useState<TimeState>({ startTime: "", endTime: "" });
 
-  // const handleChangeTime = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
-  //   setTime((prevTime) => ({
-  //     ...prevTime,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleChangeTime = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setTime((prevTime) => ({
+      ...prevTime,
+      [name]: value,
+    }));
+  };
 
   const method = useForm<CreateEventFormValues>({
     resolver: yupResolver(createEventValidationSchema),
@@ -64,11 +65,19 @@ const Calendar = () => {
   };
 
   const handleDateClick = (arg: { date: Date; allDay: boolean }) => {
+    setAllDay(arg.allDay);
     setRange({
       from: arg.date,
       to: undefined,
     });
-    console.log(arg, "date arg when clicked");
+    const hours = arg.date.getHours();
+    const minutes = arg.date.getMinutes();
+    setTime({
+      startTime: `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}`,
+      endTime: "",
+    });
 
     setNewEvent({
       ...newEvent,
@@ -78,6 +87,8 @@ const Calendar = () => {
       id: new Date().getTime(),
     });
     setShowModal(true);
+
+    console.log(arg, "date clicked");
   };
 
   const addEvent = (data: DropArg) => {
@@ -131,12 +142,31 @@ const Calendar = () => {
       range.to !== undefined &&
       backgroundColor &&
       textColor
+      // &&
+      // time.startTime &&
+      // time.endTime
     ) {
+      // start date
+      const [startHour, startMinute] = time.startTime.split(":");
+      const startDate = range.from;
+      startDate.setHours(Number(startHour));
+      startDate.setMinutes(Number(startMinute));
+      // end date
+      const [endHour, endMinute] = time.endTime.split(":");
+      const endDate = range.to;
+      endDate.setHours(Number(endHour));
+      endDate.setMinutes(Number(endMinute));
+      console.log(startDate, endDate, "start and endDate");
+      console.log(startHour, startMinute, "start hour and minute");
+      console.log(endHour, endMinute, "end Hour and minute");
+
       const payload = {
         ...newEvent,
         id: new Date().getTime(),
-        start: range.from.toISOString(),
-        end: range.to.toISOString(),
+        start: startDate.toISOString(),
+        end: endDate.toISOString(),
+        // start: range.from.toISOString(),
+        // end: range.to.toISOString(),
         textColor: textColor,
         borderColor: backgroundColor,
         backgroundColor: backgroundColor,
@@ -166,6 +196,10 @@ const Calendar = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(time);
+  }, [time]);
+
   return (
     <section className="w-full overflow-x-auto no-scrollbar">
       <section className="p-2.5 bg-white dark:bg-[#222B32] rounded-[10px] w-full min-w-[700px]">
@@ -191,15 +225,16 @@ const Calendar = () => {
 
         {/* Create Event Modal Start */}
         <CreateEventModal
-          // time={time}
+          time={time}
           range={range}
+          allDay={allDay}
           method={method}
           setRange={setRange}
           textColor={textColor}
           showModal={showModal}
           handleCloseModal={handleCloseModal}
           backgroundColor={backgroundColor}
-          // handleChangeTime={handleChangeTime}
+          handleChangeTime={handleChangeTime}
           handleCreateEvent={handleCreateEvent}
           handleColorPickerSelection={handleColorPickerSelection}
           handleColorPickerSelectionForText={handleColorPickerSelectionForText}
