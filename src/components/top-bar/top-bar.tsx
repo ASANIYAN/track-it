@@ -10,30 +10,35 @@ import NotificationInfo from "./notification-info";
 import ProfileInfo from "./profile-info";
 
 type TopBarProps = {
-    cycleOpen: Cycle
-}
+  cycleOpen: Cycle;
+  topBarText?: string;
+};
 
-const TopBar: React.FC<TopBarProps> = ({ cycleOpen }) => {
-    
-    const handleToggle = () => cycleOpen();
+const TopBar: React.FC<TopBarProps> = ({ cycleOpen, topBarText = "Home" }) => {
+  const handleToggle = () => cycleOpen();
 
+  return (
+    <section className="flex px-1 py-3.5 relative items-center justify-between md:p-5 shadow-two bg-white dark:shadow-darkTwo dark:bg-darkColor5">
+      <HambergerMenu
+        onClick={handleToggle}
+        className="cursor-pointer pl-3 md:hidden"
+        size="32"
+        color="#848588"
+      />
+      <h2 className="hidden md:block text-color1 text-xl font-medium dark:text-white ">
+        {" "}
+        {topBarText}{" "}
+      </h2>
+      <section className="flex items-center gap-3">
+        <div className="hidden xxs:block">
+          <SearchBar />
+        </div>
+        <AddButton />
+        <NotificationInfo />
+        <ProfileInfo />
+      </section>
+    </section>
+  );
+};
 
-    return (
-        <section
-            className="flex px-1 py-3.5 relative items-center justify-between md:p-5 shadow-two bg-white dark:shadow-darkTwo dark:bg-darkColor5"
-        >
-            <HambergerMenu onClick={handleToggle} className="cursor-pointer pl-3 md:hidden" size="32" color="#848588" />
-            <h2 className="hidden md:block text-color1 text-xl font-medium dark:text-white "> Home </h2>
-            <section className="flex items-center gap-3">
-                <div className="hidden xxs:block">
-                    <SearchBar />
-                </div>
-                <AddButton />
-                <NotificationInfo />
-                <ProfileInfo />
-            </section>
-        </section>
-    );
-}
- 
 export default TopBar;

@@ -186,7 +186,7 @@ const EditProjectModal: React.FC<EditProjectModalProps> = ({
             />
           </section>
 
-          <section className="flex flex-col justify-center items-center gap-2 w-full max-w-[540px]">
+          <section className="flex flex-col justify-center items-center gap-2 w-full max-w-[540px] font-poppins">
             <CustomInput
               name="projectName"
               defaultType="text"

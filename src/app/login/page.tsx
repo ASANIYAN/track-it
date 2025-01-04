@@ -18,6 +18,8 @@ import ScaleLineLoader from "@/components/loaders/scale-line-loader/scale-line-l
 import ErrorDisplayHandler from "@/utils/helpers/error-display-handler";
 import { loginValidationSchema } from "@/utils/form-schemas/form-schema";
 import { useLogin } from "@/tanstack/mutations/mutations";
+import { useRouter } from "next/navigation";
+import { SuccessToast } from "@/components/toast/toasts";
 
 const metadata: Metadata = {
   title: "Login",
@@ -25,6 +27,7 @@ const metadata: Metadata = {
 };
 
 const Login = () => {
+  const router = useRouter();
   const method = useForm<LoginFormValues>({
     resolver: yupResolver(loginValidationSchema),
   });
@@ -39,7 +42,13 @@ const Login = () => {
       password: data.password,
     };
 
-    mutate(payload);
+    mutate(payload, {
+      onSuccess: () => {
+        router.push("/");
+        SuccessToast("Login Successful");
+      },
+      onError: () => {},
+    });
   };
 
   return (

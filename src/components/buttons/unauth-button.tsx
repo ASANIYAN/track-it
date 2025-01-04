@@ -3,6 +3,8 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
 import { SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type ButtonProp = {
   children: ReactNode;
@@ -14,13 +16,16 @@ const UnauthButton: React.FC<
   ButtonProp & ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ children, handleSubmit, handleClick, ...rest }) => {
   return (
-    <button
-      onClick={handleSubmit(handleClick)}
-      className="bg-color3 text-white w-full text-lg font-medium text-center h-[48px] rounded-[5px] mt-5"
+    <Button
+      onMouseDown={handleSubmit(handleClick)}
+      className={cn(
+        "bg-color3 text-white w-full text-lg font-medium text-center h-[48px] rounded-[5px] mt-5",
+        rest.className
+      )}
       {...rest}
     >
       {children}
-    </button>
+    </Button>
   );
 };
 

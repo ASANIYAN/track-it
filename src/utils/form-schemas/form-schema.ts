@@ -71,7 +71,7 @@ export const editProjectValidationSchema = yup.object().shape({
 export const createProjectValidationSchema = yup.object().shape({
   image: yup
     .mixed()
-    .notRequired()
+    .required("Please select an image")
     .test(
       "fileSize",
       "File size must not exceed 5MB",

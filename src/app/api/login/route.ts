@@ -69,8 +69,12 @@ export const POST = async (request: NextRequest) => {
       httpOnly: true,
     });
 
+    response.headers.set("Authorization", `Bearer ${token}`);
+
     return response;
   } catch (error: any) {
+    console.log(error, "error");
+
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };

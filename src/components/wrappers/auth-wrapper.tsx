@@ -14,10 +14,16 @@ import { useProjectStore } from "@/store/project-store";
 import { useGetAllProject, useGetUser } from "@/tanstack/mutations/mutations";
 
 type AuthWrapperProps = {
+  showDesktop?: boolean;
+  topBarText?: string;
   children: ReactElement | ReactElement[];
 };
 
-const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
+const AuthWrapper: React.FC<AuthWrapperProps> = ({
+  showDesktop = true,
+  topBarText,
+  children,
+}) => {
   // request to get all projects
   const {
     data: projects,
@@ -90,10 +96,10 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
 
   return (
     <section className="flex flex-nowrap h-screen">
-      <Desktop />
+      {showDesktop && <Desktop />}
       <Mobile open={open} />
       <section className="flex-1 overflow-y-auto">
-        <TopBar cycleOpen={cycleOpen} />
+        <TopBar topBarText={topBarText} cycleOpen={cycleOpen} />
         <section className="bg-[#F9F9F9] dark:bg-[#222B32] pb-5 pt-4 min-h-[100vh]">
           {children}
         </section>

@@ -6,6 +6,7 @@ import getDataFromToken from "@/utils/helpers/get-data-from-token";
 import Project from "@/models/project";
 import User from "@/models/user";
 import getUsersForProjects from "@/utils/helpers/get-users-for-projects";
+import { COOKIE_NAME } from "@/constants/constants";
 
 export const GET = async (request: NextRequest) => {
   try {
@@ -33,6 +34,12 @@ export const GET = async (request: NextRequest) => {
       projectsWithUsers,
     });
   } catch (error: any) {
+    console.log(error.message, "error getting projects from DB");
+
+    if (error.message.includes("jwt expired")) {
+      return NextResponse.json({ error: "jwt expired" }, { status: 401 });
+    }
+
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };

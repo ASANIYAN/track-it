@@ -11,11 +11,9 @@ import "react-day-picker/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "Home",
-  description: "track-it Homepage",
+  description: "Track-it Homepage",
 };
 
 export default function RootLayout({
@@ -25,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} dark:bg-darkColor1`}>
+      <body className={`dark:bg-darkColor1`}>
         <ThemeProvider>
           <TanstackProvider>
             <ToastContainer />

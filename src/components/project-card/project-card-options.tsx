@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 import { AllProject } from "@/types/types";
@@ -10,6 +12,7 @@ import {
   useAddProjectToFavourite,
   useDeleteProject,
 } from "@/tanstack/mutations/mutations";
+import DeleteProjectModal from "../home/delete-project-modal";
 
 const EditProjectModal = dynamic(() => import("../home/edit-project-modal"), {
   ssr: false,
@@ -29,6 +32,8 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const { mutate: deleteProject } = useDeleteProject(data._id);
   const { mutate: addRemoveProjectFavourite } = useAddProjectToFavourite();
 
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   const [editProjectModal, setEditProjectModal] = useState<boolean>(false);
   const [renameProjectModal, setRenameProjectModal] = useState<boolean>(false);
 
@@ -41,6 +46,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const handleDeleteProject = () => {
     deleteProject(data._id);
     setOpen(false);
+    buttonRef.current?.click();
   };
 
   const handleRenameProject = () => {
@@ -72,7 +78,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   };
 
   const projectOptions = [
-    { name: "Delete Project", handler: handleDeleteProject },
+    { name: "Delete Project" },
     { name: "Rename Project", handler: handleRenameProject },
     { name: "Edit Project Details", handler: handleEditProjectDetails },
   ];
@@ -103,22 +109,36 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
         </div>
         <section
           className={`w-[200px] ${
-            open
-              ? "h-[190px] sm:h-[225px] opacity-100 z-10"
-              : "h-0 opacity-0 z-0"
+            open ? "h-fit py-4 opacity-100 z-10" : "h-0 opacity-0 -z-10"
           } transition-all absolute top-10 right-2.5 flex flex-col 
                     justify-start gap-1 sm:gap-2 rounded-[10px] bg-white shadow-four text-color1 p-2 text-[11px] sm:text-[13px] font-normal 
                     w-xl dark:bg-darkColor4 dark:shadow-darkThree dark:text-white`}
         >
           {projectOptions.map((option) => (
-            <p
-              key={option.name}
-              className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
-              onClick={option.handler}
-            >
-              {" "}
-              {option.name}{" "}
-            </p>
+            <>
+              {option.name === "Delete Project" ? (
+                <DeleteProjectModal
+                  buttonRef={buttonRef}
+                  handleDelete={handleDeleteProject}
+                >
+                  <p
+                    key={option.name}
+                    className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
+                    onClick={option.handler}
+                  >
+                    {option.name}{" "}
+                  </p>
+                </DeleteProjectModal>
+              ) : (
+                <p
+                  key={option.name}
+                  className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
+                  onClick={option.handler}
+                >
+                  {option.name}
+                </p>
+              )}
+            </>
           ))}
           {data?.favourite === true && (
             <p

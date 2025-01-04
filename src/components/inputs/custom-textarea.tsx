@@ -11,7 +11,7 @@ const CustomTextArea: React.FC<
         <section className="textarea-container">
           <label> {label}</label>
           <textarea
-            className={`resize-none bg-transparent focus:outline-none dark:text-darkColor3 border ${
+            className={`resize-none bg-transparent focus:outline-none dark:text-white border ${
               error.length > 0 ? " border-error" : "border-color4"
             }`}
             name={name}

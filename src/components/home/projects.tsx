@@ -1,6 +1,5 @@
 import { Fragment, useEffect } from "react";
 
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useCycle } from "framer-motion";
 
 import ProjectCard from "../project-card/project-card";

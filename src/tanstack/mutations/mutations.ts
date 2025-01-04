@@ -52,10 +52,6 @@ export const useLogin = () => {
   return useMutation({
     mutationKey: ["logInUser"],
     mutationFn: logInUser,
-    onSuccess: () => {
-      window.location.href = "/";
-      SuccessToast("Login Successful");
-    },
   });
 };
 

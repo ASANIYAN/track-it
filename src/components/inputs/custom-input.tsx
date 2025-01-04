@@ -30,7 +30,7 @@ export const CustomInput: React.FC<
         <input
           {...register(name)}
           className={cn(
-            `focus:outline-none focus-visible:outline-none dark:text-darkColor3 bg-transparent border ${
+            `focus:outline-none focus-visible:outline-none dark:text-white bg-transparent border ${
               errors[name] ? " border-error" : "border-color4"
             }`,
             className
