@@ -1,5 +1,6 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
+// Role Model
 export interface IRole extends Document {
   name: string;
   permissions: string[];
@@ -7,29 +8,26 @@ export interface IRole extends Document {
 
 const allowedRoleNames = ["admin", "manager", "member"];
 
-// Custom validator for the 'name' field
-const validateRoleName = (value: string) => {
-  return allowedRoleNames.includes(value);
-};
-
-const roleSchema = new Schema<IRole>({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: validateRoleName,
-      message:
-        "Invalid role name. Allowed values are admin, manager, or member.",
+const roleSchema = new Schema<IRole>(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: (value: string) => allowedRoleNames.includes(value),
+        message:
+          "Invalid role name. Allowed values are admin, manager, or member.",
+      },
+    },
+    permissions: {
+      type: [String],
+      default: [],
     },
   },
-  permissions: {
-    type: [String],
-    default: [],
-  },
-});
+  { timestamps: true }
+);
 
-// Automatically set permissions based on the role name
 roleSchema.pre("validate", function (next) {
   if (this.name === "admin") {
     this.permissions = [
@@ -46,4 +44,4 @@ roleSchema.pre("validate", function (next) {
   next();
 });
 
-export default mongoose.models.Role || mongoose.model("Role", roleSchema);
+export const Role = mongoose.models.Role || mongoose.model("Role", roleSchema);

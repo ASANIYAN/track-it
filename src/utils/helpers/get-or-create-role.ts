@@ -1,22 +1,24 @@
-import Role, { IRole } from "@/models/role";
+import { IRole, Role } from "@/models/role";
 
-const getOrCreateRole = async (roleData: { name: string }): Promise<IRole> => {
+interface RoleData {
+  name: "admin" | "manager" | "member"; // strictly type the allowed role names
+}
+
+const getRole = async (roleData: RoleData): Promise<IRole> => {
   try {
-    const adminRole = await Role.findOne(roleData);
-    if (adminRole) {
-      console.log("role gotten successfully", adminRole);
-      return adminRole;
+    const role = await Role.findOne({ name: roleData.name });
+
+    if (!role) {
+      throw new Error(
+        `Role '${roleData.name}' not found. Please ensure roles are properly seeded in the database.`
+      );
     }
 
-    const newAdminRole = new Role(roleData);
-    const savedRole = await newAdminRole.save();
-
-    console.log("Role created successfully:", savedRole);
-    return savedRole; // Return the saved role
+    return role;
   } catch (error) {
-    console.error("Error creating role:", error);
-    throw error; // Re-throw the error to be caught by the caller
+    console.error("Error in getRole:", error);
+    throw error;
   }
 };
 
-export default getOrCreateRole;
+export default getRole;

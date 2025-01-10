@@ -1,8 +1,7 @@
 import { Types } from "mongoose";
 
 import { ProjectDocument } from "@/models/project";
-
-import User, { UserDocument } from "@/models/user";
+import { User, UserDocument } from "@/models/user";
 
 const getUsersForProjects = async (projects: any) => {
   try {

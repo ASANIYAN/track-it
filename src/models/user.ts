@@ -1,4 +1,5 @@
-import { Document } from "mongoose";
+// User Model
+import { Document, Types } from "mongoose";
 import mongoose, { Schema } from "mongoose";
 
 export interface UserDocument extends Document {
@@ -9,6 +10,7 @@ export interface UserDocument extends Document {
   forgotPasswordTokenExpiry?: Date;
   verifyToken?: string;
   verifyTokenExpiry?: Date;
+  projects?: Array<{ project: Types.ObjectId; role: Types.ObjectId }>;
 }
 
 const userSchema = new Schema<UserDocument>(
@@ -30,8 +32,20 @@ const userSchema = new Schema<UserDocument>(
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
+    projects: [
+      {
+        project: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Project",
+        },
+        role: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Role",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+export const User = mongoose.models.User || mongoose.model("User", userSchema);

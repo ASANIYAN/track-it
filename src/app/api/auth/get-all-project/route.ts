@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import connect from "@/utils/db/mongodb-connect";
 import getDataFromToken from "@/utils/helpers/get-data-from-token";
 
-import Project from "@/models/project";
-import User from "@/models/user";
 import getUsersForProjects from "@/utils/helpers/get-users-for-projects";
 import { COOKIE_NAME } from "@/constants/constants";
+import { User } from "@/models/user";
+import { Project } from "@/models/project";
 
 export const GET = async (request: NextRequest) => {
   try {

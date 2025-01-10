@@ -1,37 +1,36 @@
 import mongoose, { Schema } from "mongoose";
 
-const taskSchema = new Schema({
-  projectId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Project",
-    required: true,
-  },
-  assignedTo: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  ],
-  dueDate: { type: Date, required: true },
-  project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Project",
-    required: true,
-  },
-  tag: { type: String, required: true },
-  description: { type: String, required: true },
-  subTasks: [{ type: String, required: true }],
-  attachments: [
-    {
-      publicId: { type: String, required: true }, // Public ID from Cloudinary
-      url: { type: String, required: true }, // URL from Cloudinary
+// Task Model
+export const taskSchema = new Schema(
+  {
+    name: { type: String, required: true }, // Added name field
+    project: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project",
+      required: true,
     },
-  ],
-  taskComments: [
-    {
-      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      comment: { type: String },
-      createdAt: { type: Date, default: Date.now },
+    assignedTo: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
+    dueDate: { type: Date, required: true },
+    tag: { type: String, required: true },
+    description: { type: String, required: true },
+    status: {
+      type: String,
+      enum: ["TODO", "IN_PROGRESS", "COMPLETED"],
+      default: "TODO",
     },
-  ],
-  permissions: { type: mongoose.Schema.Types.ObjectId, ref: "Permission" },
-});
+    permissions: {
+      read: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }],
+      write: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }],
+      delete: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }],
+    },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.models.Task || mongoose.model("Task", taskSchema);
+export const Task = mongoose.models.Task || mongoose.model("Task", taskSchema);
