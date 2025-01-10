@@ -13,6 +13,8 @@ import {
   useDeleteProject,
 } from "@/tanstack/mutations/mutations";
 import DeleteProjectModal from "../home/delete-project-modal";
+import { useRouter } from "next/navigation";
+import { useProjectIDStore } from "@/store/selected-project-store";
 
 const EditProjectModal = dynamic(() => import("../home/edit-project-modal"), {
   ssr: false,
@@ -28,7 +30,12 @@ type ProjectCardOptionProps = {
 };
 
 const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
+  const router = useRouter();
+
+  const { setSelectedProjectId } = useProjectIDStore();
+
   const { setSingleProject } = useProjectStore();
+
   const { mutate: deleteProject } = useDeleteProject(data._id);
   const { mutate: addRemoveProjectFavourite } = useAddProjectToFavourite();
 
@@ -75,6 +82,11 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
   const handleEditProjectDetails = () => {
     setSingleProject(data);
     setEditProjectModal(true);
+  };
+
+  const handleGoToProject = (id: string) => () => {
+    router.push(`/project/${id}`);
+    setSelectedProjectId(id);
   };
 
   const projectOptions = [
@@ -144,7 +156,7 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
             <p
               key={otherProjectOptions[0].name}
               className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
-              onClick={otherProjectOptions[0].handler}
+              onMouseDown={otherProjectOptions[0].handler}
             >
               {" "}
               {otherProjectOptions[0].name}{" "}
@@ -154,12 +166,19 @@ const ProjectCardOption: React.FC<ProjectCardOptionProps> = ({ data }) => {
             <p
               key={otherProjectOptions[1].name}
               className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
-              onClick={otherProjectOptions[1].handler}
+              onMouseDown={otherProjectOptions[1].handler}
             >
               {" "}
               {otherProjectOptions[1].name}{" "}
             </p>
           )}
+
+          <p
+            className="rounded-md p-2 hover:bg-color13 hover:dark:bg-darkColor5 cursor-pointer"
+            onMouseDown={handleGoToProject(data._id)}
+          >
+            View Project
+          </p>
         </section>
       </section>
       {editProjectModal && (

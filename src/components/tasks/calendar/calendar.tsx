@@ -6,6 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, {
   Draggable,
   DropArg,
+  EventResizeDoneArg,
 } from "@fullcalendar/interaction";
 
 import { ChangeEvent, useEffect, useState } from "react";
@@ -21,6 +22,7 @@ import { createEventValidationSchema } from "@/utils/form-schemas/form-schema";
 import CreateEventModal from "./create-event-modal";
 
 import "./calendar.css";
+import { EventDropArg, EventInput } from "@fullcalendar/core/index.js";
 
 const Calendar = () => {
   const [allDay, setAllDay] = useState<boolean>(true);
@@ -28,10 +30,10 @@ const Calendar = () => {
   const [backgroundColor, setBackgroundColor] = useState("000000");
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   const [showModal, setShowModal] = useState(false);
-  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<EventInput[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState<number | null>(null);
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [newEvent, setNewEvent] = useState<EventInput>({
     title: "",
     start: "",
     end: "",
@@ -39,7 +41,7 @@ const Calendar = () => {
     backgroundColor: "",
     borderColor: "",
     allDay: false,
-    id: 0,
+    id: "0",
   });
   const [time, setTime] = useState<TimeState>({ startTime: "", endTime: "" });
 
@@ -76,7 +78,9 @@ const Calendar = () => {
       startTime: `${hours.toString().padStart(2, "0")}:${minutes
         .toString()
         .padStart(2, "0")}`,
-      endTime: "",
+      endTime: `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}`,
     });
 
     setNewEvent({
@@ -84,7 +88,7 @@ const Calendar = () => {
       start: arg.date,
       end: arg.date,
       allDay: arg.allDay,
-      id: new Date().getTime(),
+      id: new Date().getTime().toString(),
     });
     setShowModal(true);
 
@@ -92,12 +96,12 @@ const Calendar = () => {
   };
 
   const addEvent = (data: DropArg) => {
-    const event = {
+    const event: EventInput = {
       ...newEvent,
       start: data.date.toISOString(),
       title: data.draggedEl.innerText,
       allDay: data.allDay,
-      id: new Date().getTime(),
+      id: new Date().getTime().toString(),
     };
     setAllEvents([...allEvents, event]);
   };
@@ -125,14 +129,14 @@ const Calendar = () => {
       start: "",
       end: "",
       allDay: false,
-      id: 0,
+      id: "0",
     });
     setShowDeleteModal(false);
     setIdToDelete(null);
     reset({
       title: "",
     });
-    setRange(undefined);
+    // setRange(undefined);
   };
 
   const handleCreateEvent = (data: CreateEventFormValues) => {
@@ -160,10 +164,10 @@ const Calendar = () => {
       console.log(startHour, startMinute, "start hour and minute");
       console.log(endHour, endMinute, "end Hour and minute");
 
-      const payload = {
+      const payload: EventInput = {
         ...newEvent,
         allDay,
-        id: new Date().getTime(),
+        id: new Date().getTime().toString(),
         start: startDate.toISOString(),
         end: endDate.toISOString(),
         textColor: textColor,
@@ -196,8 +200,40 @@ const Calendar = () => {
   }, []);
 
   useEffect(() => {
-    console.log(time);
-  }, [time]);
+    console.log(allEvents, "all events");
+  }, [allEvents]);
+
+  const handleEventDrop = (info: EventDropArg) => {
+    console.log(info.event, "event drop");
+
+    const updatedEvents = allEvents.map((event) => {
+      if (event.id === info.event.id) {
+        return {
+          ...event,
+          start: info.event.start ? info.event.start.toISOString() : undefined,
+          end: info.event.end ? info.event.end.toISOString() : undefined,
+        };
+      }
+      return event;
+    });
+
+    setAllEvents(updatedEvents);
+  };
+
+  const handleEventResize = (info: EventResizeDoneArg) => {
+    const updatedEvents = allEvents.map((event) => {
+      if (event.id === info.event.id) {
+        return {
+          ...event,
+          start: info.event.start ? info.event.start.toISOString() : undefined,
+          end: info.event.end ? info.event.end.toISOString() : undefined,
+        };
+      }
+      return event;
+    });
+
+    setAllEvents(updatedEvents);
+  };
 
   return (
     <section className="w-full overflow-x-auto no-scrollbar">
@@ -217,6 +253,8 @@ const Calendar = () => {
           droppable
           selectable
           selectMirror
+          eventDrop={handleEventDrop}
+          eventResize={handleEventResize}
           dateClick={handleDateClick}
           drop={(data) => addEvent(data)}
           eventClick={(data) => handleDeleteModal(data)}

@@ -9,7 +9,6 @@ import { motion } from "framer-motion";
 import { AllProject } from "@/types/types";
 import ProjectCardOption from "./project-card-options";
 import { useProjectStore } from "@/store/project-store";
-import { useRouter } from "next/navigation";
 
 type ProjectCardProps = {
   data: AllProject;
@@ -17,13 +16,7 @@ type ProjectCardProps = {
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ data, isClickable }) => {
-  const router = useRouter();
   const { isSuccess } = useProjectStore();
-
-  const handleGoToProject = (id: string) => () => {
-    if (!isClickable) return;
-    router.push(`/project/${id}`);
-  };
 
   return (
     <>
@@ -36,7 +29,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, isClickable }) => {
             transition: { duration: 0.6 },
           }}
           exit={{ opacity: 0, width: 0, transition: { duration: 0.5 } }}
-          onMouseDown={handleGoToProject(data?._id)}
           className={`w-full sm:w-[250px] flex flex-col relative border border-color4 bg-white dark:border-darkColor4 dark:bg-darkColor2 gap-2.5 items-start rounded-[10px] py-3.5 px-3
             ${isClickable ? "cursor-pointer" : ""}
             `}

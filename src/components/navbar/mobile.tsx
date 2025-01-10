@@ -1,18 +1,25 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
-import { navigation } from "@/constants/constants";
 import AddButton from "../buttons/add-button";
 import SearchBar from "../search-bar/search-bar";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown2, ArrowUp2 } from "iconsax-react";
+import {
+  ArrowDown2,
+  ArrowUp2,
+  Calendar,
+  Home,
+  People,
+  Setting2,
+  TickCircle,
+} from "iconsax-react";
 
 import "./navbar.css";
 import Link from "next/link";
 import { useProjectStore } from "@/store/project-store";
+import { useProjectIDStore } from "@/store/selected-project-store";
 
 type MobileProps = {
   open: boolean;
@@ -25,6 +32,36 @@ const Mobile: React.FC<MobileProps> = ({ open }) => {
   const handleDropDown = () => {
     setDropDown((prevState) => !prevState);
   };
+
+  const { selectedProjectId } = useProjectIDStore();
+
+  const navigation = [
+    {
+      title: "Home",
+      path: "/",
+      icon: <Home size="18" className="dark:text-white text-color2" />,
+    },
+    {
+      title: "My Tasks",
+      path: `tasks/${selectedProjectId}`,
+      icon: <TickCircle size="18" className="dark:text-white text-color2" />,
+    },
+    {
+      title: "My Plan",
+      path: "/",
+      icon: <Calendar size="18" className="dark:text-white text-color2" />,
+    },
+    {
+      title: "People",
+      path: "/",
+      icon: <People size="18" className="dark:text-white text-color2" />,
+    },
+    {
+      title: "Setting",
+      path: "/setting",
+      icon: <Setting2 size="18" className="dark:text-white text-color2" />,
+    },
+  ];
 
   const showIcon = () => {
     return dropDown ? (

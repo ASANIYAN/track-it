@@ -17,18 +17,13 @@ export const navigation = [
   },
   {
     title: "My Tasks",
-    path: "/tasks",
+    path: `/tasks`,
     icon: <TickCircle size="18" className="dark:text-white text-color2" />,
   },
   {
     title: "My Plan",
     path: "/",
     icon: <Calendar size="18" className="dark:text-white text-color2" />,
-  },
-  {
-    title: "Inbox",
-    path: "/",
-    icon: <Message2 size="18" className="dark:text-white text-color2" />,
   },
   {
     title: "People",

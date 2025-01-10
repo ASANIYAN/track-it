@@ -1,168 +1,81 @@
-"use client";
+import MultiList from "./multi-list";
 
-import Image from "next/image";
-import { useState } from "react";
-
-import { Add, ArrowDown2, ArrowUp2 } from "iconsax-react";
-
-import ListItem from "./list-item";
-import ThemeIconChanger from "@/utils/helpers/theme-icon-changer";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
-
-const features = ["Tag", "Properties", "Due Date"];
-
-type ListProps = {
-  heading: string;
-};
-
-const List: React.FC<ListProps> = ({ heading }) => {
-  const [toggle, setToggle] = useState<boolean>(false);
-
-  const [items, setItems] = useState([
+const List = () => {
+  const initialLists = [
     {
-      task: "Customer Experience Insight",
-      tag: "air",
-      color: "#000",
-      properties: "Web Design",
-      due: "Tuesday",
-      id: 1,
+      id: "list-1",
+      heading: "In Progress",
+      items: [
+        {
+          task: "Customer Experience Insight Analysis",
+          due: "Tuesday",
+          id: "task-1",
+          listId: "list-1",
+        },
+        {
+          task: "Q1 Sales Report Review",
+          due: "Wednesday",
+          id: "task-2",
+          listId: "list-1",
+        },
+        {
+          task: "User Interface Redesign",
+          due: "Friday",
+          id: "task-3",
+          listId: "list-1",
+        },
+        {
+          task: "Team Performance Evaluation",
+          due: "Next Monday",
+          id: "task-4",
+          listId: "list-1",
+        },
+      ],
     },
     {
-      task: "Work Insight",
-      tag: "work",
-      color: "#056278",
-      properties: "Mobile Design",
-      due: "Thursday",
-      id: 2,
+      id: "list-2",
+      heading: "To Do",
+      items: [
+        {
+          task: "Update Documentation",
+          due: "Thursday",
+          id: "task-5",
+          listId: "list-2",
+        },
+        {
+          task: "Client Meeting Preparation",
+          due: "Wednesday",
+          id: "task-6",
+          listId: "list-2",
+        },
+        {
+          task: "Budget Planning 2025",
+          due: "Next Week",
+          id: "task-7",
+          listId: "list-2",
+        },
+      ],
     },
     {
-      task: "Jobs Insight",
-      tag: "jobs",
-      color: "#123678",
-      properties: "App Design",
-      due: "Friday",
-      id: 3,
+      id: "list-3",
+      heading: "Completed",
+      items: [
+        {
+          task: "Project Kickoff Meeting",
+          due: "Done",
+          id: "task-8",
+          listId: "list-3",
+        },
+        {
+          task: "Requirements Gathering",
+          due: "Done",
+          id: "task-9",
+          listId: "list-3",
+        },
+      ],
     },
-  ]);
-
-  const reorderList = (e: DragEndEvent) => {
-    if (!e.over) return;
-
-    if (e.active.id !== e.over.id) {
-      setItems((items) => {
-        const oldIdx = items.findIndex((item) => item.id === e.active.id);
-        const newIdx = items.findIndex((item) => item.id === e.over!.id);
-
-        // Assuming you have an 'arrayMove' function available:
-        const reorderedItems = arrayMove(items, oldIdx, newIdx);
-
-        // OR, alternatively, using array manipulation:
-        // const [removedItem] = items.splice(oldIdx, 1);
-        // items.splice(newIdx, 0, removedItem);
-
-        return reorderedItems;
-      });
-    }
-  };
-
-  const handleToggle = () => setToggle((toggle) => !toggle);
-
-  return (
-    <DndContext onDragEnd={reorderList}>
-      <section className="w-full overflow-x-auto no-scrollbar">
-        <section className="dark:bg-darkColor2 py-3 w-full min-w-[1000px]">
-          <section className="flex items-center justify-between pl-5 w-full">
-            <section className="flex items-center gap-2.5 w-[270px]">
-              {toggle ? (
-                <ThemeIconChanger
-                  light={
-                    <ArrowDown2
-                      size="20"
-                      color="#5b5c60"
-                      variant="Bold"
-                      onClick={handleToggle}
-                      className="cursor-pointer"
-                    />
-                  }
-                  dark={
-                    <ArrowDown2
-                      size="20"
-                      color="#D5D6D7"
-                      variant="Bold"
-                      onClick={handleToggle}
-                      className="cursor-pointer"
-                    />
-                  }
-                />
-              ) : (
-                <ThemeIconChanger
-                  light={
-                    <ArrowUp2
-                      size="20"
-                      color="#5b5c60"
-                      variant="Bold"
-                      onClick={handleToggle}
-                      className="cursor-pointer"
-                    />
-                  }
-                  dark={
-                    <ArrowUp2
-                      size="20"
-                      color="#D5D6D7"
-                      variant="Bold"
-                      onClick={handleToggle}
-                      className="cursor-pointer"
-                    />
-                  }
-                />
-              )}
-              <span className="text-sm font-medium"> {heading} </span>
-              <Add
-                width={10}
-                height={10}
-                className="text-color2 dark:text-darkColor7 cursor-pointer"
-              />
-              <Image
-                width={16}
-                height={16}
-                src={"/assets/icons/ellipsis.svg"}
-                alt="ellipsis"
-                className="cursor-pointer"
-                // onClick={handleClick}
-              />
-            </section>
-            <section className="flex items-center gap-10">
-              {features.map((feature, index) => (
-                <span className="w-[120px]" key={`${feature}-${index}`}>
-                  {feature}
-                </span>
-              ))}
-            </section>
-          </section>
-          <div className="border border-color4  dark:border-darkColor8 h-[1px] w-full my-2.5" />
-          {toggle && (
-            <SortableContext items={items}>
-              {items.map((item, index) => (
-                <ListItem key={`${item.id}-${index}`} data={item} />
-              ))}
-            </SortableContext>
-          )}
-        </section>
-      </section>
-      <section className="flex gap-1 items-center px-5 py-2.5 dark:bg-darkColor2 w-fit cursor-pointer -mt-[38px]">
-        <Add
-          width={10}
-          height={10}
-          className="text-color2 dark:text-darkColor7"
-        />
-        <span className="text-color8 dark:text-dark-color7 text-sm">
-          {" "}
-          Add task{" "}
-        </span>
-      </section>
-    </DndContext>
-  );
+  ];
+  return <MultiList initialLists={initialLists} />;
 };
 
 export default List;

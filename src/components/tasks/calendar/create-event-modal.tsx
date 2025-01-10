@@ -23,6 +23,7 @@ import { Calendar } from "../../ui/calendar";
 import { CreateEventModalProps } from "@/types/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MembersDropdown from "./members-dropdown";
+import { useEffect } from "react";
 
 const CreateEventModal: React.FC<CreateEventModalProps> = ({
   time,
@@ -40,6 +41,12 @@ const CreateEventModal: React.FC<CreateEventModalProps> = ({
   handleColorPickerSelectionForText,
 }) => {
   const { handleSubmit } = method;
+
+  useEffect(() => {
+    console.log(range?.to, "range to");
+    console.log(range?.from, "range from");
+  }, [range?.to, range?.from]);
+
   return (
     <Dialog open={showModal} onOpenChange={handleCloseModal}>
       <DialogContent className="sm:max-w-[425px] bg-white dark:bg-darkColor2 border-none h-full overflow-y-scroll no-scrollbar">

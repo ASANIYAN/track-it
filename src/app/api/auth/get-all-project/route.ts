@@ -34,8 +34,6 @@ export const GET = async (request: NextRequest) => {
       projectsWithUsers,
     });
   } catch (error: any) {
-    console.log(error.message, "error getting projects from DB");
-
     if (error.message.includes("jwt expired")) {
       return NextResponse.json({ error: "jwt expired" }, { status: 401 });
     }
