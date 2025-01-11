@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import User from "@/models/user";
 import connect from "@/utils/db/mongodb-connect";
 import getDataFromToken from "@/utils/helpers/get-data-from-token";
+import { User } from "@/models/user";
 
 export const GET = async (request: NextRequest) => {
   try {

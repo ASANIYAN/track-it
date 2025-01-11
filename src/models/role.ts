@@ -1,8 +1,9 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 // Role Model
 export interface IRole extends Document {
   name: string;
+  _id: string;
   permissions: string[];
 }
 
@@ -28,20 +29,28 @@ const roleSchema = new Schema<IRole>(
   { timestamps: true }
 );
 
+// Add the pre-validate middleware
 roleSchema.pre("validate", function (next) {
-  if (this.name === "admin") {
-    this.permissions = [
-      "create_task",
-      "read_task",
-      "update_task",
-      "delete_task",
-    ];
-  } else if (this.name === "manager") {
-    this.permissions = ["create_task", "read_task", "update_task"];
-  } else if (this.name === "member") {
-    this.permissions = ["read_task", "update_task"];
+  switch (this.name) {
+    case "admin":
+      this.permissions = [
+        "create_task",
+        "read_task",
+        "update_task",
+        "delete_task",
+      ];
+      break;
+    case "manager":
+      this.permissions = ["create_task", "read_task", "update_task"];
+      break;
+    case "member":
+      this.permissions = ["read_task", "update_task"];
+      break;
   }
   next();
 });
 
-export const Role = mongoose.models.Role || mongoose.model("Role", roleSchema);
+// Delete the existing model if it exists (for development hot reloading)
+const Role = mongoose.models.Role || mongoose.model("Role", roleSchema);
+
+export default Role;

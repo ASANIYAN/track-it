@@ -1,10 +1,10 @@
-import { IRole, Role } from "@/models/role";
+import Role from "@/models/role";
 
 interface RoleData {
   name: "admin" | "manager" | "member"; // strictly type the allowed role names
 }
 
-const getRole = async (roleData: RoleData): Promise<IRole> => {
+const getRole = async (roleData: RoleData) => {
   try {
     const role = await Role.findOne({ name: roleData.name });
 

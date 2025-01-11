@@ -3,7 +3,9 @@ import mongoose, { Schema } from "mongoose";
 // Task Model
 export const taskSchema = new Schema(
   {
-    name: { type: String, required: true }, // Added name field
+    name: { type: String, required: true },
+    textColor: { type: String, required: true },
+    backgroundColor: { type: String, required: true },
     project: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
@@ -16,12 +18,12 @@ export const taskSchema = new Schema(
         required: true,
       },
     ],
+    startDate: { type: Date, required: true },
     dueDate: { type: Date, required: true },
-    tag: { type: String, required: true },
     description: { type: String, required: true },
     status: {
       type: String,
-      enum: ["TODO", "IN_PROGRESS", "COMPLETED"],
+      enum: ["TODO", "IN-PROGRESS", "COMPLETED"],
       default: "TODO",
     },
     permissions: {

@@ -28,8 +28,8 @@ export const middleware = async (request: NextRequest) => {
 
   // If trying to access a protected path without a token, redirect to the login page
   if (!isPublicPath && !verifiedToken) {
+    request.cookies.delete(COOKIE_NAME);
     const response = NextResponse.redirect(new URL("/login", request.nextUrl));
-    response.cookies.delete(COOKIE_NAME);
     return response;
   }
 
@@ -51,12 +51,13 @@ export const middleware = async (request: NextRequest) => {
 // In this case, it's applied to '/', '/profile', '/login', '/forgot-password' and '/reset-password'.
 export const config = {
   matcher: [
-    "/",
-    "/login",
-    "/sign-up",
-    "/forgot-password",
-    "/reset-password",
-    "/resend-email",
-    "/verify-email",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    // "/:path*",
+    // "/login",
+    // "/sign-up",
+    // "/forgot-password",
+    // "/reset-password",
+    // "/resend-email",
+    // "/verify-email",
   ],
 };

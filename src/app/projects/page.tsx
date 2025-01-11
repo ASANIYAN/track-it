@@ -66,6 +66,9 @@ async function ProjectsList() {
 
   const data = (await response.json()) as ProjectsData;
 
+  console.log(data, "project data");
+  console.log(data.projectsWithUsers[3].users[0].user, "project data");
+
   if (!data.projectsWithUsers?.length) {
     return (
       <div className="p-5 text-center flex flex-col gap-2.5 justify-center items-center">

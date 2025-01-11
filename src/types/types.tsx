@@ -131,3 +131,34 @@ export interface TimeState {
   startTime: string;
   endTime: string;
 }
+
+export type ProjectUserResponse = {
+  message: string;
+  users: {
+    user: {
+      _id: string;
+      email: string;
+      projects: {
+        project: {
+          _id: string;
+          name: string;
+          description: string;
+          category: string;
+          color: string;
+          favourite: boolean;
+        };
+        role: {
+          _id: string;
+          name: string;
+          permissions: string[];
+        };
+        _id: string;
+      }[];
+    };
+    projectRole: {
+      _id: string;
+      name: string;
+      permissions: string[];
+    };
+  }[];
+};

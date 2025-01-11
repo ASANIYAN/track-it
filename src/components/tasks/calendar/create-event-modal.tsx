@@ -16,14 +16,17 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, CircleUserRound, X } from "lucide-react";
 import { TwitterPicker } from "react-color";
 
 import { Calendar } from "../../ui/calendar";
 import { CreateEventModalProps } from "@/types/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MembersDropdown from "./members-dropdown";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useGetUserForProject } from "@/tanstack/queries/queries";
+import { usePathname, useRouter } from "next/navigation";
+import { useProjectIDStore } from "@/store/selected-project-store";
 
 const CreateEventModal: React.FC<CreateEventModalProps> = ({
   time,
@@ -41,11 +44,9 @@ const CreateEventModal: React.FC<CreateEventModalProps> = ({
   handleColorPickerSelectionForText,
 }) => {
   const { handleSubmit } = method;
+  const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    console.log(range?.to, "range to");
-    console.log(range?.from, "range from");
-  }, [range?.to, range?.from]);
+  const handleSetEmail = (email: string) => setEmail(email);
 
   return (
     <Dialog open={showModal} onOpenChange={handleCloseModal}>
@@ -59,20 +60,19 @@ const CreateEventModal: React.FC<CreateEventModalProps> = ({
             <span className="block text-xs text-black dark:text-white">
               Assigned To
             </span>
-            <div className="flex gap-0.5">
-              <Avatar className="h-6 w-6">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <Avatar className="h-6 w-6">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <Avatar className="h-6 w-6">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <MembersDropdown>
+            <div className="flex flex-col gap-1">
+              {email && (
+                <span className="flex gap-1.5 items-center">
+                  {email}{" "}
+                  <X
+                    className="text-color6 cursor-pointer"
+                    onMouseDown={() => handleSetEmail("")}
+                    size={16}
+                  />{" "}
+                </span>
+              )}
+
+              <MembersDropdown handleSetEmail={handleSetEmail}>
                 <div
                   role="button"
                   className="rounded-full border-dotted border border-[#878B8F] text-[#878B8F] h-6 w-6 flex justify-center items-center"

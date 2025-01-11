@@ -4,7 +4,6 @@ import getDataFromToken from "@/utils/helpers/get-data-from-token";
 import { uploadSingleImageToCloudinary } from "@/utils/helpers/cloudinary";
 import { User } from "@/models/user";
 import { Project } from "@/models/project";
-import getOrCreateRole from "@/utils/helpers/get-or-create-role";
 import getRole from "@/utils/helpers/get-or-create-role";
 
 export const POST = async (request: NextRequest) => {
@@ -49,7 +48,7 @@ export const POST = async (request: NextRequest) => {
       category,
       color,
       createdBy: userId,
-      users: [{ user: user._id, role: adminRole }],
+      users: [{ user: user._id, role: adminRole._id }], // Use adminRole._id instead of adminRole
       image: imageFromCloudinary
         ? {
             id: imageFromCloudinary.public_id,
@@ -60,19 +59,28 @@ export const POST = async (request: NextRequest) => {
 
     const savedProject = await newProject.save();
 
-    // Update user's projects array
-    await User.findByIdAndUpdate(
+    // Update user's projects array with proper role reference
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
         $push: {
           projects: {
             project: savedProject._id,
-            role: adminRole.name,
+            role: adminRole._id, // Use adminRole._id instead of adminRole.name
           },
         },
       },
       { new: true }
     );
+
+    if (!updatedUser) {
+      // If user update fails, delete the created project to maintain consistency
+      await Project.findByIdAndDelete(savedProject._id);
+      return NextResponse.json(
+        { error: "Failed to update user with new project" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       message: "Project created successfully",

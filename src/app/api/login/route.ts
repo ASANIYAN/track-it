@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import User from "@/models/user";
 import connect from "@/utils/db/mongodb-connect";
 import { COOKIE_NAME } from "@/constants/constants";
+import { User } from "@/models/user";
 
 export const POST = async (request: NextRequest) => {
   try {
